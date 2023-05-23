@@ -260,7 +260,7 @@
     "setup_securebox_fail": "We are very sorry.\nYour device does not support a secure enough way of storing keys.",
     "setup_seed_slider_label": "Slide to change the number of words",
     "setup_title": "Welcome",
-    "setup_subtitle": "to Peercoin Wallet",
+    "setup_subtitle": "to Sumcoin Wallet",
     "setup_text1": "If you have already created a wallet and you still have your seed phrase, then choose",
     "setup_text2": "create your new Peercoin wallet",
     "setup_text3": "or",

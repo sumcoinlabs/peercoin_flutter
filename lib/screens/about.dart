@@ -50,7 +50,7 @@ class _AboutScreenState extends State<AboutScreen> {
   Future<void> launchMailto() async {
     final mailtoLink = Mailto(
       to: ['hello@app.peercoin.net'],
-      subject: 'Peercoin Wallet',
+      subject: 'Sumcoin Wallet',
     );
     await launchUrlString('$mailtoLink');
   }

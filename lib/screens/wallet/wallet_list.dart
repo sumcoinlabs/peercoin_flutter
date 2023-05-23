@@ -295,7 +295,7 @@ class _WalletListScreenState extends State<WalletListScreen>
                   Padding(
                     padding: const EdgeInsets.only(top: 16),
                     child: Text(
-                      'Peercoin Wallet',
+                      'Sumcoin Wallet',
                       style: TextStyle(
                         letterSpacing: 1.4,
                         fontSize: 24,
