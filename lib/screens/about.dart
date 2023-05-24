@@ -49,7 +49,7 @@ class _AboutScreenState extends State<AboutScreen> {
 
   Future<void> launchMailto() async {
     final mailtoLink = Mailto(
-      to: ['hello@app.peercoin.net'],
+      to: ['hello@app.sumcoin.org'],
       subject: 'Sumcoin Wallet',
     );
     await launchUrlString('$mailtoLink');
@@ -86,7 +86,7 @@ class _AboutScreenState extends State<AboutScreen> {
                       ),
                       TextButton(
                         onPressed: () => _launchURL(
-                          'https://github.com/peercoin/peercoin_flutter/blob/main/LICENSE',
+                          'https://github.com/sumcoinlabs/sumcoin_flutter/blob/main/LICENSE',
                         ),
                         child: Text(
                           AppLocalizations.instance.translate(
@@ -124,7 +124,7 @@ class _AboutScreenState extends State<AboutScreen> {
                       ),
                       TextButton(
                         onPressed: () => _launchURL(
-                          'https://github.com/peercoin/peercoin_flutter',
+                          'https://github.com/sumcoinlabs/sumcoin_flutter',
                         ),
                         child: Text(
                           AppLocalizations.instance.translate(
@@ -142,7 +142,7 @@ class _AboutScreenState extends State<AboutScreen> {
                       ),
                       TextButton(
                         onPressed: () => _launchURL(
-                          'https://github.com/peercoin/peercoin_flutter/blob/main/data_protection.md',
+                          'https://github.com/sumcoinlabs/sumcoin_flutter/blob/main/data_protection.md',
                         ),
                         child: Text(
                           AppLocalizations.instance.translate(
@@ -188,7 +188,7 @@ class _AboutScreenState extends State<AboutScreen> {
                             : const SizedBox(),
                       TextButton(
                         onPressed: () => _launchURL(
-                          'https://www.peercoin.net/foundation',
+                          'https://www.sumcoin.org/foundation',
                         ),
                         child: Text(
                           AppLocalizations.instance.translate(

@@ -37,13 +37,13 @@ class AvailableCoins {
     ),
     'peercoinTestnet': Coin(
       name: 'peercoinTestnet',
-      displayName: 'Peercoin Testnet',
+      displayName: 'Sumcoin Testnet',
       uriCode: 'peercoin',
       letterCode: 'tPPC',
       iconPath: 'assets/icon/ppc-icon-48.png',
       iconPathTransparent: 'assets/icon/ppc-icon-white-48.png',
       networkType: NetworkType(
-        messagePrefix: 'Peercoin Signed Message:\n',
+        messagePrefix: 'Sumcoin Signed Message:\n',
         bech32: 'tpc',
         bip32: Bip32Type(public: 0x043587cf, private: 0x04358394),
         pubKeyHash: 0x6f,
@@ -55,7 +55,7 @@ class AvailableCoins {
       fractions: 6,
       minimumTxValue: 10000,
       fixedFeePerKb: 0.01,
-      explorerUrl: 'https://tblockbook.peercoin.net',
+      explorerUrl: 'https://tblockbook.sumcoin.org',
       genesisHash:
           '00000001f757bb737f6596503e17cd17b0658ce630cc727c0cca81aec47c9f06',
       txVersion: 3,

@@ -1,5 +1,5 @@
 ### **1.1.6** (2023-03-15)
-* Update Peercoin Foundation address
+* Update Sumcoin Foundation address
 
 ### **1.1.5** (2023-02-23)
 * Fixed bug which would sometimes push to the wrong wallet after notification
@@ -204,7 +204,7 @@ Please perform a wallet scan to avoid unnecessary notifications.
 ### **0.6.4** (2021-10-08)
 * Fix for older devices
 * Fix for price data feed
-* Peercoin v0.11 hard fork preperation (Nov 1st 2021) 
+* Sumcoin v0.11 hard fork preperation (Nov 1st 2021) 
 
 ### **0.6.3** (2021-09-17)
 * New setup screens

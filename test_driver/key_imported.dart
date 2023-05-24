@@ -88,13 +88,13 @@ void main() {
           await driver.runUnsynchronized(
             () async {
               await driver.tap(find.byValueKey('newWalletIconButton'));
-              await driver.tap(find.text('Peercoin Testnet'));
+              await driver.tap(find.text('Sumcoin Testnet'));
               await driver.tap(
                 find.text('Okay'),
                 timeout: const Duration(minutes: 15),
               );
               await driver.tap(
-                find.text('Peercoin Testnet'),
+                find.text('Sumcoin Testnet'),
                 timeout: const Duration(minutes: 15),
               ); //tap into wallet
               expect(await driver.getText(find.text('connected')), 'connected');
