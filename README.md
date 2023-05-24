@@ -3,7 +3,7 @@
 <img src="https://weblate.ppc.lol/widgets/peercoin-flutter/-/translations/svg-badge.svg" alt="Übersetzungsstatus" /></a>
 [![Codemagic build status](https://api.codemagic.io/apps/61012a37d885ed7a8c3e8b25/61012a37d885ed7a8c3e8b24/status_badge.svg)](https://codemagic.io/apps/61012a37d885ed7a8c3e8b25/61012a37d885ed7a8c3e8b24/latest_build)
 [![Analyze & Test](https://github.com/sumcoinlabs/sumcoin_flutter/actions/workflows/analyze-test.yml/badge.svg)](https://github.com/sumcoinlabs/sumcoin_flutter/actions/workflows/analyze-test.yml)
-# peercoin_flutter
+# sumcoin_flutter
 Wallet for Sumcoin and Sumcoin Testnet using Electrumx as backend.  
 **App in constant development**  
 
@@ -20,14 +20,14 @@ Wallet for Sumcoin and Sumcoin Testnet using Electrumx as backend.
 </p>
 <p align="center">
      <a href="https://apps.apple.com/app/peercoin-wallet/id1571755170?itsct=apps_box_badge&amp;itscg=30200" style="display: inline-block; overflow: hidden; border-radius: 13px; width: 250px; height: 83px;"><img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-us?size=250x83&amp;releaseDate=1626912000&h=8e86ea0b88a4e8559b76592c43b3fe60" alt="Download on the App Store" style="border-radius: 13px; width: 250px; height: 83px;"></a>
-</p> 
+</p>
 
 You can also sign up for our open beta testing here:
 
 * [Android](https://play.google.com/apps/testing/com.coinerella.peercoin)
 * [iOS](https://testflight.apple.com/join/iilc4SvQ)
 
-![Screenshot_small](https://github.com/sumcoinlabs/sumcoin_flutter/assets/37975862/fbb0f08a-f415-4858-a0b9-88d43d121600.png)
+![Screenshot_small](https://user-images.githubusercontent.com/11148913/124509449-470f7c80-ddd2-11eb-9daf-56de7eb83594.png)
 
 ## Help Translate
 <a href="https://weblate.ppc.lol/engage/peercoin-flutter/">
@@ -38,7 +38,7 @@ You can also sign up for our open beta testing here:
 - will not mint
 
 ## Development
-This repository currently relies on 
+This repository currently relies on
 [Vesta-wallet/coinslib](https://github.com/Vesta-wallet/coinslib "github.com/Vesta-wallet/coinslib")
 
 **Update icons**  

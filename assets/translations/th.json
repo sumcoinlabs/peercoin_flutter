@@ -265,6 +265,6 @@
     "wallet_transactions": "ธุรกรรม",
     "wallets_none": "คุณไม่มีกระเป๋าเงินที่ใช้งานอยู่",
     "store_short": "กระเป๋าเงินมือถือของคุณสำหรับ Sumcoin และ Testnet สำหรับ Sumcoin",
-    "about_developers": "© $year The peercoin_flutter นักพัฒนา",
+    "about_developers": "© $year The sumcoin_flutter นักพัฒนา",
     "about_free": "ซอฟต์แวร์นี้เป็นโอเพ่นซอร์ส ฟรี และไม่มีการรับประกันใด ๆ\nใช้โดยยอมรับความเสี่ยงเอง"
 }

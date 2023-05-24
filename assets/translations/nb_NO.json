@@ -198,7 +198,7 @@
     "wallet_value_alert_content": "Å lagre mynter av så høy verdi i en lommebok for mobil er risikabelt.\nVurder å flytte myntene dine til en maskinvarelommebok eller annen kaldlagring.",
     "store_short": "Din mobillommebok for Sumcoin-mainnett og Sumcoin-testnett.",
     "about": "Om",
-    "about_developers": "© $year peercoin_flutter utviklerne",
+    "about_developers": "© $year sumcoin_flutter utviklerne",
     "about_free": "Denne programvaren er åpen kildekode, gratis og kommer ikke med noen garanti overhodet.\nBrukes på eget ansvar.",
     "about_data_protection": "Denne programvaren beskytter dine data og personvern etter beste evne.\nDenne appen lagrer all nødvendig data lokalt på enheten din.\nDet er ingen analyse- eller reklameprogramvare innebygd.",
     "about_data_declaration": "Se Personvern- og Databeskyttelseserklæring",

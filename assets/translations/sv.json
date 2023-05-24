@@ -208,7 +208,7 @@
     "wallet_value_alert_title": "Högt värde på mynt",
     "store_description": "Skicka och ta emot peercoin, pionjären inom Proof-of-Stake, på din telefon.\n\nHåll din återställningsfras skyddad.\nDenna app kommer med absolut ingen garanti.\nUanvänds på egen risk.\n\nFunktioner:\n- Baserat på Electrums protokoll.\n- Skicka och ta emot peercoin.\n- Redo att utföra transaktioner efter installation (ingen väntan).\n- Sumcoin-plånböcker för mainnett och testnett.\n- Organisation med adressbok.\n- Importera pappersplånböcker.\n- Importera och exportera privata nycklar (WIF).\n- Serveradministration.\n- Flerspråkigt stöd.\n- Bakgrundsaviseringar.\n\nKända begränsningar kan hittas i GitHub-förrådet.",
     "store_short": "Din mobilplånbok för Sumcoin-mainnett och Sumcoin-testnett.",
-    "about_developers": "© $year peercoin_flutter utvecklarne",
+    "about_developers": "© $year sumcoin_flutter utvecklarne",
     "about_free": "Denna programvara är öppen källkod, gratis och kommer inte med någon som helst garanti.\nAnvänd på egen risk.",
     "about_data_protection": "Den här programvaran skyddar din data och integritet efter bästa förmåga.\nDenna app lagrar all nödvändig data lokalt på din enhet.\nDet finns ingen analys- eller reklamprogramvara inbyggd.",
     "about_help_or_feedback": "Behöver du hjälp eller vill ge feedback?",

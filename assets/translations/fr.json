@@ -1,7 +1,7 @@
 {
     "about_data_protection": "Ce logiciel protège vos données et votre vie privée au mieux de ses capacités.\nCette application stocke toutes les données nécessaires localement sur votre appareil.\nIl n’y a pas de logiciel d’analyse ou de publicité à l’intérieur.",
     "about_translate": "Vous pouvez aider à traduire cette application dans le Sumcoin Weblate.",
-    "about_developers": "© $year Les développeurs peercoin_flutter",
+    "about_developers": "© $year Les développeurs sumcoin_flutter",
     "about_license": "Sous licence AGPL-3.0",
     "about_free": "Ce logiciel est open source, gratuit et n’est livré avec aucune garantie que ce soit.\nUtilisation à vos risques et périls.",
     "about_view_source": "Afficher le code source",

@@ -59,7 +59,7 @@
     "wallet_scan_notice": "Wannan na iya ɗaukar ɗan lokaci. Kar a rufe wannan shafin!",
     "wallet_send": "Tura",
     "store_description": "Turawa da karɓar Sumcoin akan wayarka.\nA kiyaye tsaron walet.\nWannan manhajar bata zuwa da garanti\nKuyi amfani da ita a haɗarin ku..\nSiffofi:\n- Based on electrum protocol.\n- Aikawa da karɓar peercoin.\n- A shiye take don fara mu’amala bayan an saita ta (ba jira).\n- Sumcoin da Sumcoin testnet walat.\n- Address book management.\n- Shigo da paper wallets.\n- Import - Import & export private keys (WIF).\n- Server management.\n- Tallafin harsuna da yawa.\n- Sanarwar bayan fage.\nAna iya samun iyakokin a ma'ajiyar Github.",
-    "about_developers": "© $year The peercoin_flutter Developers",
+    "about_developers": "© $year The sumcoin_flutter Developers",
     "addressbook_title": "$coin Adireshi",
     "app_navigation": "Navigation",
     "app_settings_default_wallet": "Default Walet",
