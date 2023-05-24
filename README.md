@@ -27,7 +27,7 @@ You can also sign up for our open beta testing here:
 * [Android](https://play.google.com/apps/testing/com.coinerella.peercoin)
 * [iOS](https://testflight.apple.com/join/iilc4SvQ)
 
-![Screenshot_small](https://user-images.githubusercontent.com/11148913/124509449-470f7c80-ddd2-11eb-9daf-56de7eb83594.png)
+![Screenshot_small](https://github.com/sumcoinlabs/sumcoin_flutter/assets/37975862/fbb0f08a-f415-4858-a0b9-88d43d121600.png)
 
 ## Help Translate
 <a href="https://weblate.ppc.lol/engage/peercoin-flutter/">
