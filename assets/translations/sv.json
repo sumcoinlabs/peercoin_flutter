@@ -323,7 +323,7 @@
     "setup_auth_subtitle_singular": "Din session löper ut efter $days dag.",
     "setup_auth_hint": "Du måste ange din återställningsfras igen efter att sessionen har löpt ut.",
     "wallet_send_label_hint_metadata": "Metadata är okrypterad och kommer att vara offentligt synlig i blockkedjan.",
-    "about_donate_button": "Donera PPC nu",
+    "about_donate_button": "Donera SUM nu",
     "send_fees_deducted": "Information: Obligatoriska transaktionsavgifter dras från den sista mottagaren. Beloppet som överförs till denna adress är nu lägre.",
     "app_settings_delete_description": "Eftersom du inte har skapat ett konto i den här appen finns det inget att ta bort. Du skapade en återställningsfras, som är en kryptografisk operation. Din återställningsfras är matematik. Det kan användas i alla program som stöder återställningsfraser. Du har heller inga konton med bakgrundsavisering eller API för prisflöde. Denna app värdesätter din integritet och är privat till sin design.",
     "about_show_license": "Visa licenser",

@@ -51,7 +51,7 @@ void main() async {
     Hive.registerAdapter(WalletAddressAdapter());
     Hive.registerAdapter(WalletUtxoAdapter());
     await wallet.init();
-    wallet.addWallet(walletName, walletName, 'PPC');
+    wallet.addWallet(walletName, walletName, 'SUM');
     wallet.addWallet(testnetWalletName, testnetWalletName, 'tPPC');
   });
 
@@ -206,7 +206,7 @@ void main() async {
       });
 
       test(
-          'Import 1000 addresses from CSV, only have 10 PPC utxo and expect exception',
+          'Import 1000 addresses from CSV, only have 10 SUM utxo and expect exception',
           () async {
         Map<String, int> recipientMap = {};
         final parsed = fast_csv

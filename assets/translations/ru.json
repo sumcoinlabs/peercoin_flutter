@@ -320,7 +320,7 @@
     "setup_auth_title": "Выберите когда истечет срок действия вашей веб-сессии:",
     "setup_auth_subtitle_singular": "Ваша сессия истечет через $days день.",
     "setup_auth_hint": "После истечения сессии вам нужно будет ввести сид.",
-    "about_donate_button": "Пожертвовать PPC сейчас",
+    "about_donate_button": "Пожертвовать SUM сейчас",
     "send_fiat_switch": "Сумма в $currency",
     "server_add_no_wss_or_ssl": "Должен начинаться с wss:// или ssl://\nДругие протоколы в настоящее время не поддерживаются",
     "setup_auth_subtitle_plural": "Ваша сессия истечет через $days дней.",

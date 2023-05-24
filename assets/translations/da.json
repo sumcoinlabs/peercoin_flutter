@@ -323,7 +323,7 @@
     "setup_auth_subtitle_singular": "Din session udløber efter $days dag.",
     "setup_auth_hint": "Du bliver nødt til at indtaste din gendannelsessætning igen, efter sessionen er udløbet.",
     "wallet_send_label_hint_metadata": "Metadata er ukrypteret og vil være offentligt synlige på blockchain.",
-    "about_donate_button": "Doner PPC nu",
+    "about_donate_button": "Doner SUM nu",
     "app_settings_delete_description": "Siden du ikke har oprettet en konto i denne appen, er det ingenting at slette. Du skafte en gendannelsessætning, som er en kryptografisk operation. Gendannelsessætningen din er matematikk. Den kan bruges i alle programmer som støtter gendannelsessætninger. Du har heller ingen kontoer med baggrundsvarsling eller API for prisfeed. Denne appen verdsetter personvernet dit og er privat af design.",
     "about_show_license": "Vis licenser",
     "send_dust_title": "Transaktionslommeskrammel",

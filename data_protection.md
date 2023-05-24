@@ -10,7 +10,7 @@ This app **stores all necessary data locally** on your device.
 There is **no analytics**- **or advertising** software inside.
 
 **Optional Price Ticker**  
-The price ticker for PPC and FIAT exchange rates can be enabled or disabled optionally during setup or in "App Settings."
+The price ticker for SUM and FIAT exchange rates can be enabled or disabled optionally during setup or in "App Settings."
 
 **Optional Background Notifications**  
 Background notifications can be enabled or disabled optionally during setup or in "App Settings."
