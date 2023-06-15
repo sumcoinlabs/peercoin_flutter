@@ -28,16 +28,16 @@ class AvailableCoins {
       explorerUrl: 'http://143.198.128.211:3001/',
       genesisHash:
       '000000f40beaad5804ce621cca107c37dccd119e887625fe79fe0f4e161f6219',
-      txVersion: 1,
+      txVersion: 3,
       electrumRequiredProtocol: 1.4,
       electrumServers: [
-        'ssl://subdomain.electrum-sum.org:50002',
-        //      'wss://sum1.electrum-sum.org:50004',
+        'ssl://sumpos.electrum-sum.org:50002',
+         //     'wss://sumpos.electrum-sum.org:50004',
       ],
     ),
     'sumcoin-pow': Coin(
       name: 'sumcoin-pow',
-      displayName: 'Sumcoin POW',
+      displayName: 'Sumcoin Chain 2',
       uriCode: 'sumcoin-pow',
       letterCode: 'SUM-POW',
       iconPath: 'assets/icon/sum-icon-white-64.png',
@@ -67,7 +67,7 @@ class AvailableCoins {
     ),
     'peercoinTestnet': Coin(
       name: 'peercoinTestnet',
-      displayName: 'Sumcoin Testnet',
+      displayName: 'Sumcoin Chain 1',
       uriCode: 'peercoin',
       letterCode: 'tPPC',
       iconPath: 'assets/icon/ppc-icon-48.png',
