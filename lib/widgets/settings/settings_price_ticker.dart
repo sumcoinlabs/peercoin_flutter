@@ -127,7 +127,7 @@ class _SettingsPriceTickerState extends State<SettingsPriceTicker> {
               AppLocalizations.instance.translate('currency_$currency'),
             ),
             subtitle: Text(
-              '1 SUM = ${PriceTicker.renderPrice(1, currency, "SUM", widget._settings.exchangeRates).toStringAsFixed(6)} $currency',
+              '1 SUM = ${PriceTicker.renderPrice(1, currency, "SUM", widget._settings.exchangeRates).toStringAsFixed(2)} $currency',
             ),
             leading: Radio(
               value: currency,

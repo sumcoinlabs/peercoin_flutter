@@ -25,7 +25,7 @@ class AvailableCoins {
       minimumTxValue: 10000,
       fixedFee: true,
       fixedFeePerKb: 0.01,
-      explorerUrl: 'http://143.198.128.211:3001/',
+      explorerUrl: 'http://143.198.128.211:3001',
       genesisHash:
       '000000f40beaad5804ce621cca107c37dccd119e887625fe79fe0f4e161f6219',
       txVersion: 3,
