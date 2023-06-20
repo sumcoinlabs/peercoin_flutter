@@ -34,7 +34,7 @@ class AvailableCoins {
         'ssl://sumpos.electrum-sum.org:50002',
          //     'wss://sumpos.electrum-sum.org:50004',
       ],
-    ),
+    ), /*
     'sumcoin-pow': Coin(
       name: 'sumcoin-pow',
       displayName: 'Sumcoin Chain 2',
@@ -94,7 +94,7 @@ class AvailableCoins {
         'wss://testnet-electrum.peercoinexplorer.net:50009',
         'wss://allingas.peercoinexplorer.net:50009',
       ],
-    ),
+    ), */
   };
 
   static Map<String, Coin> get availableCoins {
