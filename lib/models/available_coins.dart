@@ -22,7 +22,7 @@ class AvailableCoins {
         opreturnSize: 256,
       ),
       fractions: 6,
-      minimumTxValue: 10000,
+      minimumTxValue: 1000,
       fixedFee: true,
       fixedFeePerKb: 0.01,
       explorerUrl: 'https://sumcoinexplorer.com',
