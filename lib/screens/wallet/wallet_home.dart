@@ -403,7 +403,7 @@ class _WalletHomeState extends State<WalletHomeScreen>
                 ),
               ),
             ),
-            PopupMenuItem(
+/*            PopupMenuItem(
               value: 'rescan',
               child: ListTile(
                 leading: Icon(
@@ -414,7 +414,7 @@ class _WalletHomeState extends State<WalletHomeScreen>
                   AppLocalizations.instance.translate('wallet_pop_menu_rescan'),
                 ),
               ),
-            ),
+            ), */
             PopupMenuItem(
               value: 'signing',
               child: ListTile(
