@@ -25,14 +25,14 @@ class AvailableCoins {
       minimumTxValue: 10000,
       fixedFee: true,
       fixedFeePerKb: 0.01,
-      explorerUrl: 'http://143.198.128.211:3001',
+      explorerUrl: 'https://sumcoinexplorer.com',
       genesisHash:
       '000000f40beaad5804ce621cca107c37dccd119e887625fe79fe0f4e161f6219',
       txVersion: 3,
       electrumRequiredProtocol: 1.4,
       electrumServers: [
         'ssl://sumpos.electrum-sum.org:50002',
-         //     'wss://sumpos.electrum-sum.org:50004',
+        //      'wss://sumpos.electrum-sum.org:50004',
       ],
     ), /*
     'sumcoin-pow': Coin(
