@@ -34,7 +34,7 @@ class MockHiveBox extends Mock implements EncryptedBox {
 }
 
 void main() async {
-  const walletName = 'peercoin';
+  const walletName = 'sumcoin';
   const testnetWalletName = 'peercoinTestnet';
   final ActiveWallets wallet = ActiveWallets(MockHiveBox());
   TestWidgetsFlutterBinding.ensureInitialized();

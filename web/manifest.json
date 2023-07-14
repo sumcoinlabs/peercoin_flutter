@@ -1,6 +1,6 @@
 {
     "name": "Sumcoin Web Wallet",
-    "short_name": "peercoin web wallet",
+    "short_name": "sumcoin web wallet",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

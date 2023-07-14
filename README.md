@@ -11,11 +11,11 @@ Wallet for Sumcoin and Sumcoin Testnet using Electrumx as backend.
 
 
 <p align="center">
-     <a href="https://f-droid.org/packages/com.coinerella.sumcoin/">
+     <a href="https://f-droid.org/packages/com.sumcoinwallet/">
 <img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
      alt="Get it on F-Droid"
      height="80"></a>
-<a href="https://play.google.com/store/apps/details?id=com.coinerella.sumcoin"><img src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png"
+<a href="https://play.google.com/store/apps/details?id=com.sumcoinwallet"><img src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png"
      alt="Get it on Google Play" height="80"></a>
 </p>
 <p align="center">
