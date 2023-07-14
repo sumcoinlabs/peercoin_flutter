@@ -46,11 +46,11 @@ class ElectrumConnection with ChangeNotifier {
   ElectrumConnection(this._activeWallets, this._servers);
 
   Future<bool> init(
-    walletName, {
-    bool scanMode = false,
-    bool requestedFromWalletHome = false,
-    bool fromConnectivityChangeOrLifeCycle = false,
-  }) async {
+      walletName, {
+        bool scanMode = false,
+        bool requestedFromWalletHome = false,
+        bool fromConnectivityChangeOrLifeCycle = false,
+      }) async {
     await _servers.init(walletName);
     _requiredProtocol =
         AvailableCoins.getSpecificCoin(walletName).electrumRequiredProtocol;
@@ -103,7 +103,7 @@ class ElectrumConnection with ChangeNotifier {
       }
 
       stream.listen(
-        (elem) {
+            (elem) {
           replyHandler(elem);
         },
         onError: (error) {
@@ -274,7 +274,7 @@ class ElectrumConnection with ChangeNotifier {
     if (_closedIntentionally == false) {
       _reconnectTimer = Timer(
         const Duration(seconds: 5),
-        () => init(_coinName),
+            () => init(_coinName),
       ); //retry if not intentional
     }
   }
@@ -403,7 +403,7 @@ class ElectrumConnection with ChangeNotifier {
 
   void handleAddressStatus(String address, String? newStatus) async {
     var oldStatus =
-        await _activeWallets.getWalletAddressStatus(_coinName, address);
+    await _activeWallets.getWalletAddressStatus(_coinName, address);
     var hash = _addresses.entries
         .firstWhereOrNull((element) => element.key == address)!;
     if (newStatus != oldStatus) {
@@ -498,7 +498,7 @@ class ElectrumConnection with ChangeNotifier {
   void startPingTimer() {
     _pingTimer ??= Timer.periodic(
       const Duration(minutes: 7),
-      (_) {
+          (_) {
         sendMessage('server.ping', 'ping');
       },
     );
@@ -513,12 +513,12 @@ class ElectrumConnection with ChangeNotifier {
   }
 
   void handleScriptHashSubscribeNotification(
-    String? hashId,
-    String? newStatus,
-  ) async {
+      String? hashId,
+      String? newStatus,
+      ) async {
     //got update notification for hash => get utxo
     final address = _addresses.keys.firstWhere(
-      (element) => _addresses[element] == hashId,
+          (element) => _addresses[element] == hashId,
       orElse: () => null,
     );
     LoggerWrapper.logInfo(
@@ -561,7 +561,7 @@ class ElectrumConnection with ChangeNotifier {
     var walletTx = await _activeWallets.getWalletTransactions(_coinName);
     for (var utxo in utxos) {
       var res = walletTx.firstWhereOrNull(
-        (element) => element.txid == utxo["tx_hash"],
+            (element) => element.txid == utxo["tx_hash"],
       );
       if (res == null) {
         requestTxUpdate(utxo["tx_hash"]);

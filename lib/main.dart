@@ -40,6 +40,7 @@ late bool setupFinished;
 late Widget _homeWidget;
 late Locale _locale;
 
+
 void main() async {
   //init sharedpreferences
   WidgetsFlutterBinding.ensureInitialized();

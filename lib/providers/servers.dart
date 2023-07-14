@@ -42,7 +42,7 @@ class Servers with ChangeNotifier {
     // check if all hard coded seeds for this coin are already in db
     for (var hardcodedSeedAddress in seedServers) {
       var res = _serverBox.values.firstWhereOrNull(
-        (element) => element.getAddress == hardcodedSeedAddress,
+            (element) => element.getAddress == hardcodedSeedAddress,
       );
       if (res == null) {
         //hard coded server not yet in storage
@@ -58,7 +58,7 @@ class Servers with ChangeNotifier {
     for (var boxElement in _serverBox.values) {
       if (boxElement.userGenerated == false) {
         var res = seedServers.firstWhere(
-          (element) => element == boxElement.address,
+              (element) => element == boxElement.address,
           orElse: () => null,
         );
         if (res == null) {
@@ -96,7 +96,7 @@ class Servers with ChangeNotifier {
     //form list
     var availableServers = List.generate(
       _serverBox.values.length,
-      (index) => '',
+          (index) => '',
     );
     for (var server in _serverBox.values) {
       if (server.hidden == false && server.connectable == true) {
@@ -105,7 +105,7 @@ class Servers with ChangeNotifier {
     }
 
     final prunedList =
-        availableServers.where((element) => element.isNotEmpty).toList();
+    availableServers.where((element) => element.isNotEmpty).toList();
     LoggerWrapper.logInfo(
       'Servers',
       'getServerList',

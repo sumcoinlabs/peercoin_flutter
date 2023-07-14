@@ -11,6 +11,7 @@ publish_to: none
 dependencies:
   flutter:
     sdk: flutter
+  google_fonts: ^3.0.1
   flutter_localizations:
     sdk: flutter
   web_socket_channel: ^2.1.0
