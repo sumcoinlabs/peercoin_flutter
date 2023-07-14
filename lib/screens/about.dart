@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:mailto/mailto.dart';
-import 'package:peercoin/widgets/service_container.dart';
+import 'package:sumcoin/widgets/service_container.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
@@ -159,7 +159,7 @@ class _AboutScreenState extends State<AboutScreen> {
                         ),
                       ),
                       if (!kIsWeb)
-                        _listOfActiveWallets.contains('peercoin') &&
+                        _listOfActiveWallets.contains('sumcoin') &&
                                 !Platform.isIOS
                             ? TextButton(
                                 onPressed: () async {
@@ -167,7 +167,7 @@ class _AboutScreenState extends State<AboutScreen> {
                                   final values =
                                       _activeWallets.activeWalletsValues;
                                   final ppcWallet = values.firstWhere(
-                                    (element) => element.name == 'peercoin',
+                                    (element) => element.name == 'sumcoin',
                                   );
 
                                   navigator.pushNamed(

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:peercoin/widgets/loading_indicator.dart';
+import 'package:sumcoin/widgets/loading_indicator.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/buildresult.dart';

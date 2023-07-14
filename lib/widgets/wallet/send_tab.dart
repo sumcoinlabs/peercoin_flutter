@@ -9,10 +9,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
-import 'package:peercoin/exceptions/exceptions.dart';
-import 'package:peercoin/models/buildresult.dart';
-import 'package:peercoin/widgets/wallet/send_tab_management.dart';
-import 'package:peercoin/widgets/wallet/send_tab_navigator.dart';
+import 'package:sumcoin/exceptions/exceptions.dart';
+import 'package:sumcoin/models/buildresult.dart';
+import 'package:sumcoin/widgets/wallet/send_tab_management.dart';
+import 'package:sumcoin/widgets/wallet/send_tab_navigator.dart';
 import 'package:provider/provider.dart';
 
 import '/../models/available_coins.dart';

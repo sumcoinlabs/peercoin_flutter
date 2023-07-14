@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:peercoin/providers/app_settings.dart';
+import 'package:sumcoin/providers/app_settings.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/active_wallets.dart';

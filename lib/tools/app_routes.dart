@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
-import 'package:peercoin/screens/wallet/transaction_confirmation.dart';
-import 'package:peercoin/screens/wallet/wallet_verify_message.dart';
+import 'package:sumcoin/screens/wallet/transaction_confirmation.dart';
+import 'package:sumcoin/screens/wallet/wallet_verify_message.dart';
 
 import '../screens/settings/app_settings_notifications.dart';
 import '../screens/settings/app_settings_screen.dart';

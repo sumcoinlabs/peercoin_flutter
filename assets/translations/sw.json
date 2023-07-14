@@ -26,7 +26,7 @@
     "app_settings_description": "Kumbukumbu hizi zina taarifa nyeti.\nJapokuwa hazina funguo za binafsi, kuwa mwangalifu na utakayempa kumbukumbu hizi.",
     "app_settings_newWallet": "Inahitajika kuongeza wallet mpya",
     "app_settings_notifications": "Taarifa",
-    "store_description": "Tuma na pokea Sumcoin katika simu yako.\n\nHifadhi mbegu ya wallet yako kwa usalama.\nApp hii haiji na waranti yoyote.\nTumia kwa hiari yako mwenyewe.\n\nSifa zake:\n- Imetengenezwa kwa itifaki ya electrum.\n- Tuma na pokea peercoin.\n- Unakuwa tayari kufanya miamala baada ya kuiweka (hakuna kusubiria).\n- Wallet za Sumcoin na Sumcoin testnet.\n- Usimamizi wa kitabu cha anuani.\n- Ingiza wallet za karatasi.\n- Ingiza ndani & kutoa nje funguo za binafsi (WIF).\n- Usimamizi wa seva\n- Inalugha mbalimbali.\n- Taarifa za nyuma.\n\nVizuizi vinavyojulikana vinaweza kupatikana katika repository ya Github.",
+    "store_description": "Tuma na pokea Sumcoin katika simu yako.\n\nHifadhi mbegu ya wallet yako kwa usalama.\nApp hii haiji na waranti yoyote.\nTumia kwa hiari yako mwenyewe.\n\nSifa zake:\n- Imetengenezwa kwa itifaki ya electrum.\n- Tuma na pokea sumcoin.\n- Unakuwa tayari kufanya miamala baada ya kuiweka (hakuna kusubiria).\n- Wallet za Sumcoin na Sumcoin testnet.\n- Usimamizi wa kitabu cha anuani.\n- Ingiza wallet za karatasi.\n- Ingiza ndani & kutoa nje funguo za binafsi (WIF).\n- Usimamizi wa seva\n- Inalugha mbalimbali.\n- Taarifa za nyuma.\n\nVizuizi vinavyojulikana vinaweza kupatikana katika repository ya Github.",
     "app_settings_notifications_enable_button": "Wezesha Taarifa",
     "app_settings_notifications_alert_content": "Hii itawezesha sisi kukutumia taarifa zilizo rafiki na faragha yako nyuma ya pazia.\nZinaweza kusitishwa muda wowote.",
     "app_settings_notifications_not_enabled": "Taarifa za nyuma zimesitishwa kwa sasa.",
@@ -103,9 +103,9 @@
     "app_settings_price_feed_disable_button": "Sitisha API ya Feed ya Bei",
     "authenticate_title": "Tafadhali ingiza PIN yako",
     "authenticate_title_new": "Tafadhali ingiza PIN yako mpya",
-    "buy_peercoin": "Nunua Sumcoin",
-    "buy_peercoin_dialog_title": "Sasa utatumwa kwenye tovuti ya mtu wa tatu.",
-    "buy_peercoin_dialog_content": "Wasimamizi wa app hii hawahusiki na maudhui yake.",
+    "buy_sumcoin": "Nunua Sumcoin",
+    "buy_sumcoin_dialog_title": "Sasa utatumwa kwenye tovuti ya mtu wa tatu.",
+    "buy_sumcoin_dialog_content": "Wasimamizi wa app hii hawahusiki na maudhui yake.",
     "changelog_appbar": "BadilishaKumbukumbu",
     "changelog_headline": "Nini kipya?",
     "continue": "Endelea",
@@ -155,7 +155,7 @@
     "paperwallet_step_4": "Hatua ya 4",
     "paperwallet_step_4_text": "Fanya wallet iwe tupu & ingiza ndani",
     "paperwallet_success": "Wallet ya karatasi imefanikiwa kuingizwa kikamilifu.\nMuamala utaonekana hivi karibuni.",
-    "peercoin": "Sumcoin",
+    "sumcoin": "Sumcoin",
     "sumcoinC": "Sumcoin",
     "receive_enter_amount": "Tafadhali ingiza kiasi",
     "receive_faucet": "Fungua faucet",
@@ -266,5 +266,5 @@
     "wallets_list": "Wallet zako",
     "wallets_none": "Hauna wallet zinazofanya kazi",
     "wallet_value_alert_title": "Sarafu za thamani ya juu",
-    "store_short": "Wallet yako ya simu ya Sumcoin na peercoin testnet."
+    "store_short": "Wallet yako ya simu ya Sumcoin na sumcoin testnet."
 }

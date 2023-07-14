@@ -64,7 +64,7 @@
     "paperwallet_step_4": "步骤四",
     "paperwallet_step_4_text": "清空钱包 & 导入",
     "paperwallet_success": "纸钱包导入成功。\n交易即将被显示出来。",
-    "peercoin": "Sumcoin",
+    "sumcoin": "Sumcoin",
     "sumcoinC": "Sumcoin",
     "receive_enter_amount": "请输入金额",
     "receive_requested_amount": "要求的金额",
@@ -154,7 +154,7 @@
     "app_settings_notifications_alert_content": "将启用保护隐私的后台通知。\n可在任何时候禁用。",
     "app_settings_notifications_not_enabled": "当前已禁用后台通知。",
     "app_settings_notifications_hint_sync_1": "设置app在后台检查新交易的时间间隔。\n活动时间间隔:$minutes 分钟。",
-    "buy_peercoin": "购买Sumcoin",
+    "buy_sumcoin": "购买Sumcoin",
     "currency_GBP": "英镑",
     "currency_INR": "印度卢比",
     "not_again": "不再显示",
@@ -221,8 +221,8 @@
     "currency_RUB": "卢布",
     "app_settings_price_feed_enable_button": "允许喂价API",
     "app_settings_price_feed_disable_button": "禁用喂价API",
-    "buy_peercoin_dialog_title": "您现在将跳转到第三方网站。",
-    "buy_peercoin_dialog_content": "该app的维护者不对其内容负责。",
+    "buy_sumcoin_dialog_title": "您现在将跳转到第三方网站。",
+    "buy_sumcoin_dialog_content": "该app的维护者不对其内容负责。",
     "import_wif_success_snack": "私钥导入成功",
     "setup_bg_sync_allow": "允许后台同步API",
     "setup_text2": "创建新的Sumcoin钱包",
@@ -266,5 +266,5 @@
     "wallet_send_label_hint_scan": "提示:扫描二维码可节省您的一些时间",
     "wallet_value_alert_title": "高价值的硬币",
     "wallet_value_alert_content": "将这种价值的硬币储存在手机钱包中是有风险的。\n考虑把您的硬币转移至Stakebox，Ledger硬件钱包或冷钱包。",
-    "store_description": "在手机上发送和接收Sumcoin。\n\n保护好您的seed钱包。\n该app无保修。\n使用风险自负。\n\n特征：\n-基于electrum协议。\n-发送和接收peercoin。\n-安装后即可进行交易（无需等待）。\n-Sumcoin和Sumcoin testnet钱包。\n-通讯录管理。\n-导入纸质钱包。\n-导入和导出私钥（WIF）。\n-服务器管理。\n-多语言支持。\n-后台通知。\n\n可在Github存储库中找到已知的限制。"
+    "store_description": "在手机上发送和接收Sumcoin。\n\n保护好您的seed钱包。\n该app无保修。\n使用风险自负。\n\n特征：\n-基于electrum协议。\n-发送和接收sumcoin。\n-安装后即可进行交易（无需等待）。\n-Sumcoin和Sumcoin testnet钱包。\n-通讯录管理。\n-导入纸质钱包。\n-导入和导出私钥（WIF）。\n-服务器管理。\n-多语言支持。\n-后台通知。\n\n可在Github存储库中找到已知的限制。"
 }

@@ -14,7 +14,7 @@ import 'package:bip39/bip39.dart' as bip39;
 import 'package:coinslib/src/utils/script.dart';
 import 'package:coinslib/src/utils/constants/op.dart';
 import 'package:hex/hex.dart';
-import 'package:peercoin/models/buildresult.dart';
+import 'package:sumcoin/models/buildresult.dart';
 
 import '../exceptions/exceptions.dart';
 import '../models/available_coins.dart';

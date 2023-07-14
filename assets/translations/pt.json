@@ -101,9 +101,9 @@
     "authenticate_biometric_hint": "Verificar identidade",
     "authenticate_biometric_title": "Autenticação necessária",
     "authenticate_title_new": "Por favor introduza o seu novo PIN",
-    "buy_peercoin": "Comprar Sumcoin",
-    "buy_peercoin_dialog_title": "Iremos reencaminhar-lhe para uma página web de entidade terceira.",
-    "buy_peercoin_dialog_content": "Os responsáveis pela manutenção desta aplicação não são responsáveis pelo seu conteúdo.",
+    "buy_sumcoin": "Comprar Sumcoin",
+    "buy_sumcoin_dialog_title": "Iremos reencaminhar-lhe para uma página web de entidade terceira.",
+    "buy_sumcoin_dialog_content": "Os responsáveis pela manutenção desta aplicação não são responsáveis pelo seu conteúdo.",
     "continue": "Continuar",
     "currency_ARS": "Peso argentino",
     "currency_BRL": "Real brasileiro",
@@ -130,7 +130,7 @@
     "paperwallet_success": "A carteira fria (paper wallet) foi importada com sucesso.\nA transferência irá surgir em breve.",
     "notification_title": "$walletTitle - Nova transferência recebida",
     "notification_body": "Abrir aplicação para ver transferência",
-    "peercoin": "Sumcoin",
+    "sumcoin": "Sumcoin",
     "sumcoinC": "Sumcoin",
     "receive_faucet": "Abrir torneira",
     "receive_obtain": "Obter tPPC",
@@ -260,5 +260,5 @@
     "setup_save_text1": "A lista de palavras seguinte é chamada de Seed. Trata-se de uma palavra-passe complexa que permite o acesso total à sua carteira e a todas as suas coins.",
     "wallet_pop_menu_paperwallet": "Importar Carteira Fria (Paper Wallet)",
     "wallet_receive_label_hint": "Sugestão: Pressionar este botão irá guardar a identificação do endereço",
-    "store_description": "Envie e receba Sumcoin no seu telemóvel.\n\nMantenha a sua seed da carteira protegida.\nEsta aplicação não acarreta qualquer garantias.\nUtilize por sua conta e risco.\n\nFuncionalidades:\n- Baseado no protocolo electrum.\n- Enviar e receber peercoin.\n- Pronto para transferir após instalação (sem esperar).\n- Carteiras Sumcoin e testnet Sumcoin.\n- Gestão de livro de endereços.\n- Importar carteiras frias (paper wallets).\n- Importar e exportar chaves privadas (WIF).\n- Gestão de servidor.\n- Suporte multilingue.\n- Notificações em segundo plano.\n\nLimitações conhecidas poderão ser encontradas no repositório Github."
+    "store_description": "Envie e receba Sumcoin no seu telemóvel.\n\nMantenha a sua seed da carteira protegida.\nEsta aplicação não acarreta qualquer garantias.\nUtilize por sua conta e risco.\n\nFuncionalidades:\n- Baseado no protocolo electrum.\n- Enviar e receber sumcoin.\n- Pronto para transferir após instalação (sem esperar).\n- Carteiras Sumcoin e testnet Sumcoin.\n- Gestão de livro de endereços.\n- Importar carteiras frias (paper wallets).\n- Importar e exportar chaves privadas (WIF).\n- Gestão de servidor.\n- Suporte multilingue.\n- Notificações em segundo plano.\n\nLimitações conhecidas poderão ser encontradas no repositório Github."
 }

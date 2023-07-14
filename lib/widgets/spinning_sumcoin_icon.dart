@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
-class SpinningPeercoinIcon extends StatefulWidget {
-  const SpinningPeercoinIcon({
+class SpinningSumcoinIcon extends StatefulWidget {
+  const SpinningSumcoinIcon({
     super.key,
   });
 
   @override
-  State<SpinningPeercoinIcon> createState() => _SpinningPeercoinIconState();
+  State<SpinningSumcoinIcon> createState() => _SpinningSumcoinIconState();
 }
 
-class _SpinningPeercoinIconState extends State<SpinningPeercoinIcon>
+class _SpinningSumcoinIconState extends State<SpinningSumcoinIcon>
     with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
 

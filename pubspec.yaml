@@ -1,4 +1,4 @@
-name: Sumcoin
+name: sumcoin
 description: A new Sumcoin wallet.
 
 version: 1.1.6+127
@@ -57,6 +57,10 @@ dependencies:
   mockito: ^5.3.2
   cryptography_flutter: ^2.0.2
   loader_overlay: ^2.1.0
+  firebase_core: ^2.15.0
+  firebase_analytics: ^10.4.4
+  firebase_messaging: ^14.6.5
+  firebase_in_app_messaging: ^0.7.3+4
 
 dev_dependencies:
   integration_test:

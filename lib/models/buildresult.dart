@@ -1,4 +1,4 @@
-import 'package:peercoin/models/wallet_utxo.dart';
+import 'package:sumcoin/models/wallet_utxo.dart';
 
 class BuildResult {
   final int fee;

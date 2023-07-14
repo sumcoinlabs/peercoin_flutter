@@ -37,7 +37,7 @@ void main() {
       test(
         'Setup, create wallet from imported seed',
         () async {
-          //creates a peercoin testnet wallet from an imported seed and checks if it connects
+          //creates a sumcoin testnet wallet from an imported seed and checks if it connects
           await driver.tap(find.byValueKey('setupLanguageButton'));
           await driver.tap(find.text('English'));
           await driver.tap(find.pageBack());
@@ -83,7 +83,7 @@ void main() {
       );
 
       test(
-        'Setup, tap into imported peercoin testnet wallet',
+        'Setup, tap into imported sumcoin testnet wallet',
         () async {
           await driver.runUnsynchronized(
             () async {

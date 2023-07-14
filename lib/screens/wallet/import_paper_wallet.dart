@@ -1,6 +1,6 @@
 import 'package:coinslib/coinslib.dart';
 import 'package:flutter/material.dart';
-import 'package:peercoin/models/buildresult.dart';
+import 'package:sumcoin/models/buildresult.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/available_coins.dart';

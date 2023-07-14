@@ -48,17 +48,17 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions web = FirebaseOptions(
     apiKey: 'AIzaSyDY0MczzW8b_VwTn1vDf6Ty_wbq96S5doE',
-    appId: '1:275981907707:web:8ca3507f2bf0601367625e',
+    appId: '1:275981907707:web:d83bb05b193b06e567625e',
     messagingSenderId: '275981907707',
     projectId: 'sumcoin-wallet',
     authDomain: 'sumcoin-wallet.firebaseapp.com',
     storageBucket: 'sumcoin-wallet.appspot.com',
-    measurementId: 'G-F6N2FRZW6H',
+    measurementId: 'G-YBQ3XDQ5ZD',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyBrHJuzREfLjQbPm1DRe-qCdJNaaAoKbfk',
-    appId: '1:275981907707:android:b7e8eb20471af9b967625e',
+    appId: '1:275981907707:android:6e2c2a3b4b42f09567625e',
     messagingSenderId: '275981907707',
     projectId: 'sumcoin-wallet',
     storageBucket: 'sumcoin-wallet.appspot.com',
@@ -66,7 +66,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyDoKNtI_Whvaz_GoeWOasTxGdow6H6Cngg',
-    appId: '1:275981907707:ios:483aec5d2986e3c467625e',
+    appId: '1:275981907707:ios:8e4ea442d06c60c267625e',
     messagingSenderId: '275981907707',
     projectId: 'sumcoin-wallet',
     storageBucket: 'sumcoin-wallet.appspot.com',

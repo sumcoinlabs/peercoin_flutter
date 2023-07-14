@@ -3,7 +3,7 @@ import 'dart:math';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:peercoin/providers/active_wallets.dart';
+import 'package:sumcoin/providers/active_wallets.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
@@ -50,13 +50,13 @@ class PeriodicReminders {
                 ),
               ),
             if (reminderItem.id == 'donate' && !kIsWeb)
-              listOfActiveWallets.contains('peercoin') && !Platform.isIOS
+              listOfActiveWallets.contains('sumcoin') && !Platform.isIOS
                   ? TextButton(
                       onPressed: () async {
                         final navigator = Navigator.of(context);
                         final values = activeWallets.activeWalletsValues;
                         final ppcWallet = values.firstWhere(
-                          (element) => element.name == 'peercoin',
+                          (element) => element.name == 'sumcoin',
                         );
 
                         await navigator.popAndPushNamed(

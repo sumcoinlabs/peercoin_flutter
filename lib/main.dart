@@ -34,7 +34,13 @@ import 'tools/app_localizations.dart';
 import 'tools/app_routes.dart';
 import 'tools/app_themes.dart';
 import 'tools/session_checker.dart';
-import 'widgets/spinning_peercoin_icon.dart';
+import 'widgets/spinning_sumcoin_icon.dart';
+
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'tabs_page.dart';
+
 
 late bool setupFinished;
 late Widget _homeWidget;
@@ -60,6 +66,11 @@ void main() async {
 
   //init notifications
   var flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+
+  // Firebase Analytics
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
   await flutterLocalNotificationsPlugin
       .resolvePlatformSpecificImplementation<
@@ -160,11 +171,11 @@ void main() async {
   }
 
   //run
-  runApp(const PeercoinApp());
+  runApp(const SumcoinApp());
 }
 
-class PeercoinApp extends StatelessWidget {
-  const PeercoinApp({Key? key}) : super(key: key);
+class SumcoinApp extends StatelessWidget {
+  const SumcoinApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -208,7 +219,7 @@ class PeercoinApp extends StatelessWidget {
             useDefaultLoading: false,
             overlayOpacity: 0.6,
             overlayWidget: const Center(
-              child: SpinningPeercoinIcon(),
+              child: SpinningSumcoinIcon(),
             ),
             child: MaterialApp(
               title: 'Sumcoin',

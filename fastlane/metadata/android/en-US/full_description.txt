@@ -6,7 +6,7 @@ Use at own risk.
 
 Features:
 - Based on electrum protocol.
-- Send and receive peercoin.
+- Send and receive sumcoin.
 - Ready to transact after installation (no waiting).
 - Sumcoin and Sumcoin testnet wallets.
 - Address book management.

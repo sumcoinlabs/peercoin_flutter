@@ -21,7 +21,7 @@ import '../../tools/background_sync.dart';
 import '../../tools/periodic_reminders.dart';
 import '../../tools/price_ticker.dart';
 import '../../tools/share_wrapper.dart';
-import '../../widgets/spinning_peercoin_icon.dart';
+import '../../widgets/spinning_sumcoin_icon.dart';
 import '../../widgets/wallet/new_wallet.dart';
 import '../../tools/session_checker.dart';
 import '../../widgets/buttons.dart';
@@ -247,7 +247,7 @@ class _WalletListScreenState extends State<WalletListScreen>
       ),
       body: _initial
           ? const Center(
-              child: SpinningPeercoinIcon(),
+              child: SpinningSumcoinIcon(),
             )
           : Container(
               width: double.infinity,

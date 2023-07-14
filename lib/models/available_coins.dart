@@ -65,15 +65,15 @@ class AvailableCoins {
         //      'wss://sum1.electrum-sum.org:50004',
       ],
     ),
-    'peercoinTestnet': Coin(
-      name: 'peercoinTestnet',
+    'sumcoinTestnet': Coin(
+      name: 'sumcoinTestnet',
       displayName: 'Sumcoin Chain 1',
-      uriCode: 'peercoin',
+      uriCode: 'sumcoin',
       letterCode: 'tPPC',
       iconPath: 'assets/icon/ppc-icon-48.png',
       iconPathTransparent: 'assets/icon/ppc-icon-white-48.png',
       networkType: NetworkType(
-        messagePrefix: 'Peercoin Signed Message:\n',
+        messagePrefix: 'Sumcoin Signed Message:\n',
         bech32: 'tpc',
         bip32: Bip32Type(public: 0x043587cf, private: 0x04358394),
         pubKeyHash: 0x6f,
@@ -91,8 +91,8 @@ class AvailableCoins {
       txVersion: 3,
       electrumRequiredProtocol: 1.4,
       electrumServers: [
-        'wss://testnet-electrum.peercoinexplorer.net:50009',
-        'wss://allingas.peercoinexplorer.net:50009',
+        'wss://testnet-electrum.sumcoinexplorer.net:50009',
+        'wss://allingas.sumcoinexplorer.net:50009',
       ],
     ), */
   };

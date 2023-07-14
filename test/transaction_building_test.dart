@@ -5,13 +5,13 @@ import 'dart:typed_data';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
 import 'package:mockito/mockito.dart';
-import 'package:peercoin/exceptions/exceptions.dart';
-import 'package:peercoin/models/coin_wallet.dart';
-import 'package:peercoin/models/wallet_address.dart';
-import 'package:peercoin/models/wallet_transaction.dart';
-import 'package:peercoin/models/wallet_utxo.dart';
-import 'package:peercoin/providers/active_wallets.dart';
-import 'package:peercoin/providers/encrypted_box.dart';
+import 'package:sumcoin/exceptions/exceptions.dart';
+import 'package:sumcoin/models/coin_wallet.dart';
+import 'package:sumcoin/models/wallet_address.dart';
+import 'package:sumcoin/models/wallet_transaction.dart';
+import 'package:sumcoin/models/wallet_utxo.dart';
+import 'package:sumcoin/providers/active_wallets.dart';
+import 'package:sumcoin/providers/encrypted_box.dart';
 import 'package:fast_csv/fast_csv.dart' as fast_csv;
 
 class MockHiveBox extends Mock implements EncryptedBox {
@@ -35,7 +35,7 @@ class MockHiveBox extends Mock implements EncryptedBox {
 
 void main() async {
   const walletName = 'sumcoin';
-  const testnetWalletName = 'peercoinTestnet';
+  const testnetWalletName = 'sumcoinTestnet';
   final ActiveWallets wallet = ActiveWallets(MockHiveBox());
   TestWidgetsFlutterBinding.ensureInitialized();
 

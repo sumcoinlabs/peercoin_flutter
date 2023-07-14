@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>275981907707-vfvl2kfc7jd0n5d8un4tp3qed6v4gd84.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.275981907707-vfvl2kfc7jd0n5d8un4tp3qed6v4gd84</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDoKNtI_Whvaz_GoeWOasTxGdow6H6Cngg</string>
+	<key>GCM_SENDER_ID</key>
+	<string>275981907707</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.sumcoinwallet</string>
+	<key>PROJECT_ID</key>
+	<string>sumcoin-wallet</string>
+	<key>STORAGE_BUCKET</key>
+	<string>sumcoin-wallet.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:275981907707:ios:8e4ea442d06c60c267625e</string>
+</dict>
+</plist>

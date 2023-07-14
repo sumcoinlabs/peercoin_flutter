@@ -38,7 +38,7 @@ void main() {
       test(
         'create new wallet from scratch',
         () async {
-          //creates a brand new peercoin testnet wallet from scratch and check if it connects
+          //creates a brand new sumcoin testnet wallet from scratch and check if it connects
           await driver.tap(find.byValueKey('setupLanguageButton'));
           await driver.tap(find.text('English'));
           await driver.tap(find.pageBack());
@@ -80,7 +80,7 @@ void main() {
       );
 
       test(
-        'tap into new peercoin testnet wallet',
+        'tap into new sumcoin testnet wallet',
         () async {
           await driver.runUnsynchronized(
             () async {
@@ -107,7 +107,7 @@ void main() {
           await driver.tap(find.byValueKey('serverSettingsAddServer'));
           await driver.tap(find.byType('TextFormField'));
           await driver.enterText(
-            'ssl://electrum.peercoinexplorer.net:50002',
+            'ssl://electrum.sumcoinexplorer.net:50002',
           ); //main net server for testnet wallet
           await driver.tap(find.byValueKey('saveServerButton'));
           expect(
@@ -119,7 +119,7 @@ void main() {
             'Genesis hash does not match.\nThis server does not support this coin.',
           );
           await driver.enterText(
-            'ssl://testnet-electrum.peercoinexplorer.net:50008',
+            'ssl://testnet-electrum.sumcoinexplorer.net:50008',
           ); //main net server for testnet wallet
           await driver.tap(find.byValueKey('saveServerButton'));
           await driver.tap(find.pageBack());
@@ -131,9 +131,9 @@ void main() {
           );
           expect(
             await driver.getText(
-              find.text('ssl://testnet-electrum.peercoinexplorer.net:50008'),
+              find.text('ssl://testnet-electrum.sumcoinexplorer.net:50008'),
             ),
-            'ssl://testnet-electrum.peercoinexplorer.net:50008',
+            'ssl://testnet-electrum.sumcoinexplorer.net:50008',
           );
         },
         retry: 2,
