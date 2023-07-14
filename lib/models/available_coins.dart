@@ -70,8 +70,8 @@ class AvailableCoins {
       displayName: 'Sumcoin Chain 1',
       uriCode: 'sumcoin',
       letterCode: 'tPPC',
-      iconPath: 'assets/icon/ppc-icon-48.png',
-      iconPathTransparent: 'assets/icon/ppc-icon-white-48.png',
+      iconPath: 'assets/icon/sum-icon-48.png',
+      iconPathTransparent: 'assets/icon/sum-icon-white-48.png',
       networkType: NetworkType(
         messagePrefix: 'Sumcoin Signed Message:\n',
         bech32: 'tpc',

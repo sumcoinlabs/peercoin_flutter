@@ -6,7 +6,7 @@ It will connect to an electrum server and exchange transaction and blockchain re
 The data shared is essentially the same, as if you would use a sumcoin full node.
 
 By default, no data beyond that will leave your device.  
-This app **stores all necessary data locally** on your device. 
+This app **stores all necessary data locally** on your device.
 There is **no analytics**- **or advertising** software inside.
 
 **Optional Price Ticker**  
@@ -18,8 +18,8 @@ Background notifications can be enabled or disabled optionally during setup or i
 The ticker and background notifications API are hosted as "Cloudflare Workers" on Cloudflare.  
 Cloudflare Privacy Policy: https://www.cloudflare.com/privacypolicy/
 
-Ticker source code: 
-https://github.com/bananenwilly/ppc-worker-ticker
+Ticker source code:
+https://github.com/sumcoinlabs/sum-worker-ticker
 
 Background Notification API source code:
-https://github.com/bananenwilly/ppc-worker-address-status
+https://github.com/sumcoinlabs/sum-worker-address-status

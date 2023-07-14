@@ -38,7 +38,7 @@ class WalletHomeConnection extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Image.asset(
-          'assets/icon/ppc-icon-white-256.png',
+          'assets/icon/sum-icon-white-256.png',
           width: 20,
         ),
         const SizedBox(

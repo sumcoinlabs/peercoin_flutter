@@ -57,7 +57,7 @@ class _SetupLandingScreenState extends State<SetupLandingScreen> {
                             height: MediaQuery.of(context).size.height / 20,
                           ),
                           Image.asset(
-                            'assets/icon/ppc-icon-white.png',
+                            'assets/icon/sum-icon-white.png',
                             height: MediaQuery.of(context).size.height / 5,
                           ),
                           Column(

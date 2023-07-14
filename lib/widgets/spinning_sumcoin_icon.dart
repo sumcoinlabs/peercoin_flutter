@@ -35,7 +35,7 @@ class _SpinningSumcoinIconState extends State<SpinningSumcoinIcon>
     return RotationTransition(
       turns: Tween(begin: 0.0, end: 1.0).animate(_animationController),
       child: Image.asset(
-        'assets/icon/ppc-icon-white-256.png',
+        'assets/icon/sum-icon-white-256.png',
         height: 80,
       ),
     );

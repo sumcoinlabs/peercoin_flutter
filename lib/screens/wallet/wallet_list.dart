@@ -285,7 +285,7 @@ class _WalletListScreenState extends State<WalletListScreen>
                               }
                             },
                             child: Image.asset(
-                              'assets/icon/ppc-logo.png',
+                              'assets/icon/sum-logo.png',
                             ),
                           ),
                         ),
