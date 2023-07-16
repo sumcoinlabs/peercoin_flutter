@@ -39,7 +39,8 @@ class PeriodicReminders {
               TextButton(
                 onPressed: () async {
                   final navigator = Navigator.of(context);
-                  var url = 'https://ppc.lol/fndtn/';
+                  var url = 'https://www.sumcoin.org/foundation/';
+//                  var url = 'https://ppc.lol/fndtn/';
                   await canLaunchUrlString(url)
                       ? await launchUrlString(url)
                       : throw 'Could not launch $url';
@@ -55,14 +56,14 @@ class PeriodicReminders {
                       onPressed: () async {
                         final navigator = Navigator.of(context);
                         final values = activeWallets.activeWalletsValues;
-                        final ppcWallet = values.firstWhere(
+                        final sumWallet = values.firstWhere(
                           (element) => element.name == 'sumcoin',
                         );
 
                         await navigator.popAndPushNamed(
                           Routes.walletHome,
                           arguments: {
-                            'wallet': ppcWallet,
+                            'wallet': sumWallet,
                             'pushedAddress':
                                 'p77CZFn9jvg9waCzKBzkQfSvBBzPH1nRre',
                           },

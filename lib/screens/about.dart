@@ -166,14 +166,14 @@ class _AboutScreenState extends State<AboutScreen> {
                                   final navigator = Navigator.of(context);
                                   final values =
                                       _activeWallets.activeWalletsValues;
-                                  final ppcWallet = values.firstWhere(
+                                  final sumWallet = values.firstWhere(
                                     (element) => element.name == 'sumcoin',
                                   );
 
                                   navigator.pushNamed(
                                     Routes.walletHome,
                                     arguments: {
-                                      'wallet': ppcWallet,
+                                      'wallet': sumWallet,
                                       'pushedAddress':
                                           'p77CZFn9jvg9waCzKBzkQfSvBBzPH1nRre',
                                     },

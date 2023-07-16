@@ -61,6 +61,16 @@ dependencies:
   firebase_analytics: ^10.4.4
   firebase_messaging: ^14.6.5
   firebase_in_app_messaging: ^0.7.3+4
+  cloud_firestore: ^4.8.3
+  firebase_storage: ^11.2.5
+  firebase_crashlytics: ^3.3.4
+  firebase_performance: ^0.9.2+4
+  cloud_functions: ^4.3.4
+  firebase_app_check: ^0.1.5+1
+  firebase_auth: ^4.7.0
+  firebase_dynamic_links: ^5.3.4
+  firebase_app_installations: ^0.2.3+4
+  firebase_database: ^10.2.4
 
 dev_dependencies:
   integration_test:

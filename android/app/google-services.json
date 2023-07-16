@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "275981907707",
+    "firebase_url": "https://sumcoin-wallet-default-rtdb.firebaseio.com",
     "project_id": "sumcoin-wallet",
     "storage_bucket": "sumcoin-wallet.appspot.com"
   },

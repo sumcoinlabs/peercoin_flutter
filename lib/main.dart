@@ -40,11 +40,61 @@ import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'tabs_page.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';   // Import Firebase Messaging
 
+// Initialize the Firebase Messaging instance
+final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
 
 late bool setupFinished;
 late Widget _homeWidget;
 late Locale _locale;
+
+// Create a new widget to handle messages.
+class MessagingWidget extends StatefulWidget {
+  @override
+  _MessagingWidgetState createState() => _MessagingWidgetState();
+}
+
+class _MessagingWidgetState extends State<MessagingWidget> {
+  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
+
+  @override
+  void initState() {
+    super.initState();
+    _firebaseMessaging.requestPermission(
+      alert: true,
+      announcement: false,
+      badge: true,
+      carPlay: false,
+      criticalAlert: false,
+      provisional: false,
+      sound: true,
+    );
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      RemoteNotification? notification = message.notification;
+      AndroidNotification? android = message.notification?.android;
+      if (notification != null && android != null && mounted) {
+        showDialog(
+          context: context,
+          builder: (_) => AlertDialog(
+            title: Text(notification.title!),
+            content: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [Text(notification.body!)],
+              ),
+            ),
+          ),
+        );
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(); // This can be changed according to your needs
+  }
+}
 
 
 void main() async {

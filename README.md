@@ -24,8 +24,8 @@ Wallet for Sumcoin and Sumcoin Testnet using Electrumx as backend.
 
 You can also sign up for our open beta testing here:
 
-* [Android](https://play.google.com/apps/testing/com.coinerella.sumcoin)
-* [iOS](https://testflight.apple.com/join/iilc4S)
+* [Android](https://play.google.com/apps/testing/com.sumcoin)
+* [iOS](https://testflight.apple.com/join/#####)
 
 ![Screenshot_small](https://xxx.png)
 
