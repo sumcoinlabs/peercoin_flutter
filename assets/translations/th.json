@@ -1,5 +1,5 @@
 {
-    "about_illustrations_button": "designs.AI",
+    "about_illustrations_button": "Sumcoin Developers",
     "addressbook_no_sending": "ไม่มีที่อยู่",
     "addressbook_title": "ที่อยู่ $coin",
     "app_settings_biometrics": "อนุญาตการตรวจสอบไบโอเมตริกซ์",
@@ -180,7 +180,7 @@
     "sumcoinC": "Sumcoin",
     "receive_enter_amount": "กรุณากรอกจำนวนเงิน",
     "receive_faucet": "เปิด faucet",
-    "receive_obtain": "รับ tPPC",
+    "receive_obtain": "รับ tSUM",
     "receive_requested_amount": "จำนวนเงินที่ร้องขอ (ไม่บังคับ)",
     "receive_share": "แชร์",
     "receive_website": "เปิดเว็บไซต์",

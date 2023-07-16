@@ -49,8 +49,8 @@ class _AboutScreenState extends State<AboutScreen> {
 
   Future<void> launchMailto() async {
     final mailtoLink = Mailto(
-      to: ['hello@app.sumcoin.org'],
-      subject: 'Sumcoin Wallet',
+      to: ['hello@sumcoinwallet.org'],
+      subject: 'Sumcoin Wallet - in app mail',
     );
     await launchUrlString('$mailtoLink');
   }
@@ -240,7 +240,7 @@ class _AboutScreenState extends State<AboutScreen> {
                       ),
                       TextButton(
                         onPressed: () async => _launchURL(
-                          'https://designs.ai',
+                          'https://www.sumcoin.org',
                         ),
                         child: Text(
                           AppLocalizations.instance.translate(

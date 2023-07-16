@@ -31,7 +31,7 @@
     "sumcoinC": "Sumcoin",
     "receive_enter_amount": "Silakan masukkan jumlah",
     "receive_faucet": "Buka keran",
-    "receive_obtain": "Dapatkan tPPC",
+    "receive_obtain": "Dapatkan tSUM",
     "receive_requested_amount": "Jumlah yang diminta (opsional)",
     "receive_share": "Bagikan",
     "receive_show_qr": "Tampillkan Kode QR",
@@ -266,5 +266,5 @@
     "wallet_receive_label_hint": "Petunjuk: Menekan tombol ini akan menyimpan label alamat",
     "wallet_rescan_content": "Pindai dompet lagi. Jika Anda mengalami masalah dengan transaksi atau jumlah, ini mungkin bisa membantu.\nIni mungkin perlu beberapa waktu.",
     "store_description": "Kirim dan terima Sumcoin di ponsel Anda.\n\nJaga benih dompet Anda terlindungi.\nAplikasi ini hadir tanpa jaminan sama sekali.\nGunakan dengan risiko Anda sendiri.\n\nFitur:\n- Berdasarkan protokol electrum.\n- Kirim dan terima sumcoin.\n- Siap bertransaksi setelah instalasi (tidak perlu menunggu).\n- Dompet testnet Sumcoin dan Sumcoin.\n- Manajemen buku alamat.\n- Impor dompet kertas.\n- Impor & ekspor kunci pribadi (WIF).\n- Manajemen server.\n- Dukungan multi-bahasa.\n- Pemberitahuan latar belakang.\n\nBatasan yang diketahui dapat ditemukan di repositori Github.",
-    "about_illustrations_button": "designs.AI"
+    "about_illustrations_button": "Sumcoin Developers"
 }

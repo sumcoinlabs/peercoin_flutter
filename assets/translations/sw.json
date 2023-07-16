@@ -1,6 +1,6 @@
 {
     "about": "Kuhusu",
-    "about_illustrations_button": "designs.AI",
+    "about_illustrations_button": "Sumcoin Developers",
     "about_free": "Programu hii ni wazi (open source), ya bure na haiji na waranti ya aina yoyote.\nTumia kwa hiari yako mwenyewe.",
     "about_data_protection": "Programu hii inalinda data zako na faragha yako kwa kadri ya uwezo wake.\nApp hii inahifadhi data zote muhimu ndani ya kifaa chako.\nHakuna programu ya uchanganuzi au matangazo ndani yake.",
     "about_data_declaration": "Tazama Tamko la Ulinzi wa Faragha na Data",
@@ -159,7 +159,7 @@
     "sumcoinC": "Sumcoin",
     "receive_enter_amount": "Tafadhali ingiza kiasi",
     "receive_faucet": "Fungua faucet",
-    "receive_obtain": "Chukua tPPC",
+    "receive_obtain": "Chukua tSUM",
     "receive_requested_amount": "Omba kiasi (ni hiari)",
     "receive_share": "Sambaza",
     "receive_show_qr": "Onyesha msimbo-wa-QR",

@@ -1,5 +1,5 @@
 {
-    "about_illustrations_button": "designs.AI",
+    "about_illustrations_button": "Sumcoin Developers",
     "about_developers": "© $year sumcoin_flutterの開発者",
     "about_free": "本ソフトウェアは、オープンソースであり、無料であり、いかなる保証もありません。\nご自身の責任をご了承の上、ご利用ください。",
     "about_data_protection": "本ソフトウェアは、お客様のデータとプライバシーを最大限に保護します。\nこのアプリは、必要なデータをすべてあなたのデバイスにローカルに保存します。\n分析や広告のソフトウェアは、内部にはありません。",
@@ -182,7 +182,7 @@
     "sumcoin": "ピアコイン",
     "sumcoinC": "ピアコイン",
     "receive_faucet": "栓を開ける",
-    "receive_obtain": "tPPCを取得する",
+    "receive_obtain": "tSUMを取得する",
     "receive_requested_amount": "希望金額（任意）",
     "receive_share": "共有する",
     "receive_show_qr": "QRコードを表示する",

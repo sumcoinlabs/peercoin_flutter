@@ -1,5 +1,5 @@
 {
-    "about_illustrations_button": "designs.AI",
+    "about_illustrations_button": "Sumcoin Developers",
     "about": "Tungkol sa",
     "about_developers": "© $year Ang Developer ng sumcoin_flutter",
     "about_free": "Ang software na ito ay open source, libre at walang anumang garantiya o kung anuman.\nGamitin ng may pag-iingat.",
@@ -72,7 +72,7 @@
     "sumcoinC": "Sumcoin",
     "receive_enter_amount": "Pakilagay ang halaga",
     "receive_faucet": "Buksan ang faucet",
-    "receive_obtain": "Magkaroon ng tPPC",
+    "receive_obtain": "Magkaroon ng tSUM",
     "receive_requested_amount": "Hiniling na halaga (opsyonal)",
     "receive_share": "Ibahagi",
     "receive_show_qr": "Ipakita ang QR-Code",

@@ -69,7 +69,7 @@ class AvailableCoins {
       name: 'sumcoinTestnet',
       displayName: 'Sumcoin Chain 1',
       uriCode: 'sumcoin',
-      letterCode: 'tPPC',
+      letterCode: 'tSUM',
       iconPath: 'assets/icon/sum-icon-48.png',
       iconPathTransparent: 'assets/icon/sum-icon-white-48.png',
       networkType: NetworkType(
