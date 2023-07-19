@@ -1,5 +1,5 @@
-### **0.0.1** (2023-03-15)
-* Update Sumcoin Foundation address
+### **0.0.1** (2023-07-16)
+* Sumcoin Wallet Initial Beta
 
 ### **1.1.5** (2023-02-23)
 * Fixed bug which would sometimes push to the wrong wallet after notification
