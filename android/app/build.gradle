@@ -21,11 +21,11 @@ if (flutterVersionName == null) {
     flutterVersionName = '1.0'
 }
 
-def keystoreProperties = new Properties()
-def keystorePropertiesFile = rootProject.file('key.properties')
-if (keystorePropertiesFile.exists()) {
-    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
-}
+//def keystoreProperties = new Properties()
+//def keystorePropertiesFile = rootProject.file('key.properties')
+//if (keystorePropertiesFile.exists()) {
+//    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+//}
 
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
@@ -53,7 +53,7 @@ android {
 
     buildTypes {
         release {
-          //  signingConfig signingConfigs.release
+            signingConfig signingConfigs.debug
         }
     }
 
@@ -63,7 +63,7 @@ android {
 //    keystoreProps.load(new FileInputStream(keystorePropsFile))
 
 // Load keystore
-    def keystorePropsFile = file("/Users/macbookpro/keystore.properties")
+    def keystorePropsFile = file("/Users/macbookpro/sw_keystore.properties")
     def keystoreProps = new Properties()
     keystoreProps.load(new FileInputStream(keystorePropsFile))
 
@@ -71,12 +71,14 @@ android {
 // Add the signingConfigs block
     signingConfigs {
         debug {
-            storeFile file("${keystoreProps['storeFile']}")
+            storeFile file(keystoreProps['storeFile'])
             storePassword keystoreProps['storePassword']
             keyAlias keystoreProps['keyAlias']
             keyPassword keystoreProps['keyPassword']
         }
     }
+
+
 
 
 
