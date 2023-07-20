@@ -58,17 +58,23 @@ android {
     }
 
 // Load keystore
-    def keystorePropsFile = file("${projectDir}/key.properties")
+//    def keystorePropsFile = file("${projectDir}/key.properties")
+//    def keystoreProps = new Properties()
+//    keystoreProps.load(new FileInputStream(keystorePropsFile))
+
+// Load keystore
+    def keystorePropsFile = file("/Users/macbookpro/keystore.properties")
     def keystoreProps = new Properties()
     keystoreProps.load(new FileInputStream(keystorePropsFile))
 
+
 // Add the signingConfigs block
     signingConfigs {
-        release {
+        debug {
+            storeFile file("${keystoreProps['storeFile']}")
+            storePassword keystoreProps['storePassword']
             keyAlias keystoreProps['keyAlias']
             keyPassword keystoreProps['keyPassword']
-            storeFile keystoreProps['storeFile'] ? file(keystoreProps['storeFile']) : null
-            storePassword keystoreProps['storePassword']
         }
     }
 
