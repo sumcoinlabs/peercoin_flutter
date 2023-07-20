@@ -211,7 +211,7 @@ class _SetupImportSeedState extends State<SetupImportSeedScreen> {
                                   ),
                                   decoration: InputDecoration(
                                     hintText:
-                                        'e.g. mushrooms pepper courgette onion asparagus garlic sweetcorn nut pumpkin potato bean spinach',
+                                        'e.g. happy ran quickly through mushrooms pepper courgette onion asparagus garlic sweetcorn nut pumpkin potato bean spinach dog park flowers birds green the leg loop',
                                     hintStyle: TextStyle(
                                       color: Theme.of(context)
                                           .colorScheme

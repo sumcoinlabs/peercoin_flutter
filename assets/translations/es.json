@@ -99,7 +99,7 @@
     "paperwallet_step_3_text": "Comprobar el saldo de la cuenta",
     "receive_website_credit": "Comprar mediante tarjeta de créido",
     "send": "Enviar",
-    "setup_import_note": "Introduzca la semilla que desea importar. Esto no debe confundirse con una clave privada.",
+    "setup_import_note": "Ingrese la semilla de 24 palabras que desea importar. Esto no debe confundirse con una cadena de clave privada.",
     "share_app": "Compartir aplicación",
     "snack_copied": "Copiado en el portapapeles",
     "time": "Tiempo",
