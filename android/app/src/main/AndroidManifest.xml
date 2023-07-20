@@ -25,6 +25,11 @@
                  the Android process has started. This theme is visible to the user
                  while the Flutter UI initializes. After that, this theme continues
                  to determine the Window background behind the Flutter UI. -->
+
+            <!-- meta-data for Play Integrity API -->
+            <meta-data
+                android:name="com.google.android.play.integrity.API_KEY"
+                android:value="AIzaSyBrHJuzREfLjQbPm1DRe-qCdJNaaAoKbfk" />
             <meta-data
               android:name="io.flutter.embedding.android.NormalTheme"
               android:resource="@style/NormalTheme"
