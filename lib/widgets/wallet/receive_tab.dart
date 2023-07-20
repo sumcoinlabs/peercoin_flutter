@@ -314,48 +314,49 @@ class _ReceiveTabState extends State<ReceiveTab> {
                             text: AppLocalizations.instance
                                 .translate('receive_faucet'),
                             action: () {
-                              launchURL('https://ppc.lol/faucet/');
+                              launchURL('https://sumcoinindex.com/faucets/');
                             },
                           ),
                         ],
                       ),
                     ),
                   )
-                : Align(
-                    child: PeerContainer(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          PeerServiceTitle(
-                            title: AppLocalizations.instance
-                                .translate('buy_sumcoin'),
-                          ),
-                          const SizedBox(height: 20),
-                          Text(
-                            AppLocalizations.instance
-                                .translate('receive_website_description'),
-                            textAlign: TextAlign.center,
-                          ),
-                          const SizedBox(height: 20),
-                          PeerButton(
-                            text: AppLocalizations.instance
-                                .translate('receive_website_credit'),
-                            action: () {
-                              launchURL('https://ppc.lol/buy');
-                            },
-                          ),
-                          const SizedBox(height: 20),
-                          PeerButton(
-                            text: AppLocalizations.instance
-                                .translate('receive_website_exchandes'),
-                            action: () {
-                              launchURL('https://ppc.lol/exchanges');
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                  // NOTE: : Align() had ')' added to make code happy temporaraly
+                : Align()
+//                    child: PeerContainer(
+//                      child: Column(
+//                        crossAxisAlignment: CrossAxisAlignment.center,
+//                        children: <Widget>[
+//                          PeerServiceTitle(
+//                            title: AppLocalizations.instance
+//                                .translate('buy_sumcoin'),
+//                          ),
+//                          const SizedBox(height: 20),
+//                          Text(
+//                            AppLocalizations.instance
+//                                .translate('receive_website_description'),
+//                            textAlign: TextAlign.center,
+//                          ),
+//                          const SizedBox(height: 20),
+//                          PeerButton(
+//                            text: AppLocalizations.instance
+//                                .translate('receive_website_credit'),
+//                            action: () {
+//                              launchURL('https://sumcoin.org/buy');
+//                            },
+//                          ),
+//                          const SizedBox(height: 20),
+//                          PeerButton(
+//                            text: AppLocalizations.instance
+//                                .translate('receive_website_exchandes'),
+//                            action: () {
+//                              launchURL('https://sumcoin.org/exchanges');
+//                            },
+//                          ),
+//                        ],
+//                      ),
+//                    ),
+//                  ),
           ],
         ),
       ],

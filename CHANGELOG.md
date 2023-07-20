@@ -1,3 +1,6 @@
+### **0.0.2** (2023-07-20)
+* Sumcoin Wallet Updates
+
 ### **0.0.1** (2023-07-16)
 * Sumcoin Wallet Initial Beta
 

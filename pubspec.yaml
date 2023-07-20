@@ -1,7 +1,7 @@
 name: sumcoin
 description: A new Sumcoin wallet.
 
-version: 0.0.1+1
+version: 0.0.2+2
 
 environment:
   sdk: '>=2.17.0 <3.0.0'
