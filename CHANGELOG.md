@@ -1,5 +1,8 @@
+### **0.0.4** (2023-07-21)
+* Enforces 256 Entropy - 24 Seed Words
+
 ### **0.0.3** (2023-07-20)
-*   Play Integrity API for Android users
+* Play Integrity API for Android users
 
 ### **0.0.2** (2023-07-20)
 * Sumcoin Wallet Updates
