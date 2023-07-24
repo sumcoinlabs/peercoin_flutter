@@ -39,72 +39,35 @@ import 'widgets/spinning_sumcoin_icon.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
 import 'tabs_page.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';   // Import Firebase Messaging
+import 'package:firebase_messaging/firebase_messaging.dart';
 
-// Initialize the Firebase Messaging instance
-final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
+bool setupFinished = false;
+Widget _homeWidget = Container(); // Initialize with an empty Container or any other widget as a placeholder.
+Locale _locale = Locale('en', 'US'); // Initialize with a default Locale. Modify this as per your needs.
 
-late bool setupFinished;
-late Widget _homeWidget;
-late Locale _locale;
 
-// Create a new widget to handle messages.
-class MessagingWidget extends StatefulWidget {
-  @override
-  _MessagingWidgetState createState() => _MessagingWidgetState();
+FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+FirebaseAnalyticsObserver observer = FirebaseAnalyticsObserver(analytics: analytics);
+
+// The background message handler must be a top-level function.
+// This function will be called to handle incoming messages when your app is in the background.
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  // If you're going to use other Firebase services in the background, such as Firestore,
+  // make sure you call `initializeApp` before using other Firebase services.
+  await Firebase.initializeApp();
+
+  print("Handling a background message: ${message.messageId}");
 }
-
-class _MessagingWidgetState extends State<MessagingWidget> {
-  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
-
-  @override
-  void initState() {
-    super.initState();
-    _firebaseMessaging.requestPermission(
-      alert: true,
-      announcement: false,
-      badge: true,
-      carPlay: false,
-      criticalAlert: false,
-      provisional: false,
-      sound: true,
-    );
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      RemoteNotification? notification = message.notification;
-      AndroidNotification? android = message.notification?.android;
-      if (notification != null && android != null && mounted) {
-        showDialog(
-          context: context,
-          builder: (_) => AlertDialog(
-            title: Text(notification.title!),
-            content: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [Text(notification.body!)],
-              ),
-            ),
-          ),
-        );
-      }
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(); // This can be changed according to your needs
-  }
-}
-
 
 void main() async {
-  //init sharedpreferences
   WidgetsFlutterBinding.ensureInitialized();
   var prefs = await SharedPreferences.getInstance();
   setupFinished = prefs.getBool('setupFinished') ?? false;
   _locale = Locale(prefs.getString('language_code') ?? 'und');
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
-  //init hive
   await Hive.initFlutter();
   Hive.registerAdapter(CoinWalletAdapter());
   Hive.registerAdapter(WalletTransactionAdapter());
@@ -114,13 +77,55 @@ void main() async {
   Hive.registerAdapter(ServerAdapter());
   Hive.registerAdapter(PendingNotificationAdapter());
 
-  //init notifications
   var flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
-  // Firebase Analytics
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
+
+  NotificationSettings settings = await _firebaseMessaging.requestPermission(
+    alert: true,
+    announcement: false,
+    badge: true,
+    carPlay: false,
+    criticalAlert: false,
+    provisional: false,
+    sound: true,
+  );
+
+  print('User granted permission: ${settings.authorizationStatus}');
+
+  FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+    print('A new onMessageOpenedApp event was published!');
+  });
+
+
+  FirebaseMessaging.instance
+      .getInitialMessage()
+      .then((RemoteMessage? message) {
+    if (message != null) {
+      print('A new getInitialMessage event was published!');
+      print('Message data: ${message.data}');
+    }
+  });
+
+  FirebaseMessaging.instance.getToken().then((String? token) {
+    print('Token: $token');
+  });
+
+  analytics.logEvent(
+      name: 'my_event',
+      parameters: <String, dynamic>{
+        'string': 'string example',
+        'int': 42,
+      },
+  );
+
+FirebaseMessaging.instance.onTokenRefresh.listen((String token) {
+    print('Token refreshed: $token');
+  });
 
   await flutterLocalNotificationsPlugin
       .resolvePlatformSpecificImplementation<
@@ -155,7 +160,6 @@ void main() async {
   final notificationAppLaunchDetails =
       await flutterLocalNotificationsPlugin.getNotificationAppLaunchDetails();
 
-  //check if app is locked
   var secureStorageError = false;
   var failedAuths = 0;
   var sessionExpired = await checkSessionExpired();
@@ -172,8 +176,6 @@ void main() async {
   if (secureStorageError == true) {
     _homeWidget = const SecureStorageFailedScreen();
   } else {
-    //check web session expired
-
     if (setupFinished == false || sessionExpired == true) {
       _homeWidget = const SetupLandingScreen();
     } else if (failedAuths > 0) {
@@ -190,10 +192,8 @@ void main() async {
   }
 
   if (!kIsWeb) {
-    // Enable Flutter cryptography
     FlutterCryptography.enable();
 
-    //init logger
     await FlutterLogs.initLogs(
       logLevelsEnabled: [
         LogLevel.INFO,
@@ -220,12 +220,43 @@ void main() async {
     );
   }
 
-  //run
   runApp(const SumcoinApp());
 }
 
-class SumcoinApp extends StatelessWidget {
+class SumcoinApp extends StatefulWidget {
   const SumcoinApp({Key? key}) : super(key: key);
+
+  @override
+  _SumcoinAppState createState() => _SumcoinAppState();
+}
+
+class _SumcoinAppState extends State<SumcoinApp> {
+  @override
+  void initState() {
+    super.initState();
+
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      print('Got a message whilst in the foreground!');
+      print('Message data: ${message.data}');
+
+      if (message.notification != null) {
+        print('Message notification: ${message.notification}');
+        showDialog(
+          context: context,
+          builder: (_) => AlertDialog(
+            title: Text(message.notification!.title ?? ''),
+            content: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [Text(message.notification!.body ?? '')],
+              ),
+            ),
+          ),
+        );
+      }
+    });
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -287,6 +318,7 @@ class SumcoinApp extends StatelessWidget {
               darkTheme: MyTheme.getTheme(ThemeMode.dark),
               home: _homeWidget,
               routes: Routes.getRoutes(),
+              navigatorObservers: [observer],
             ),
           );
         },

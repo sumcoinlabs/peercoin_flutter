@@ -1,4 +1,4 @@
-[![Sumcoin Donate](https://badgen.net/badge/sumcoin/Donate/green?icon=https://raw.githubusercontent.com/sumcoin/media/84710cca6c3c8d2d79676e5260cc8d1cd729a427/Sumcoin%202020%20Logo%20Files/01.%20Icon%20Only/Inside%20Circle/Transparent/Green%20Icon/sumcoin-icon-green-transparent.svg)](https://chainz.cryptoid.info/ppc/address.dws?p77CZFn9jvg9waCzKBzkQfSvBBzPH1nRre)
+[![Sumcoin Donate](https://badgen.net/badge/sumcoin/Donate/green?icon=https://raw.githubusercontent.com/sumcoin/media/84710cca6c3c8d2d79676e5260cc8d1cd729a427/Sumcoin%202020%20Logo%20Files/01.%20Icon%20Only/Inside%20Circle/Transparent/Green%20Icon/sumcoin-icon-green-transparent.svg)](https://chainz.cryptoid.info/ppc/address.dws?SU97wjt7X1kZaU2tafMK18Ar15CiKAn4FN)
 <a href="https://weblate.ppc.lol/engage/sumcoin-flutter/">
 <img src="https://weblate.ppc.lol/widgets/sumcoin-flutter/-/translations/svg-badge.svg" alt="Übersetzungsstatus" /></a>
 [![Codemagic build status](https://api.codemagic.io/apps/61012a37d885ed7a8c3e8b25/61012a37d885ed7a8c3e8b24/status_badge.svg)](https://codemagic.io/apps/61012a37d885ed7a8c3e8b25/61012a37d885ed7a8c3e8b24/latest_build)

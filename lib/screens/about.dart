@@ -175,7 +175,7 @@ class _AboutScreenState extends State<AboutScreen> {
                                     arguments: {
                                       'wallet': sumWallet,
                                       'pushedAddress':
-                                          'p77CZFn9jvg9waCzKBzkQfSvBBzPH1nRre',
+                                          'SU97wjt7X1kZaU2tafMK18Ar15CiKAn4FN',
                                     },
                                   );
                                 },
