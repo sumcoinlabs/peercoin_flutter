@@ -1,3 +1,7 @@
+### **0.0.5** (2023-07-29)
+* Updated dependencies for smoother experience
+* Option to share location to locate Kiosks
+
 ### **0.0.4** (2023-07-21)
 * Enforces 256 Entropy - 24 Seed Words
 

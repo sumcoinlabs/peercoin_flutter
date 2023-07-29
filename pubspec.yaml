@@ -1,7 +1,7 @@
 name: sumcoin
 description: A new Sumcoin wallet.
 
-version: 0.0.4+4
+version: 0.0.5+5
 
 environment:
   sdk: '>=2.17.0 <3.0.0'
@@ -71,6 +71,7 @@ dependencies:
   firebase_dynamic_links: ^5.3.4
   firebase_app_installations: ^0.2.3+4
   firebase_database: ^10.2.4
+  location: ^4.4.0
 
 dev_dependencies:
   integration_test:

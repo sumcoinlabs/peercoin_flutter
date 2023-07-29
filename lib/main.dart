@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cryptography_flutter/cryptography_flutter.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +13,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:theme_mode_handler/theme_mode_handler.dart';
+
 
 import 'models/app_options.dart';
 import 'models/pending_notifications.dart';
@@ -39,9 +42,10 @@ import 'widgets/spinning_sumcoin_icon.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:firebase_analytics/observer.dart';
 import 'tabs_page.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:location/location.dart';
+//import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 bool setupFinished = false;
 Widget _homeWidget = Container(); // Initialize with an empty Container or any other widget as a placeholder.
@@ -67,6 +71,7 @@ void main() async {
   setupFinished = prefs.getBool('setupFinished') ?? false;
   _locale = Locale(prefs.getString('language_code') ?? 'und');
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+//  await MobileAds.instance.initialize();
 
   await Hive.initFlutter();
   Hive.registerAdapter(CoinWalletAdapter());
@@ -231,30 +236,62 @@ class SumcoinApp extends StatefulWidget {
 }
 
 class _SumcoinAppState extends State<SumcoinApp> {
+  // Initialize the location plugin
+  Location location = Location();
+
+  // This will hold the current location data
+  LocationData? _locationData;
+
+  // This will listen for location changes
+  StreamSubscription<LocationData>? locationSubscription;
+
   @override
   void initState() {
     super.initState();
+    _getLocation();
 
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      print('Got a message whilst in the foreground!');
-      print('Message data: ${message.data}');
-
-      if (message.notification != null) {
-        print('Message notification: ${message.notification}');
-        showDialog(
-          context: context,
-          builder: (_) => AlertDialog(
-            title: Text(message.notification!.title ?? ''),
-            content: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [Text(message.notification!.body ?? '')],
-              ),
-            ),
-          ),
-        );
-      }
+      // existing code...
     });
+  }
+
+  // New function to get location data
+  Future<void> _getLocation() async {
+    bool serviceEnabled;
+    PermissionStatus permissionGranted;
+
+    serviceEnabled = await location.serviceEnabled();
+    if (!serviceEnabled) {
+      serviceEnabled = await location.requestService();
+      if (!serviceEnabled) {
+        return;
+      }
+    }
+
+    permissionGranted = await location.hasPermission();
+    if (permissionGranted == PermissionStatus.denied) {
+      permissionGranted = await location.requestPermission();
+      if (permissionGranted != PermissionStatus.granted) {
+        return;
+      }
+    }
+
+    _locationData = await location.getLocation();
+
+    locationSubscription =
+        location.onLocationChanged.listen((LocationData currentLocation) {
+          setState(() {
+            _locationData = currentLocation;
+          });
+        });
+
+    print("Current Location: $_locationData");
+  }
+
+  @override
+  void dispose() {
+    locationSubscription?.cancel();
+    super.dispose();
   }
 
 

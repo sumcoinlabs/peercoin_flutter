@@ -638,7 +638,7 @@ PODS:
   - BoringSSL-GRPC/Interface (0.0.24)
   - camera_avfoundation (0.0.1):
     - Flutter
-  - cloud_firestore (4.8.3):
+  - cloud_firestore (4.8.4):
     - Firebase/Firestore (= 10.12.0)
     - firebase_core
     - Flutter
@@ -739,7 +739,7 @@ PODS:
     - Firebase/Installations (= 10.12.0)
     - firebase_core
     - Flutter
-  - firebase_auth (4.7.1):
+  - firebase_auth (4.7.2):
     - Firebase/Auth (= 10.12.0)
     - firebase_core
     - Flutter
@@ -1023,6 +1023,8 @@ PODS:
   - leveldb-library (1.22.2)
   - local_auth_ios (0.0.1):
     - Flutter
+  - location (0.0.1):
+    - Flutter
   - MTBBarcodeScanner (5.0.11)
   - nanopb (2.30909.0):
     - nanopb/decode (= 2.30909.0)
@@ -1082,6 +1084,7 @@ DEPENDENCIES:
   - flutter_secure_storage (from `.symlinks/plugins/flutter_secure_storage/ios`)
   - integration_test (from `.symlinks/plugins/integration_test/ios`)
   - local_auth_ios (from `.symlinks/plugins/local_auth_ios/ios`)
+  - location (from `.symlinks/plugins/location/ios`)
   - package_info_plus (from `.symlinks/plugins/package_info_plus/ios`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/ios`)
   - qr_code_scanner (from `.symlinks/plugins/qr_code_scanner/ios`)
@@ -1190,6 +1193,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/integration_test/ios"
   local_auth_ios:
     :path: ".symlinks/plugins/local_auth_ios/ios"
+  location:
+    :path: ".symlinks/plugins/location/ios"
   package_info_plus:
     :path: ".symlinks/plugins/package_info_plus/ios"
   path_provider_foundation:
@@ -1208,7 +1213,7 @@ SPEC CHECKSUMS:
   background_fetch: bc9b44b0bf8b434e282a2ac9be8662800a0296ed
   BoringSSL-GRPC: 3175b25143e648463a56daeaaa499c6cb86dad33
   camera_avfoundation: 3125e8cd1a4387f6f31c6c63abb8a55892a9eeeb
-  cloud_firestore: ac09bcf42ed1f477cb6eeb1d5937255023862e29
+  cloud_firestore: 005e157ad342dbfb2e461cb111a9020aa71bfb22
   cloud_functions: 3c404e6abc226da2c7a5a3f2b67678d1c60f3e3d
   connectivity_plus: 413a8857dd5d9f1c399a39130850d02fe0feaf7e
   cryptography_flutter: 381bdacc984abcfbe3ca45ef7c76566ff061614c
@@ -1219,7 +1224,7 @@ SPEC CHECKSUMS:
   firebase_analytics: 3ff822ee2e90f95b61f0da300df20b378d380fbb
   firebase_app_check: af516e8f78c4dd34905e45eab70940a80172df9d
   firebase_app_installations: 3a55d6639c9c12770a684e69370baf101dba9807
-  firebase_auth: a57bf431e73283cbffaa562717256ec6bd2d8d4c
+  firebase_auth: 3f7820b22557dd4a1b024f4d86947d1a0ff8a10f
   firebase_core: e477125798fc37cd4ab43ca6a8536bf7e0929c00
   firebase_crashlytics: 6043ce85800f96e53f15ee5051f9cfad10cce73d
   firebase_database: 37ea2144bf40525d3ae4df40f70ae4bc3db715a5
@@ -1266,6 +1271,7 @@ SPEC CHECKSUMS:
   integration_test: a1e7d09bd98eca2fc37aefd79d4f41ad37bdbbe5
   leveldb-library: f03246171cce0484482ec291f88b6d563699ee06
   local_auth_ios: c6cf091ded637a88f24f86a8875d8b0f526e2605
+  location: 3a2eed4dd2fab25e7b7baf2a9efefe82b512d740
   MTBBarcodeScanner: f453b33c4b7dfe545d8c6484ed744d55671788cb
   nanopb: b552cce312b6c8484180ef47159bc0f65a1f0431
   package_info_plus: 6c92f08e1f853dc01228d6f553146438dafcd14e
