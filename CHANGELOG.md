@@ -1,4 +1,4 @@
-### **0.0.5** (2023-07-29)
+### **0.0.6** (2023-07-29)
 * Updated dependencies for smoother experience
 * Option to share location to locate Kiosks
 
