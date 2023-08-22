@@ -172,7 +172,7 @@
     "wallet_rescan_content": "Riavvia la scansione delle transazioni. Può servire in caso di problemi con le transazioni o il saldo del wallet.\nPotrebbe richiedere alcuni istanti.",
     "receive_faucet": "Apri faucet",
     "addressbook_search": "Inserisci indirizzi, nomi",
-    "receive_obtain": "Ottieni tSUM",
+    "receive_obtain": "Ottieni SUM",
     "receive_website": "Apri il sito",
     "send_qr": "QR-Code",
     "wallet_bottom_nav_addr": "Indirizzi",

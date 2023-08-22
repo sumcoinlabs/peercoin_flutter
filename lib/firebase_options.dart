@@ -47,33 +47,30 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyDY0MczzW8b_VwTn1vDf6Ty_wbq96S5doE',
-    appId: '1:275981907707:web:d83bb05b193b06e567625e',
-    messagingSenderId: '275981907707',
-    projectId: 'sumcoin-wallet',
-    authDomain: 'sumcoin-wallet.firebaseapp.com',
-    databaseURL: 'https://sumcoin-wallet-default-rtdb.firebaseio.com',
-    storageBucket: 'sumcoin-wallet.appspot.com',
-    measurementId: 'G-YBQ3XDQ5ZD',
+    apiKey: 'AIzaSyAHnqqokPAFbcRHwDYSoQ2_LekARw8aW1A',
+    appId: '1:550596975589:web:3a9e139283a52211d5ad0c',
+    messagingSenderId: '550596975589',
+    projectId: 'sumcoinwallet-com',
+    authDomain: 'sumcoinwallet-com.firebaseapp.com',
+    storageBucket: 'sumcoinwallet-com.appspot.com',
+    measurementId: 'G-C0J7GW8GWR',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBrHJuzREfLjQbPm1DRe-qCdJNaaAoKbfk',
-    appId: '1:275981907707:android:6e2c2a3b4b42f09567625e',
-    messagingSenderId: '275981907707',
-    projectId: 'sumcoin-wallet',
-    databaseURL: 'https://sumcoin-wallet-default-rtdb.firebaseio.com',
-    storageBucket: 'sumcoin-wallet.appspot.com',
+    apiKey: 'AIzaSyAD43LvUnH43x4flvovSmsSX01lpNhjGqg',
+    appId: '1:550596975589:android:900dc250d0e00a17d5ad0c',
+    messagingSenderId: '550596975589',
+    projectId: 'sumcoinwallet-com',
+    storageBucket: 'sumcoinwallet-com.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDoKNtI_Whvaz_GoeWOasTxGdow6H6Cngg',
-    appId: '1:275981907707:ios:8e4ea442d06c60c267625e',
-    messagingSenderId: '275981907707',
-    projectId: 'sumcoin-wallet',
-    databaseURL: 'https://sumcoin-wallet-default-rtdb.firebaseio.com',
-    storageBucket: 'sumcoin-wallet.appspot.com',
-    iosClientId: '275981907707-vfvl2kfc7jd0n5d8un4tp3qed6v4gd84.apps.googleusercontent.com',
+    apiKey: 'AIzaSyC1QiQlxY2VmiBnX1fTCS2JCAKadAdcEno',
+    appId: '1:550596975589:ios:45a60116f80e65ffd5ad0c',
+    messagingSenderId: '550596975589',
+    projectId: 'sumcoinwallet-com',
+    storageBucket: 'sumcoinwallet-com.appspot.com',
+    iosClientId: '550596975589-hpsjj8us7o1aggp2itrsjdlh5pflgual.apps.googleusercontent.com',
     iosBundleId: 'com.sumcoinwallet',
   );
 }

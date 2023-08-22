@@ -10,6 +10,9 @@ import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:theme_mode_handler/theme_mode_handler.dart';
 
+import '../../widgets/banner_ad_widget.dart';
+import '../../widgets/native_ad_widget.dart';
+
 import '../../models/coin_wallet.dart';
 import '../../providers/active_wallets.dart';
 import '../../providers/app_settings.dart';
@@ -460,6 +463,11 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
                         ),
                       ],
                     ),
+                const SizedBox(height: 25),
+                // Add the banner ad widget here.
+                // This will make it appear at the bottom of the screen.
+                BannerAdWidget(),
+                //   NativeAdWidget(),
               ],
             ),
           ),

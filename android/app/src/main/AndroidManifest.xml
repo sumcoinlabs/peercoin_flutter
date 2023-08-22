@@ -7,6 +7,9 @@
         android:name="${applicationName}"
         android:label="Sumcoin Wallet"
         android:icon="@mipmap/launcher_icon">
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-1492791099222955~4029127071"/>
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -20,14 +23,10 @@
 
             <meta-data
                 android:name="com.google.android.play.integrity.API_KEY"
-                android:value="AIzaSyBrHJuzREfLjQbPm1DRe-qCdJNaaAoKbfk" />
+                android:value="AIzaSyBrHJuzREfLjQbPm1DRe-qCdJNaaAoKbfk"/>
             <meta-data
               android:name="io.flutter.embedding.android.NormalTheme"
-              android:resource="@style/NormalTheme"
-              />
-            <meta-data
-                android:name="com.google.android.gms.ads.APPLICATION_ID"
-                android:value="ca-app-pub-1492791099222955~4029127071"/>
+              android:resource="@style/NormalTheme"/>
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>

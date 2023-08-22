@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:sumcoin/models/buildresult.dart';
 import 'package:provider/provider.dart';
 
+import '../../widgets/banner_ad_widget.dart';
+import '../../widgets/native_ad_widget.dart';
+
 import '../../models/available_coins.dart';
 import '../../models/coin.dart';
 import '../../models/wallet_utxo.dart';
@@ -411,7 +414,12 @@ class _ImportPaperWalletScreenState extends State<ImportPaperWalletScreen> {
                 ),
               ),
             ),
-          )
+          ),
+          const SizedBox(height: 25),
+          // Add the banner ad widget here.
+          // This will make it appear at the bottom of the screen.
+          BannerAdWidget(),
+          //   NativeAdWidget(),
         ],
       ),
     );

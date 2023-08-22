@@ -14,6 +14,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:theme_mode_handler/theme_mode_handler.dart';
 
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 import 'models/app_options.dart';
 import 'models/pending_notifications.dart';
@@ -45,11 +46,10 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'tabs_page.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:location/location.dart';
-//import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 bool setupFinished = false;
 Widget _homeWidget = Container(); // Initialize with an empty Container or any other widget as a placeholder.
-Locale _locale = Locale('en', 'US'); // Initialize with a default Locale. Modify this as per your needs.
+Locale _locale = const Locale('en', 'US'); // Initialize with a default Locale. Modify this as per your needs.
 
 
 FirebaseAnalytics analytics = FirebaseAnalytics.instance;
@@ -60,18 +60,25 @@ FirebaseAnalyticsObserver observer = FirebaseAnalyticsObserver(analytics: analyt
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   // If you're going to use other Firebase services in the background, such as Firestore,
   // make sure you call `initializeApp` before using other Firebase services.
-  await Firebase.initializeApp();
 
-  print("Handling a background message: ${message.messageId}");
+
+//  print("Handling a background message: ${message.messageId}");
 }
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  if (Firebase.apps.isEmpty) {
+    // No Firebase app is initialized, so we need to initialize it.
+    await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  }
+
   var prefs = await SharedPreferences.getInstance();
   setupFinished = prefs.getBool('setupFinished') ?? false;
   _locale = Locale(prefs.getString('language_code') ?? 'und');
+
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-//  await MobileAds.instance.initialize();
+  MobileAds.instance.initialize();
 
   await Hive.initFlutter();
   Hive.registerAdapter(CoinWalletAdapter());
@@ -84,13 +91,10 @@ void main() async {
 
   var flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
 
-  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
+  final FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
 
-  NotificationSettings settings = await _firebaseMessaging.requestPermission(
+  NotificationSettings settings = await firebaseMessaging.requestPermission(
     alert: true,
     announcement: false,
     badge: true,

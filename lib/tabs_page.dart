@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 
 class TabsPage extends StatefulWidget {
-  TabsPage(this.observer, {Key? key}) : super(key: key);
+  const TabsPage(this.observer, {Key? key}) : super(key: key);
 
   final FirebaseAnalyticsObserver observer;
 

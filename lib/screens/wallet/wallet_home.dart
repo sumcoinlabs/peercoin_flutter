@@ -23,6 +23,10 @@ import '../../widgets/wallet/receive_tab.dart';
 import '../../widgets/wallet/send_tab.dart';
 import '../../widgets/wallet/transactions_list.dart';
 
+import '../../widgets/banner_ad_widget.dart';
+import '../../widgets/native_ad_widget.dart';
+import 'package:visibility_detector/visibility_detector.dart';
+
 class WalletHomeScreen extends StatefulWidget {
   const WalletHomeScreen({Key? key}) : super(key: key);
 
@@ -233,7 +237,7 @@ class _WalletHomeState extends State<WalletHomeScreen>
                 _wallet.letterCode,
                 _appSettings.exchangeRates,
               ) >=
-              1000) {
+              10000) {
         //Coins worth 1000 USD or more
         // ignore: use_build_context_synchronously
         await showDialog(
@@ -484,42 +488,34 @@ class _WalletHomeState extends State<WalletHomeScreen>
     Widget body;
     switch (_pageIndex) {
       case Tabs.receive:
-        body = Expanded(
-          child: ReceiveTab(
-            connectionState: _connectionState,
-            wallet: _wallet,
-            unusedAddress: _unusedAddress,
-          ),
+        body = ReceiveTab(
+          connectionState: _connectionState,
+          wallet: _wallet,
+          unusedAddress: _unusedAddress,
         );
         break;
       case Tabs.transactions:
-        body = Expanded(
-          child: TransactionList(
-            walletTransactions: _walletTransactions,
-            wallet: _wallet,
-            connectionState: _connectionState,
-          ),
+        body = TransactionList(
+          walletTransactions: _walletTransactions,
+          wallet: _wallet,
+          connectionState: _connectionState,
         );
         break;
       case Tabs.addresses:
-        body = Expanded(
-          child: AddressTab(
-            walletName: _wallet.name,
-            title: _wallet.title,
-            walletAddresses: _wallet.addresses,
-            changeIndex: changeIndex,
-          ),
+        body = AddressTab(
+          walletName: _wallet.name,
+          title: _wallet.title,
+          walletAddresses: _wallet.addresses,
+          changeIndex: changeIndex,
         );
         break;
       case Tabs.send:
-        body = Expanded(
-          child: SendTab(
-            address: _address,
-            label: _label,
-            wallet: _wallet,
-            connectionState: _connectionState,
-            changeIndex: changeIndex,
-          ),
+        body = SendTab(
+          address: _address,
+          label: _label,
+          wallet: _wallet,
+          connectionState: _connectionState,
+          changeIndex: changeIndex,
         );
         break;
       default:
@@ -547,7 +543,27 @@ class _WalletHomeState extends State<WalletHomeScreen>
               color: Theme.of(context).primaryColor,
               child: Column(
                 children: [
-                  _calcBody(),
+                  Expanded(
+                    child: _calcBody(),
+                  ),
+                  VisibilityDetector(
+                    key: Key('banner ad detector'),
+                    onVisibilityChanged: (VisibilityInfo info) {
+                      if (info.visibleFraction == 1) {
+                        print('Banner ad is visible');
+                      }
+                    },
+                    child: BannerAdWidget(),
+                  ),
+                  VisibilityDetector(
+                    key: Key('native ad detector'),
+                    onVisibilityChanged: (VisibilityInfo info) {
+                      if (info.visibleFraction == 1) {
+                        print('Native ad is visible');
+                      }
+                    },
+                    child: NativeAdWidget(),
+                  ),
                 ],
               ),
             ),

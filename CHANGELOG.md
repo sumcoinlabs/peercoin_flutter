@@ -1,6 +1,9 @@
+### **0.0.7** (2023-07-30)
+* We squished some bugs and added cool new features
+
 ### **0.0.6** (2023-07-29)
 * Updated dependencies for smoother experience
-* Option to share location to locate Kiosks
+* Option to share location to locate Kiosks To Purchase Sumcoin ** Coming Feature
 
 ### **0.0.4** (2023-07-21)
 * Enforces 256 Entropy - 24 Seed Words

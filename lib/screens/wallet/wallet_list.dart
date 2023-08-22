@@ -25,6 +25,10 @@ import '../../widgets/spinning_sumcoin_icon.dart';
 import '../../widgets/wallet/new_wallet.dart';
 import '../../tools/session_checker.dart';
 import '../../widgets/buttons.dart';
+import '../../widgets/banner_ad_widget.dart';
+import '../../widgets/native_ad_widget.dart';
+import 'package:visibility_detector/visibility_detector.dart';
+
 import '../../widgets/logout_dialog_dummy.dart'
     if (dart.library.html) '../../widgets/logout_dialog.dart';
 
@@ -249,216 +253,215 @@ class _WalletListScreenState extends State<WalletListScreen>
           ? const Center(
               child: SpinningSumcoinIcon(),
             )
-          : Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(10),
-              child: Column(
-                children: [
-                  AnimatedBuilder(
-                    animation: _animation,
-                    builder: (ctx, child) {
-                      return ConstrainedBox(
-                        constraints: const BoxConstraints(
-                          minHeight: 92,
-                        ),
-                        child: Container(
-                          height: _animation.value,
-                          width: _animation.value,
-                          decoration: BoxDecoration(
-                            color: Theme.of(context).shadowColor,
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(50.0)),
-                            border: Border.all(
-                              color: Theme.of(context).colorScheme.background,
-                              width: 2,
+            : Container(
+                width: double.infinity,
+                padding: const EdgeInsets.all(10),
+                child: Column(
+                  children: [
+                    AnimatedBuilder(
+                      animation: _animation,
+                      builder: (ctx, child) {
+                        return ConstrainedBox(
+                          constraints: const BoxConstraints(
+                            minHeight: 92,
+                          ),
+                          child: Container(
+                            height: _animation.value,
+                            width: _animation.value,
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).shadowColor,
+                              borderRadius: const BorderRadius.all(Radius.circular(50.0)),
+                              border: Border.all(
+                                color: Theme.of(context).colorScheme.background,
+                                width: 2,
+                              ),
+                            ),
+                            child: GestureDetector(
+                              onTap: () {
+                                if (!kIsWeb) {
+                                  ShareWrapper.share(
+                                    context: context,
+                                    message: Platform.isAndroid
+                                        ? 'https://play.google.com/store/apps/details?id=com.sumcoinwallet'
+                                        : 'https://apps.apple.com/app/sumcoin-wallet/id6451452746',
+                                  );
+                                }
+                              },
+                              child: Image.asset(
+                                'assets/icon/sum-logo.png',
+                              ),
                             ),
                           ),
-                          child: GestureDetector(
-                            onTap: () {
-                              if (!kIsWeb) {
-                                ShareWrapper.share(
-                                  context: context,
-                                  message: Platform.isAndroid
-                                      ? 'https://play.google.com/store/apps/details?id=com.sumcoinwallet'
-                                      : 'https://apps.apple.com/app/sumcoin-wallet/id',
-                                );
-                              }
-                            },
-                            child: Image.asset(
-                              'assets/icon/sum-logo.png',
-                            ),
-                          ),
+                        );
+                      },
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 16),
+                      child: Text(
+                        'Sumcoin Wallet',
+                        style: TextStyle(
+                          letterSpacing: 1.4,
+                          fontSize: 24,
+                          color: Theme.of(context).colorScheme.background,
                         ),
-                      );
-                    },
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 16),
-                    child: Text(
-                      'Sumcoin Wallet',
-                      style: TextStyle(
-                        letterSpacing: 1.4,
-                        fontSize: 24,
-                        color: Theme.of(context).colorScheme.background,
                       ),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 40,
-                  ),
-                  _activeWalletValues.isEmpty
-                      ? Expanded(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                AppLocalizations.instance
-                                    .translate('wallets_none'),
-                                key: const Key('noActiveWallets'),
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontStyle: FontStyle.italic,
-                                  color:
-                                      Theme.of(context).colorScheme.background,
-                                ),
-                              ),
-                              if (kIsWeb)
-                                const SizedBox(
-                                  height: 20,
-                                ),
-                              if (kIsWeb)
-                                PeerButton(
-                                  text: AppLocalizations.instance
-                                      .translate('add_new_wallet'),
-                                  action: () => showWalletDialog(context),
-                                )
-                            ],
-                          ),
-                        )
-                      : Expanded(
-                          child: SizedBox(
-                            width: MediaQuery.of(context).size.width > 1200
-                                ? MediaQuery.of(context).size.width / 2
-                                : MediaQuery.of(context).size.width,
-                            child: ListView.builder(
-                              itemCount: _activeWalletValues.length,
-                              itemBuilder: (ctx, i) {
-                                CoinWallet wallet = _activeWalletValues[i];
-                                String balance = (wallet.balance /
-                                        AvailableCoins.getDecimalProduct(
-                                          identifier: wallet.name,
-                                        ))
-                                    .toString();
-                                bool showFiat = !wallet.title
-                                        .contains('Testnet') &&
-                                    _appSettings.selectedCurrency.isNotEmpty;
-                                return Card(
-                                  elevation: 0,
-                                  margin: const EdgeInsets.symmetric(
-                                    vertical: 8,
-                                    horizontal: 16,
+                    const SizedBox(
+                      height: 40,
+                    ),
+                    _activeWalletValues.isEmpty
+                        ? Expanded(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  AppLocalizations.instance
+                                      .translate('wallets_none'),
+                                  key: const Key('noActiveWallets'),
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontStyle: FontStyle.italic,
+                                    color:
+                                        Theme.of(context).colorScheme.background,
                                   ),
-                                  color:
-                                      Theme.of(context).colorScheme.background,
-                                  child: Column(
-                                    children: [
-                                      InkWell(
-                                        onTap: () async {
-                                          context.loaderOverlay.show();
-                                          await Navigator.of(context).pushNamed(
-                                            Routes.walletHome,
-                                            arguments: {
-                                              'wallet': wallet,
-                                            },
-                                          );
-                                        },
-                                        child: ListTile(
-                                          leading: CircleAvatar(
-                                            backgroundColor: Colors.white,
-                                            child: Image.asset(
-                                              AvailableCoins.getSpecificCoin(
-                                                wallet.name,
-                                              ).iconPath,
-                                              width: 20,
+                                ),
+                                if (kIsWeb)
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                if (kIsWeb)
+                                  PeerButton(
+                                    text: AppLocalizations.instance
+                                        .translate('add_new_wallet'),
+                                    action: () => showWalletDialog(context),
+                                  )
+                              ],
+                            ),
+                          )
+                        : Expanded(
+                            child: SizedBox(
+                              width: MediaQuery.of(context).size.width > 1200
+                                  ? MediaQuery.of(context).size.width / 2
+                                  : MediaQuery.of(context).size.width,
+                              child: ListView.builder(
+                                itemCount: _activeWalletValues.length,
+                                itemBuilder: (ctx, i) {
+                                  CoinWallet wallet = _activeWalletValues[i];
+                                  String balance = (wallet.balance /
+                                          AvailableCoins.getDecimalProduct(
+                                            identifier: wallet.name,
+                                          ))
+                                      .toString();
+                                  bool showFiat = !wallet.title
+                                          .contains('Testnet') &&
+                                      _appSettings.selectedCurrency.isNotEmpty;
+                                  return Card(
+                                    elevation: 0,
+                                    margin: const EdgeInsets.symmetric(
+                                      vertical: 8,
+                                      horizontal: 16,
+                                    ),
+                                    color:
+                                        Theme.of(context).colorScheme.background,
+                                    child: Column(
+                                      children: [
+                                        InkWell(
+                                          onTap: () async {
+                                            context.loaderOverlay.show();
+                                            await Navigator.of(context).pushNamed(
+                                              Routes.walletHome,
+                                              arguments: {
+                                                'wallet': wallet,
+                                              },
+                                            );
+                                          },
+                                          child: ListTile(
+                                            leading: CircleAvatar(
+                                              backgroundColor: Colors.white,
+                                              child: Image.asset(
+                                                AvailableCoins.getSpecificCoin(
+                                                  wallet.name,
+                                                ).iconPath,
+                                                width: 20,
+                                              ),
                                             ),
-                                          ),
-                                          title: Text(
-                                            wallet.title,
-                                            style: const TextStyle(
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.bold,
-                                              letterSpacing: 1.2,
+                                            title: Text(
+                                              wallet.title,
+                                              style: const TextStyle(
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.bold,
+                                                letterSpacing: 1.2,
+                                              ),
                                             ),
-                                          ),
-                                          subtitle: Row(
-                                            children: [
-                                              Flexible(
-                                                flex: 2,
-                                                child: Text(
-                                                  '$balance ${wallet.letterCode}',
-                                                  style: const TextStyle(
-                                                    fontSize: 13,
-                                                  ),
-                                                  overflow:
-                                                      TextOverflow.visible,
-                                                ),
-                                              ),
-                                              const SizedBox(
-                                                width: 4,
-                                              ),
-                                              if (showFiat) const Text('|'),
-                                              const SizedBox(
-                                                width: 4,
-                                              ),
-                                              if (showFiat)
+                                            subtitle: Row(
+                                              children: [
                                                 Flexible(
+                                                  flex: 2,
                                                   child: Text(
-                                                    '${PriceTicker.renderPrice(
-                                                      double.parse(balance),
-                                                      _appSettings
-                                                          .selectedCurrency,
-                                                      wallet.letterCode,
-                                                      _appSettings
-                                                          .exchangeRates,
-                                                    ).toStringAsFixed(2)} ${_appSettings.selectedCurrency}',
+                                                    '$balance ${wallet.letterCode}',
                                                     style: const TextStyle(
                                                       fontSize: 13,
                                                     ),
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
+                                                    overflow: TextOverflow.visible,
                                                   ),
                                                 ),
-                                            ],
-                                          ),
-                                          trailing: Icon(
-                                            Icons.arrow_forward_ios_rounded,
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .secondary,
+                                                const SizedBox(
+                                                  width: 4,
+                                                ),
+                                                if (showFiat) const Text('|'),
+                                                const SizedBox(
+                                                  width: 4,
+                                                ),
+                                                if (showFiat)
+                                                  Flexible(
+                                                    child: Text(
+                                                      '${PriceTicker.renderPrice(
+                                                        double.parse(balance),
+                                                        _appSettings.selectedCurrency,
+                                                        wallet.letterCode,
+                                                        _appSettings.exchangeRates,
+                                                      ).toStringAsFixed(2)} ${_appSettings.selectedCurrency}',
+                                                      style: const TextStyle(
+                                                        fontSize: 13,
+                                                      ),
+                                                      overflow: TextOverflow.ellipsis,
+                                                    ),
+                                                  ),
+                                              ],
+                                            ),
+                                            trailing: Icon(
+                                              Icons.arrow_forward_ios_rounded,
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .secondary,
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                );
-                              },
+                                      ],
+                                    ),
+                                  );
+                                },
+                              ),
                             ),
                           ),
-                        )
-                ],
-              ),
-            ),
-    );
-  }
 
-  void showWalletDialog(BuildContext context) {
-    if (_initial == false) {
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return const NewWalletDialog();
-        },
-      );
+                          // Add the banner ad widget here.
+                          // This will make it appear at the bottom of the screen.
+                          BannerAdWidget(),
+                        //   NativeAdWidget(),
+                        ],
+                      ),
+                    ),
+            );
+          }
+    void showWalletDialog(BuildContext context) {
+      if (_initial == false) {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return const NewWalletDialog();
+          },
+        );
+      }
     }
   }
-}
