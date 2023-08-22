@@ -261,7 +261,7 @@ class _AboutScreenState extends State<AboutScreen> {
           ),
           // Add the banner ad widget here.
           // This will make it appear at the bottom of the screen.
-          BannerAdWidget(),
+          // BannerAdWidget(),
         //   NativeAdWidget(),
         ],
       ),

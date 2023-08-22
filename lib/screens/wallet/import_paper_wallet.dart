@@ -418,7 +418,7 @@ class _ImportPaperWalletScreenState extends State<ImportPaperWalletScreen> {
           const SizedBox(height: 25),
           // Add the banner ad widget here.
           // This will make it appear at the bottom of the screen.
-          BannerAdWidget(),
+          // BannerAdWidget(),
           //   NativeAdWidget(),
         ],
       ),

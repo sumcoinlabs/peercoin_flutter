@@ -237,8 +237,8 @@ class _WalletHomeState extends State<WalletHomeScreen>
                 _wallet.letterCode,
                 _appSettings.exchangeRates,
               ) >=
-              10000) {
-        //Coins worth 1000 USD or more
+              1000000) {
+        //Coins worth 1,000,000 USD or more
         // ignore: use_build_context_synchronously
         await showDialog(
           context: context,
@@ -553,7 +553,7 @@ class _WalletHomeState extends State<WalletHomeScreen>
                         print('Banner ad is visible');
                       }
                     },
-                    child: BannerAdWidget(),
+                    child:  BannerAdWidget(),
                   ),
                   VisibilityDetector(
                     key: Key('native ad detector'),

@@ -42,6 +42,8 @@
           <string>fetch</string>
           <string>remote-notification</string>
         </array>
+				<key>NSUserNotificationAlertStyle</key>
+		<string>banner</string>
 		<key>GADApplicationIdentifier</key>
     <string>ca-app-pub-1492791099222955~2384302091</string>
 		<key>UILaunchStoryboardName</key>

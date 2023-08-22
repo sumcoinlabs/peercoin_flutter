@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:cryptography_flutter/cryptography_flutter.dart';
 import 'package:flutter/foundation.dart';
@@ -46,6 +47,8 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'tabs_page.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:location/location.dart';
+import 'package:flutter_app_badger/flutter_app_badger.dart';
+
 
 bool setupFinished = false;
 Widget _homeWidget = Container(); // Initialize with an empty Container or any other widget as a placeholder.
@@ -91,6 +94,8 @@ void main() async {
 
   var flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
+  // Reset the badge number for iOS on press
+  FlutterAppBadger.removeBadge();
 
   final FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
 
@@ -108,6 +113,8 @@ void main() async {
 
   FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
     print('A new onMessageOpenedApp event was published!');
+    // Reset the badge number
+    FlutterLocalNotificationsPlugin().cancelAll();
   });
 
 

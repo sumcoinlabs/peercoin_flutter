@@ -282,7 +282,7 @@ class _ImportWifScreenState extends State<ImportWifScreen> {
               // Add some space
               const SizedBox(height: 25),
               // Add the banner ad widget here.
-              BannerAdWidget(),
+              // BannerAdWidget(),
               // Add the native ad widget here.
              // NativeAdWidget(),
             ],

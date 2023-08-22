@@ -1,3 +1,9 @@
+### **0.0.8** (2023-08-22)
+* We squished some bugs 
+* Fixed issue where badge count was not resetting
+* Increased Height of High Balance Notification
+* Addressed issue where new users were not able to toggle price feed
+
 ### **0.0.7** (2023-07-30)
 * We squished some bugs and added cool new features
 

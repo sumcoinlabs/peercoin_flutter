@@ -26,8 +26,8 @@ class _SetupDataFeedsScreenState extends State<SetupDataFeedsScreen> {
         : throw 'Could not launch $url';
   }
 
-  bool _dataFeedAllowed = true;
-  bool _bgSyncdAllowed = true;
+  bool _dataFeedAllowed = false;
+  bool _bgSyncdAllowed = false;
   bool _initial = true;
   late AppSettings _settings;
 

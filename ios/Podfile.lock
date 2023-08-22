@@ -628,7 +628,7 @@ PODS:
     - abseil/base/base_internal
     - abseil/base/config
     - abseil/meta/type_traits
-  - background_fetch (1.1.6):
+  - background_fetch (1.2.1):
     - Flutter
   - BoringSSL-GRPC (0.0.24):
     - BoringSSL-GRPC/Implementation (= 0.0.24)
@@ -638,7 +638,7 @@ PODS:
   - BoringSSL-GRPC/Interface (0.0.24)
   - camera_avfoundation (0.0.1):
     - Flutter
-  - cloud_firestore (4.8.4):
+  - cloud_firestore (4.8.5):
     - Firebase/Firestore (= 10.12.0)
     - firebase_core
     - Flutter
@@ -710,34 +710,34 @@ PODS:
   - Firebase/Performance (10.12.0):
     - Firebase/CoreOnly
     - FirebasePerformance (~> 10.12.0)
-  - firebase_analytics (10.4.4):
+  - firebase_analytics (10.4.5):
     - Firebase/Analytics (= 10.12.0)
     - firebase_core
     - Flutter
-  - firebase_core (2.15.0):
+  - firebase_core (2.15.1):
     - Firebase/CoreOnly (= 10.12.0)
     - Flutter
-  - firebase_crashlytics (3.3.4):
+  - firebase_crashlytics (3.3.5):
     - Firebase/Crashlytics (= 10.12.0)
     - firebase_core
     - Flutter
-  - firebase_database (10.2.4):
+  - firebase_database (10.2.5):
     - Firebase/Database (= 10.12.0)
     - firebase_core
     - Flutter
-  - firebase_dynamic_links (5.3.4):
+  - firebase_dynamic_links (5.3.5):
     - Firebase/DynamicLinks (= 10.12.0)
     - firebase_core
     - Flutter
-  - firebase_in_app_messaging (0.7.3-4):
+  - firebase_in_app_messaging (0.7.3-5):
     - Firebase/InAppMessaging (= 10.12.0)
     - firebase_core
     - Flutter
-  - firebase_messaging (14.6.5):
+  - firebase_messaging (14.6.6):
     - Firebase/Messaging (= 10.12.0)
     - firebase_core
     - Flutter
-  - firebase_performance (0.9.2-4):
+  - firebase_performance (0.9.2-5):
     - Firebase/Performance (= 10.12.0)
     - firebase_core
     - Flutter
@@ -840,6 +840,8 @@ PODS:
     - nanopb (< 2.30910.0, >= 2.30908.0)
     - PromisesSwift (~> 2.1)
   - Flutter (1.0.0)
+  - flutter_app_badger (1.3.0):
+    - Flutter
   - flutter_keyboard_visibility (0.0.1):
     - Flutter
   - flutter_local_notifications (0.0.1):
@@ -1020,6 +1022,7 @@ DEPENDENCIES:
   - firebase_messaging (from `.symlinks/plugins/firebase_messaging/ios`)
   - firebase_performance (from `.symlinks/plugins/firebase_performance/ios`)
   - Flutter (from `Flutter`)
+  - flutter_app_badger (from `.symlinks/plugins/flutter_app_badger/ios`)
   - flutter_keyboard_visibility (from `.symlinks/plugins/flutter_keyboard_visibility/ios`)
   - flutter_local_notifications (from `.symlinks/plugins/flutter_local_notifications/ios`)
   - flutter_logs (from `.symlinks/plugins/flutter_logs/ios`)
@@ -1107,6 +1110,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/firebase_performance/ios"
   Flutter:
     :path: Flutter
+  flutter_app_badger:
+    :path: ".symlinks/plugins/flutter_app_badger/ios"
   flutter_keyboard_visibility:
     :path: ".symlinks/plugins/flutter_keyboard_visibility/ios"
   flutter_local_notifications:
@@ -1142,24 +1147,24 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   abseil: 926fb7a82dc6d2b8e1f2ed7f3a718bce691d1e46
-  background_fetch: bc9b44b0bf8b434e282a2ac9be8662800a0296ed
+  background_fetch: 896944864b038d2837fc750d470e9841e1e6a363
   BoringSSL-GRPC: 3175b25143e648463a56daeaaa499c6cb86dad33
   camera_avfoundation: 3125e8cd1a4387f6f31c6c63abb8a55892a9eeeb
-  cloud_firestore: 005e157ad342dbfb2e461cb111a9020aa71bfb22
+  cloud_firestore: c556fefce96568e422e453bf9aeda683dd435367
   connectivity_plus: 413a8857dd5d9f1c399a39130850d02fe0feaf7e
   cryptography_flutter: 381bdacc984abcfbe3ca45ef7c76566ff061614c
   DKImagePickerController: b512c28220a2b8ac7419f21c491fc8534b7601ac
   DKPhotoGallery: fdfad5125a9fdda9cc57df834d49df790dbb4179
   file_picker: ce3938a0df3cc1ef404671531facef740d03f920
   Firebase: 07150e75d142fb9399f6777fa56a187b17f833a0
-  firebase_analytics: 3ff822ee2e90f95b61f0da300df20b378d380fbb
-  firebase_core: e477125798fc37cd4ab43ca6a8536bf7e0929c00
-  firebase_crashlytics: 6043ce85800f96e53f15ee5051f9cfad10cce73d
-  firebase_database: 37ea2144bf40525d3ae4df40f70ae4bc3db715a5
-  firebase_dynamic_links: d85cf455646322fd101c8a5a5942c3d47132fe80
-  firebase_in_app_messaging: ff7b654464edcaf3b1a4adbe4ac4a655814b123c
-  firebase_messaging: 334d68c3a36b6d4d5cd91e4f42509e0d4ae49828
-  firebase_performance: 32e9164da8ae1cc69ee3edff231e2f020be9b6c2
+  firebase_analytics: 3bdcd8b68b7b8ccf28bbcdcfb994309f6232f873
+  firebase_core: 4a3246a02f828a01c74a2c26427037786d90f17f
+  firebase_crashlytics: df144edf7d04ace42beb3a3e29d825bfa49dd04b
+  firebase_database: ae8b70d7f5867c5f65a08353d81521896d850771
+  firebase_dynamic_links: cc3fd36190c7b58c27353915271d2c0d031ee11b
+  firebase_in_app_messaging: aebdbc10109a0ce44a3294f4ea57ed89ebe1d8bd
+  firebase_messaging: 13b378c8449cae7ec96c79570170943dd73d4738
+  firebase_performance: 9277c037aba44142df6dc5f5b1b184168f36973a
   FirebaseABTesting: 09c328e6a86d562b4e1146c8a9073deadc566b77
   FirebaseAnalytics: 0270389efbe3022b54ec4588862dabec3477ee98
   FirebaseCore: f86a1394906b97ac445ae49c92552a9425831bed
@@ -1176,6 +1181,7 @@ SPEC CHECKSUMS:
   FirebaseRemoteConfig: bc7f260e6596956fafbb532443c19bd3c30f5258
   FirebaseSessions: a4ee211eeb31a2224cd8d9d4e30a0fccde9aa00c
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
+  flutter_app_badger: b87fc231847b03b92ce1412aa351842e7e97932f
   flutter_keyboard_visibility: 0339d06371254c3eb25eeb90ba8d17dca8f9c069
   flutter_local_notifications: 0c0b1ae97e741e1521e4c1629a459d04b9aec743
   flutter_logs: 5d0dca26963e0f30b11a995a764744ef77d5d428
