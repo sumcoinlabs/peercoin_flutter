@@ -52,7 +52,7 @@ void main() async {
     Hive.registerAdapter(WalletUtxoAdapter());
     await wallet.init();
     wallet.addWallet(walletName, walletName, 'SUM');
-    wallet.addWallet(testnetWalletName, testnetWalletName, 'tSUM');
+    wallet.addWallet(testnetWalletName, testnetWalletName, 'SUM');
   });
 
   tearDownAll(() async {

@@ -222,7 +222,7 @@
     "import_wif_textfield_label": "Keɓaɓɓen key",
     "paperwallet_step_2_text": "Dauki Kebabban key",
     "paperwallet_step_1_text": "Dauki public key",
-    "receive_obtain": "Samu tSUM",
+    "receive_obtain": "Samu SUM",
     "scan_qr": "Dauki QR-Code",
     "send_fee": "Kudin: -$amount $letter_code",
     "send_invalid_address": "Adireshin Bashida inganci",

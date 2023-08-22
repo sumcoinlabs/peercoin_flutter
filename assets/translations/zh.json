@@ -256,7 +256,7 @@
     "import_wif_hint": "从seed恢复钱包时，必须再次导入密钥。它未连接到seed上。",
     "import_wif_intro": "请输入要导入的私钥。\n它需要WIF格式。",
     "receive_faucet": "打开水龙头",
-    "receive_obtain": "获取tSUM",
+    "receive_obtain": "获取SUM",
     "send_empty": "空钱包",
     "send_label": "标签（可选）",
     "send_qr": "二维码",

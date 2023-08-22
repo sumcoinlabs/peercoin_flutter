@@ -2,6 +2,9 @@ import 'package:collection/collection.dart' show IterableExtension;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../widgets/banner_ad_widget.dart';
+import '../../widgets/native_ad_widget.dart';
+
 import '../../models/server.dart';
 import '../../providers/electrum_connection.dart';
 import '../../widgets/service_container.dart';

@@ -83,7 +83,7 @@ class _SetupCreateWalletScreenState extends State<SetupCreateWalletScreen> {
     if (_initial) {
       _activeWallets = Provider.of<ActiveWallets>(context);
       createWallet(context);
-      WidgetsBinding.instance!.addPostFrameCallback((_) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
         recreatePhrase(24);
       });
       setState(() {

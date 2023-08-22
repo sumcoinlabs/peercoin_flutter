@@ -233,7 +233,7 @@
     "paperwallet_error_1": "Lommeboken er tom\neller beløp under minimum for sending",
     "paperwallet_step_2_text": "Skann privat nøkkel",
     "paperwallet_step_4_text": "Sveip Papirlommebok",
-    "receive_obtain": "Skaff tSUM",
+    "receive_obtain": "Skaff SUM",
     "receive_website_credit": "Kjøp med kredittkort",
     "receive_website_description": "Du kan kjøpe Sumcoin direkte med kredittkort (ikke amerikanske kunder) eller fra ulike børser og tjenester.",
     "send_amount_below_minimum_unable": "Minimum for å sende er $amount.\nDu har ikke nok midler til å betale for gebyret.",

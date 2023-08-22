@@ -293,7 +293,7 @@ class _ReceiveTabState extends State<ReceiveTab> {
                 ),
               ),
             ),
-            widget.wallet.title.contains('Testnet')
+            widget.wallet.title.contains('Sumcoin')
                 ? Align(
                     child: PeerContainer(
                       child: Column(

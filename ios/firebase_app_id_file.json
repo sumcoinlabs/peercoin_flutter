@@ -1,7 +1,7 @@
 {
   "file_generated_by": "FlutterFire CLI",
   "purpose": "FirebaseAppID & ProjectID for this Firebase app in this directory",
-  "GOOGLE_APP_ID": "1:275981907707:ios:8e4ea442d06c60c267625e",
-  "FIREBASE_PROJECT_ID": "sumcoin-wallet",
-  "GCM_SENDER_ID": "275981907707"
+  "GOOGLE_APP_ID": "1:550596975589:ios:45a60116f80e65ffd5ad0c",
+  "FIREBASE_PROJECT_ID": "sumcoinwallet-com",
+  "GCM_SENDER_ID": "550596975589"
 }

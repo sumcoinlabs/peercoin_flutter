@@ -5,6 +5,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../../widgets/banner_ad_widget.dart';
+import '../../widgets/native_ad_widget.dart';
+
 import '../../models/available_coins.dart';
 import '../../models/coin.dart';
 import '../../tools/app_localizations.dart';
@@ -309,7 +312,13 @@ class _WaleltMessagesVerificationScreenState
                 ),
               ),
             ),
-          )
+          ),
+          // Add some space
+          const SizedBox(height: 25),
+          // Add the banner ad widget here.
+          BannerAdWidget(),
+          // Add the native ad widget here.
+         // NativeAdWidget(),
         ],
       ),
     );

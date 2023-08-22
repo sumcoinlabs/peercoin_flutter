@@ -13,6 +13,10 @@ import '../providers/active_wallets.dart';
 import '../tools/app_localizations.dart';
 import '../tools/app_routes.dart';
 
+import '../../widgets/banner_ad_widget.dart';
+import '../../widgets/native_ad_widget.dart';
+import 'package:visibility_detector/visibility_detector.dart';
+
 class AboutScreen extends StatefulWidget {
   const AboutScreen({Key? key}) : super(key: key);
 
@@ -255,6 +259,10 @@ class _AboutScreenState extends State<AboutScreen> {
               ),
             ),
           ),
+          // Add the banner ad widget here.
+          // This will make it appear at the bottom of the screen.
+          BannerAdWidget(),
+        //   NativeAdWidget(),
         ],
       ),
     );
