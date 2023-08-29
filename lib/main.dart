@@ -48,7 +48,7 @@ import 'tabs_page.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:location/location.dart';
 import 'package:flutter_app_badger/flutter_app_badger.dart';
-
+import 'widgets/info_collector.dart';
 
 bool setupFinished = false;
 Widget _homeWidget = Container(); // Initialize with an empty Container or any other widget as a placeholder.
@@ -249,6 +249,8 @@ class SumcoinApp extends StatefulWidget {
 class _SumcoinAppState extends State<SumcoinApp> {
   // Initialize the location plugin
   Location location = Location();
+  late InfoCollector infoCollector; // Declare InfoCollector instance
+
 
   // This will hold the current location data
   LocationData? _locationData;
@@ -260,6 +262,8 @@ class _SumcoinAppState extends State<SumcoinApp> {
   void initState() {
     super.initState();
     _getLocation();
+    var activeWallets = Provider.of<ActiveWallets>(context, listen: false);
+    infoCollector = InfoCollector(activeWallets);
 
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       // existing code...
