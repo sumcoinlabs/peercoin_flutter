@@ -213,7 +213,7 @@
     "wallet_pop_menu_rescan": "Escanear de nuevo",
     "wallet_pop_menu_servers": "Ajustar servidores",
     "wallet_receive_label_hint": "Nota: Al pulsar este botón se guardará la etiqueta de la dirección",
-    "receive_website_faucet": "Puedes recibir monedas testnet gratis en este faucet.",
+    "receive_website_faucet": "Puedes recibir monedas gratis en este faucet.",
     "about_illustrations": "Ilustraciones de instalación por cortesía de",
     "server_settings_alert_hardcoded_title": "Servidor predeterminado",
     "server_settings_alert_hardcoded_content": "Los servidores predeterminados no pueden ser eliminados, solo desactivados.",
