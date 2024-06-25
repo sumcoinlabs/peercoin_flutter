@@ -3,7 +3,7 @@ import 'package:test/test.dart';
 
 void main() {
   const seedPhrase =
-      "vapor please suffer wood enrich quality position chest quantum fog rival museum";
+      'vapor please suffer wood enrich quality position chest quantum fog rival museum';
 
   group(
     'Setup, Signing and Settings',
@@ -12,14 +12,17 @@ void main() {
       late FlutterDriver driver;
 
       Future<FlutterDriver> setupAndGetDriver() async {
-        var driver = await FlutterDriver.connect();
+        var driver = await FlutterDriver.connect(
+          timeout: const Duration(minutes: 20),
+        );
         var connected = false;
         while (!connected) {
           try {
             await driver.waitUntilFirstFrameRasterized();
             connected = true;
-            // ignore: empty_catches
-          } catch (error) {}
+          } catch (error) {
+            throw Exception('Driver not connected, ${error.toString()}');
+          }
         }
         return driver;
       }
@@ -37,8 +40,9 @@ void main() {
       test(
         'Setup, create wallet from imported seed',
         () async {
-          //creates a sumcoin testnet wallet from an imported seed and checks if it connects
+          //creates a peercoin testnet wallet from an imported seed and checks if it connects
           await driver.tap(find.byValueKey('setupLanguageButton'));
+          await driver.scrollIntoView(find.text('English'));
           await driver.tap(find.text('English'));
           await driver.tap(find.pageBack());
           await driver.scrollIntoView(find.text('Import Seed'));
@@ -66,7 +70,6 @@ void main() {
           await driver.tap(find.byValueKey('setupLegalConsentKey'));
           await driver.scrollIntoView(find.text('Finish Setup'));
           await driver.tap(find.text('Finish Setup'));
-          await driver.tap(find.pageBack());
           await driver.runUnsynchronized(
             () async {
               expect(
@@ -83,34 +86,32 @@ void main() {
       );
 
       test(
-        'Setup, tap into imported sumcoin testnet wallet',
+        'Scan for used wallets in this seed',
         () async {
-          await driver.runUnsynchronized(
-            () async {
-              await driver.tap(find.byValueKey('newWalletIconButton'));
-              await driver.tap(find.text('Sumcoin Testnet'));
-              await driver.tap(
-                find.text('Okay'),
-                timeout: const Duration(minutes: 15),
-              );
-              await driver.tap(
-                find.text('Sumcoin Testnet'),
-                timeout: const Duration(minutes: 15),
-              ); //tap into wallet
-              expect(await driver.getText(find.text('connected')), 'connected');
-            },
-            timeout: const Duration(
-              minutes: 15,
-            ),
-          );
+          await driver.runUnsynchronized(() async {
+            await driver.tap(find.byValueKey('scanForWalletsButton'));
+            await driver.waitFor(find.text('2 new wallets found'));
+            await driver.tap(find.text('Close'));
+            expect(
+              await driver.getText(find.text('Peercoin Testnet')),
+              'Peercoin Testnet',
+            );
+            expect(
+              await driver.getText(find.text('Peercoin')),
+              'Peercoin',
+            );
+          });
         },
-        retry: 2,
-        timeout: const Timeout.factor(2),
+        timeout: const Timeout.factor(3),
       );
 
       test(
           'Message signing, tap into sign message, select address and sign message',
           () async {
+        await driver.runUnsynchronized(() async {
+          await driver.tap(find.text('Peercoin Testnet'));
+        });
+        await driver.getText(find.text('Scanning this Wallet'));
         await driver.tap(find.byTooltip('Show menu'));
         await driver.runUnsynchronized(
           () async {
@@ -127,7 +128,7 @@ void main() {
         await driver.tap(find.text('Sign'));
         await driver.waitFor(
           find.text(
-            'Hyd9cBXuT9CMgE8sK7YNeLQF1qaLxjQCMQv3pwKXCGdpOurIceSiuHfgXCnEtAhExq6iP/+vMn6sYC5OfpSBhRc=',
+            'H3MNJlX9KH1WRGRRAikVRFBfXRDkjslmz95fCwngYdfvDLn8rJ2D1JWIKxQ1OatvvngjhCCZbF6Elt47CaTg24w=',
           ),
         );
       });
@@ -151,7 +152,7 @@ void main() {
         );
         await driver.tap(find.byValueKey('verifSignatureInput'));
         await driver.enterText(
-          'Hyd9cBXuT9CMgE8sK7YNeLQF1qaLxjQCMQv3pwKXCGdpOurIceSiuHfgXCnEtAhExq6iP/+vMn6sYC5OfpSBhRc=',
+          'H3MNJlX9KH1WRGRRAikVRFBfXRDkjslmz95fCwngYdfvDLn8rJ2D1JWIKxQ1OatvvngjhCCZbF6Elt47CaTg24w=',
         );
         await driver.tap(find.text('Verify'));
         await driver.waitFor(
@@ -162,11 +163,11 @@ void main() {
 
         //restart
         await driver.tap(find.byValueKey('verifyRestart'));
-        expect(await driver.getText(find.byValueKey('verifyAddressInput')), "");
-        expect(await driver.getText(find.byValueKey('verifyMessageInput')), "");
+        expect(await driver.getText(find.byValueKey('verifyAddressInput')), '');
+        expect(await driver.getText(find.byValueKey('verifyMessageInput')), '');
         expect(
           await driver.getText(find.byValueKey('verifSignatureInput')),
-          "",
+          '',
         );
 
         await driver.tap(find.byValueKey('verifyAddressInput'));
@@ -197,7 +198,8 @@ void main() {
             await driver.tap(find.byValueKey('appSettingsButton'));
           },
         );
-        await driver.tap(find.text('Seed phrase'));
+        await driver.scrollIntoView(find.text('Seed Phrase'));
+        await driver.tap(find.text('Seed Phrase'));
         await driver.tap(find.text('Reveal seed phrase'));
 
         //tap wrong code two times
@@ -234,7 +236,8 @@ void main() {
             await driver.tap(find.byValueKey('appSettingsButton'));
           },
         );
-        await driver.tap(find.text('Seed phrase'));
+        await driver.scrollIntoView(find.text('Seed Phrase'));
+        await driver.tap(find.text('Seed Phrase'));
         await driver.tap(find.text('Reveal seed phrase'));
         await driver.runUnsynchronized(
           () async {
@@ -250,32 +253,98 @@ void main() {
         'Settings, change pin',
         () async {
           await driver.tap(find.text('Authentication'));
-          await driver.tap(find.text('Reveal authentication options'));
-          for (var i = 1; i <= 6; i++) {
-            await driver.tap(find.text('0'));
-          }
+          await driver.runUnsynchronized(
+            () async {
+              for (var i = 1; i <= 6; i++) {
+                await driver.tap(find.text('0'));
+              }
+            },
+          );
           await driver.tap(find.text('Change PIN'));
-          for (var i = 1; i <= 6; i++) {
-            await driver.tap(find.text('0'));
-          }
-          for (var i = 1; i <= 12; i++) {
-            await driver.tap(find.text('1'));
-          }
+          await driver.runUnsynchronized(() async {
+            for (var i = 1; i <= 6; i++) {
+              await driver.tap(find.text('0'));
+            }
+          });
+          await driver.runUnsynchronized(() async {
+            for (var i = 1; i <= 12; i++) {
+              await driver.tap(find.text('1'));
+            }
+          });
           // final pixels = await driver.screenshot();
           // final file = File('shot.png');
           // await file.writeAsBytes(pixels);
           await driver.runUnsynchronized(() async {
             await driver.tap(find.pageBack());
+            await driver.tap(find.pageBack());
             await driver.tap(find.byValueKey('appSettingsButton'));
           });
-          await driver.tap(find.text('Seed phrase'));
+          await driver.scrollIntoView(find.text('Seed Phrase'));
+          await driver.tap(find.text('Seed Phrase'));
           await driver.tap(find.text('Reveal seed phrase'));
-          for (var i = 1; i <= 6; i++) {
-            await driver.tap(find.text('1'));
-          }
+          await driver.runUnsynchronized(() async {
+            for (var i = 1; i <= 6; i++) {
+              await driver.tap(find.text('1'));
+            }
+          });
         },
         timeout: const Timeout.factor(2),
       );
+
+      test('Settings, change language from EN to DE', () async {
+        await driver.scrollIntoView(find.text('Language'));
+        await driver.tap(find.text('Language'));
+        await driver.tap(find.byTooltip('Click here to start search'));
+        await driver.tap(find.byType('TextField'));
+        await driver.enterText('Deut');
+        await driver.tap(find.text('Deutsch'));
+        await driver.runUnsynchronized(() async {
+          await driver.tap(find.pageBack());
+          await driver.tap(find.pageBack());
+        });
+      });
+
+      test('Settings, change language back to EN', () async {
+        await driver.scrollIntoView(find.text('Sprachen'));
+        await driver.tap(find.text('Sprachen'));
+        await driver.scrollIntoView(find.text('English'));
+        await driver.tap(find.text('English'));
+      });
+
+      test('Settings, check changelog', () async {
+        await driver.tap(find.pageBack());
+        await driver.tap(find.byValueKey('aboutButton'));
+        await driver.tap(find.text('Changelog'));
+        await driver.waitFor(find.text("What's new?"));
+        await driver.tap(find.pageBack());
+        await driver.tap(find.pageBack());
+        await driver.tap(find.pageBack());
+      });
+
+      test('Wallets, try reset', () async {
+        await driver.runUnsynchronized(() async {
+          await driver.tap(find.text('Peercoin Testnet'));
+        });
+        await driver.tap(find.byTooltip('Show menu'));
+        await driver.tap(find.text('Reset'));
+        await driver.tap(find.text('Reset'));
+
+        //Wallets, try opening sweep paper wallets, closing, and see if wallet is still connected',
+        await driver.runUnsynchronized(() async {
+          await driver.tap(find.byTooltip('Show menu'));
+          await driver.tap(find.text('Sweep Paper Wallet'));
+        });
+        await driver.tap(find.pageBack());
+        await driver.waitFor(find.text('connected'));
+
+        await driver.tap(find.pageBack());
+        await driver.runUnsynchronized(() async {
+          await driver.waitFor(find.text('Peercoin Wallet'));
+        });
+      });
+    },
+    onPlatform: {
+      'android': const Timeout.factor(2),
     },
   );
 }

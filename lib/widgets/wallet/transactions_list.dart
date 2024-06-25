@@ -4,11 +4,11 @@ import 'package:step_progress_indicator/step_progress_indicator.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/available_coins.dart';
-import '../../models/coin_wallet.dart';
-import '../../providers/electrum_connection.dart';
-import '/../providers/active_wallets.dart';
+import '../../models/hive/coin_wallet.dart';
+import '../../providers/connection_provider.dart';
+import '../../providers/wallet_provider.dart';
 import '/../tools/app_localizations.dart';
-import '/../models/wallet_transaction.dart';
+import '/../models/hive/wallet_transaction.dart';
 import '/../tools/app_routes.dart';
 import '/../widgets/wallet/wallet_balance_header.dart';
 import '/../widgets/service_container.dart';
@@ -16,14 +16,14 @@ import '/../widgets/service_container.dart';
 class TransactionList extends StatefulWidget {
   final List<WalletTransaction> walletTransactions;
   final CoinWallet wallet;
-  final ElectrumConnectionState connectionState;
+  final BackendConnectionState connectionState;
 
   const TransactionList({
     required this.walletTransactions,
     required this.wallet,
     required this.connectionState,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<TransactionList> createState() => _TransactionListState();
@@ -48,9 +48,10 @@ class _TransactionListState extends State<TransactionList> {
   }
 
   String resolveAddressDisplayName(String address) {
-    final result = context
-        .read<ActiveWallets>()
-        .getLabelForAddress(widget.wallet.name, address);
+    final result = context.read<WalletProvider>().getLabelForAddress(
+          widget.wallet.name,
+          address,
+        );
     if (result != '') return result;
     return address;
   }
@@ -59,14 +60,14 @@ class _TransactionListState extends State<TransactionList> {
     if (tx.confirmations == -1) {
       return const Text(
         'X',
-        textScaleFactor: 0.9,
+        textScaler: TextScaler.linear(0.9),
         style: TextStyle(color: Colors.red),
       );
     }
     return tx.broadCasted == false
         ? Text(
             '?',
-            textScaleFactor: 0.9,
+            textScaler: const TextScaler.linear(0.9),
             style: TextStyle(
               color: Theme.of(context).colorScheme.secondary,
             ),
@@ -131,7 +132,7 @@ class _TransactionListState extends State<TransactionList> {
                       style: TextStyle(
                         fontSize: 16,
                         fontStyle: FontStyle.italic,
-                        color: Theme.of(context).colorScheme.background,
+                        color: Theme.of(context).colorScheme.surface,
                       ),
                     ),
                   ),
@@ -168,12 +169,12 @@ class _TransactionListState extends State<TransactionList> {
                             child: Card(
                               elevation: 0,
                               child: ListTile(
-                                horizontalTitleGap: 32.0,
+                                horizontalTitleGap: 16,
                                 onTap: () => Navigator.of(context).pushNamed(
                                   Routes.transaction,
                                   arguments: {
                                     'tx': filteredTx[i - 1],
-                                    'wallet': widget.wallet
+                                    'wallet': widget.wallet,
                                   },
                                 ),
                                 leading: Column(
@@ -193,7 +194,7 @@ class _TransactionListState extends State<TransactionList> {
                                         filteredTx[i - 1].timestamp != 0
                                             ? DateTime
                                                 .fromMillisecondsSinceEpoch(
-                                                filteredTx[i - 1].timestamp! *
+                                                filteredTx[i - 1].timestamp *
                                                     1000,
                                               )
                                             : DateTime.now(),
@@ -204,15 +205,15 @@ class _TransactionListState extends State<TransactionList> {
                                                 ? FontWeight.w500
                                                 : FontWeight.w300,
                                       ),
-                                      textScaleFactor: 0.8,
-                                    )
+                                      textScaler: const TextScaler.linear(0.8),
+                                    ),
                                   ],
                                 ),
                                 title: Center(
                                   child: Text(
                                     filteredTx[i - 1].txid,
                                     overflow: TextOverflow.ellipsis,
-                                    textScaleFactor: 0.9,
+                                    textScaler: const TextScaler.linear(0.9),
                                   ),
                                 ),
                                 subtitle: Center(
@@ -221,7 +222,7 @@ class _TransactionListState extends State<TransactionList> {
                                       filteredTx[i - 1].address,
                                     ),
                                     overflow: TextOverflow.ellipsis,
-                                    textScaleFactor: 1,
+                                    textScaler: const TextScaler.linear(1),
                                   ),
                                 ),
                                 trailing: Column(
@@ -262,7 +263,7 @@ class _TransactionListState extends State<TransactionList> {
                                           )
                                         : const SizedBox(
                                             height: 0,
-                                          )
+                                          ),
                                   ],
                                 ),
                               ),
@@ -277,19 +278,7 @@ class _TransactionListState extends State<TransactionList> {
                                     ? 125
                                     : 110,
                               ),
-                              Container(
-                                height: 30,
-                                decoration: BoxDecoration(
-                                  gradient: LinearGradient(
-                                    colors: [
-                                      BottomAppBarTheme.of(context).color!,
-                                      Theme.of(context).primaryColor,
-                                    ],
-                                    begin: Alignment.topCenter,
-                                    end: Alignment.bottomCenter,
-                                  ),
-                                ),
-                              ),
+                              const GradientContainer(),
                               Container(
                                 color: Theme.of(context).primaryColor,
                                 width: MediaQuery.of(context).size.width,
@@ -300,7 +289,7 @@ class _TransactionListState extends State<TransactionList> {
                                       ChoiceChip(
                                         backgroundColor: Theme.of(context)
                                             .colorScheme
-                                            .background,
+                                            .surface,
                                         selectedColor:
                                             Theme.of(context).shadowColor,
                                         visualDensity: const VisualDensity(
@@ -322,7 +311,7 @@ class _TransactionListState extends State<TransactionList> {
                                       ChoiceChip(
                                         backgroundColor: Theme.of(context)
                                             .colorScheme
-                                            .background,
+                                            .surface,
                                         selectedColor:
                                             Theme.of(context).shadowColor,
                                         visualDensity: const VisualDensity(
@@ -344,7 +333,7 @@ class _TransactionListState extends State<TransactionList> {
                                       ChoiceChip(
                                         backgroundColor: Theme.of(context)
                                             .colorScheme
-                                            .background,
+                                            .surface,
                                         selectedColor:
                                             Theme.of(context).shadowColor,
                                         visualDensity: const VisualDensity(
@@ -370,7 +359,7 @@ class _TransactionListState extends State<TransactionList> {
                               Container(
                                 height: 10,
                                 color: Theme.of(context).primaryColor,
-                              )
+                              ),
                             ],
                           );
                         } else {

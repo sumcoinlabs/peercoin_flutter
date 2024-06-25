@@ -1,22 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:sumcoin/providers/electrum_connection.dart';
-import 'package:sumcoin/widgets/double_tab_to_clipboard.dart';
+import 'package:peercoin/providers/connection_provider.dart';
+import 'package:peercoin/widgets/double_tab_to_clipboard.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
-import '../../widgets/banner_ad_widget.dart';
-import '../../widgets/native_ad_widget.dart';
-
 import '../../models/available_coins.dart';
-import '../../models/coin_wallet.dart';
-import '../../models/wallet_transaction.dart';
+import '../../models/hive/coin_wallet.dart';
+import '../../models/hive/wallet_transaction.dart';
 import '../../tools/app_localizations.dart';
 import '../../widgets/buttons.dart';
 import '../../widgets/service_container.dart';
 
 class TransactionDetails extends StatelessWidget {
-  const TransactionDetails({Key? key}) : super(key: key);
+  const TransactionDetails({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +46,7 @@ class TransactionDetails extends StatelessWidget {
                     AppLocalizations.instance.translate('id'),
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  SelectableText(tx.txid)
+                  SelectableText(tx.txid),
                 ],
               ),
               const Divider(),
@@ -61,14 +58,14 @@ class TransactionDetails extends StatelessWidget {
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                   SelectableText(
-                    tx.timestamp! != 0
+                    tx.timestamp != 0
                         ? DateFormat().format(
                             DateTime.fromMillisecondsSinceEpoch(
-                              tx.timestamp! * 1000,
+                              tx.timestamp * 1000,
                             ),
                           )
                         : AppLocalizations.instance.translate('unconfirmed'),
-                  )
+                  ),
                 ],
               ),
               const Divider(),
@@ -81,7 +78,7 @@ class TransactionDetails extends StatelessWidget {
                   ),
                   SelectableText(
                     '${tx.value / decimalProduct} ${coinWallet.letterCode}',
-                  )
+                  ),
                 ],
               ),
               tx.direction == 'out'
@@ -95,7 +92,7 @@ class TransactionDetails extends StatelessWidget {
                         ),
                         SelectableText(
                           '${tx.fee / decimalProduct} ${coinWallet.letterCode}',
-                        )
+                        ),
                       ],
                     )
                   : Container(),
@@ -111,7 +108,7 @@ class TransactionDetails extends StatelessWidget {
                     tx: tx,
                     letterCode: coinWallet.letterCode,
                     decimalProduct: decimalProduct,
-                  )
+                  ),
                 ],
               ),
               const Divider(),
@@ -122,7 +119,7 @@ class TransactionDetails extends StatelessWidget {
                     AppLocalizations.instance.translate('tx_direction'),
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  SelectableText(tx.direction)
+                  SelectableText(tx.direction),
                 ],
               ),
               const Divider(),
@@ -137,7 +134,7 @@ class TransactionDetails extends StatelessWidget {
                     tx.confirmations == -1
                         ? AppLocalizations.instance.translate('tx_rejected')
                         : tx.confirmations.toString(),
-                  )
+                  ),
                 ],
               ),
               tx.opReturn.isNotEmpty
@@ -151,7 +148,7 @@ class TransactionDetails extends StatelessWidget {
                           ),
                           style: const TextStyle(fontWeight: FontWeight.bold),
                         ),
-                        SelectableText(tx.opReturn)
+                        SelectableText(tx.opReturn),
                       ],
                     )
                   : const SizedBox(),
@@ -168,10 +165,11 @@ class TransactionDetails extends StatelessWidget {
                       children: [
                         DoubleTabToClipboard(
                           clipBoardData: tx.broadcastHex,
-                          child: Text(
+                          withHintText: true,
+                          child: SelectableText(
                             tx.broadcastHex,
                           ),
-                        )
+                        ),
                       ],
                     )
                   : const SizedBox(),
@@ -180,7 +178,7 @@ class TransactionDetails extends StatelessWidget {
                   ? Center(
                       child: PeerButton(
                         action: () {
-                          Provider.of<ElectrumConnection>(
+                          Provider.of<ConnectionProvider>(
                             context,
                             listen: false,
                           ).broadcastTransaction(
@@ -213,12 +211,6 @@ class TransactionDetails extends StatelessWidget {
                         ),
                       ),
                     ),
-                    // Add some space
-                    const SizedBox(height: 25),
-                    // Add the banner ad widget here.
-                     BannerAdWidget(),
-                    // Add the native ad widget here.
-                   // NativeAdWidget(),
             ],
           ),
         ),
@@ -255,6 +247,7 @@ class TransactionDetails extends StatelessWidget {
           flex: 2,
           child: DoubleTabToClipboard(
             clipBoardData: addr,
+            withHintText: false,
             child: Text(
               addr,
               style: const TextStyle(

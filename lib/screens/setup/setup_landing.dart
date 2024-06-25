@@ -8,7 +8,7 @@ import '../../widgets/buttons.dart';
 import '../../widgets/setup_progress.dart';
 
 class SetupLandingScreen extends StatefulWidget {
-  const SetupLandingScreen({Key? key}) : super(key: key);
+  const SetupLandingScreen({super.key});
 
   @override
   State<SetupLandingScreen> createState() => _SetupLandingScreenState();
@@ -57,7 +57,7 @@ class _SetupLandingScreenState extends State<SetupLandingScreen> {
                             height: MediaQuery.of(context).size.height / 20,
                           ),
                           Image.asset(
-                            'assets/icon/sum-icon-white.png',
+                            'assets/icon/ppc-icon-white-256.png',
                             height: MediaQuery.of(context).size.height / 5,
                           ),
                           Column(
@@ -121,7 +121,7 @@ class _SetupLandingScreenState extends State<SetupLandingScreen> {
                         ],
                       ),
                     ),
-                  )
+                  ),
                 ],
               ),
               Positioned(
@@ -135,7 +135,7 @@ class _SetupLandingScreenState extends State<SetupLandingScreen> {
                   },
                   icon: Icon(
                     Icons.language_rounded,
-                    color: Theme.of(context).colorScheme.background,
+                    color: Theme.of(context).colorScheme.surface,
                     size: 32,
                   ),
                 ),
@@ -153,10 +153,10 @@ class PeerExplanationText extends StatelessWidget {
   final int maxLines;
 
   const PeerExplanationText({
-    Key? key,
+    super.key,
     required this.text,
     this.maxLines = 1,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -176,9 +176,9 @@ class PeerExplanationText extends StatelessWidget {
 class PeerProgress extends StatelessWidget {
   final int step;
   const PeerProgress({
-    Key? key,
+    super.key,
     required this.step,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

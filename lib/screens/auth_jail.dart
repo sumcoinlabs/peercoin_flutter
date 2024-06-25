@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../providers/app_settings.dart';
-import '../providers/encrypted_box.dart';
+import '../providers/app_settings_provider.dart';
+import '../providers/encrypted_box_provider.dart';
 import '../tools/app_localizations.dart';
 import '../tools/app_routes.dart';
 import '../tools/auth.dart';
@@ -15,9 +15,9 @@ class AuthJailScreen extends StatefulWidget {
 
   final bool jailedFromHome;
   const AuthJailScreen({
-    Key? key,
+    super.key,
     this.jailedFromHome = false,
-  }) : super(key: key);
+  });
 }
 
 class _AuthJailState extends State<AuthJailScreen> {
@@ -31,10 +31,8 @@ class _AuthJailState extends State<AuthJailScreen> {
       const Duration(seconds: 1),
       (Timer timer) {
         if (_lockCountdown == 0) {
-          setState(() {
-            timer.cancel();
-            onTimerEnd();
-          });
+          _timer.cancel();
+          onTimerEnd();
         } else {
           setState(() {
             _lockCountdown--;
@@ -45,32 +43,33 @@ class _AuthJailState extends State<AuthJailScreen> {
   }
 
   void onTimerEnd() async {
-    final appSettings = context.read<AppSettings>();
+    final appSettings = context.read<AppSettingsProvider>();
     await appSettings.init();
-    // ignore: use_build_context_synchronously
-    await Auth.requireAuth(
-      context: context,
-      biometricsAllowed: appSettings.biometricsAllowed,
-      callback: () async {
-        final encryptedStorage = context.read<EncryptedBox>();
-        final navigator = Navigator.of(context);
-        await encryptedStorage.setFailedAuths(0);
-        if (widget.jailedFromHome == true || _jailedFromRoute == true) {
-          await navigator.pushReplacementNamed(Routes.walletList);
-        } else {
-          navigator.popUntil((route) => route.isFirst);
-        }
-      },
-      canCancel: false,
-      jailedFromHome: widget.jailedFromHome,
-    );
+    if (mounted) {
+      await Auth.requireAuth(
+        context: context,
+        biometricsAllowed: appSettings.biometricsAllowed,
+        callback: () async {
+          final encryptedStorage = context.read<EncryptedBoxProvider>();
+          final navigator = Navigator.of(context);
+          await encryptedStorage.setFailedAuths(0);
+          if (widget.jailedFromHome == true || _jailedFromRoute == true) {
+            await navigator.pushReplacementNamed(Routes.walletList);
+          } else {
+            navigator.popUntil((route) => route.isFirst);
+          }
+        },
+        canCancel: false,
+        jailedFromHome: widget.jailedFromHome,
+      );
+    }
   }
 
   @override
   void didChangeDependencies() async {
     if (_initial == true) {
       _startTimer();
-      final encryptedStorage = context.read<EncryptedBox>();
+      final encryptedStorage = context.read<EncryptedBoxProvider>();
       final modalRoute = ModalRoute.of(context)!;
       final failedAuths = await encryptedStorage.failedAuths;
       _lockCountdown = 10 + (failedAuths * 10);
@@ -99,8 +98,8 @@ class _AuthJailState extends State<AuthJailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async => false,
+    return PopScope(
+      canPop: false,
       child: Scaffold(
         body: Container(
           color: Theme.of(context).primaryColor,
@@ -134,7 +133,7 @@ class _AuthJailState extends State<AuthJailScreen> {
                 const SizedBox(height: 20),
                 const LinearProgressIndicator(
                   backgroundColor: Colors.white,
-                )
+                ),
               ],
             ),
           ),

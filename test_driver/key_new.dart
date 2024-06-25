@@ -4,6 +4,15 @@ import 'package:flutter_driver/flutter_driver.dart';
 import 'package:test/test.dart';
 
 void main() {
+  Future<void> performWIFImport(FlutterDriver driver) async {
+    await driver.tap(find.byTooltip('Show menu'));
+    await driver.tap(find.text('Import Private Key'));
+    await driver.tap(find.byType('TextField'));
+    await driver.enterText(
+      'cTfaQHvae3MJYrZMWYiB6zWaDAMB23qbfo8vBZP2ZJNaUh3aa1p5',
+    );
+  }
+
   group(
     'Setup',
     () {
@@ -19,8 +28,9 @@ void main() {
           try {
             await driver.waitUntilFirstFrameRasterized();
             connected = true;
-            // ignore: empty_catches
-          } catch (error) {}
+          } catch (error) {
+            throw Exception('Driver not connected, ${error.toString()}');
+          }
         }
         return driver;
       }
@@ -38,8 +48,15 @@ void main() {
       test(
         'create new wallet from scratch',
         () async {
-          //creates a brand new sumcoin testnet wallet from scratch and check if it connects
+          //creates a brand new peercoin testnet wallet from scratch and check if it connects
           await driver.tap(find.byValueKey('setupLanguageButton'));
+          await driver.scrollIntoView(find.text('Deutsch'));
+          await driver.tap(find.text('Deutsch'));
+          await driver.tap(find.pageBack());
+          await driver.scrollIntoView(find.text('Wallet erstellen'));
+          //back to english
+          await driver.tap(find.byValueKey('setupLanguageButton'));
+          await driver.scrollIntoView(find.text('English'));
           await driver.tap(find.text('English'));
           await driver.tap(find.pageBack());
           await driver.scrollIntoView(find.text('Create Wallet'));
@@ -65,7 +82,6 @@ void main() {
           await driver.tap(find.byValueKey('setupLegalConsentKey'));
           await driver.scrollIntoView(find.text('Finish Setup'));
           await driver.tap(find.text('Finish Setup'));
-          await driver.tap(find.pageBack());
           await driver.runUnsynchronized(
             () async {
               expect(
@@ -80,13 +96,13 @@ void main() {
       );
 
       test(
-        'tap into new sumcoin testnet wallet',
+        'tap into new peercoin testnet wallet',
         () async {
           await driver.runUnsynchronized(
             () async {
               await driver.tap(find.byValueKey('newWalletIconButton'));
-              await driver.tap(find.text('Sumcoin Testnet'));
-              await driver.tap(find.text('Sumcoin Testnet')); //tap into wallet
+              await driver.tap(find.text('Peercoin Testnet'));
+              await driver.tap(find.text('Peercoin Testnet')); //tap into wallet
               expect(await driver.getText(find.text('connected')), 'connected');
             },
           );
@@ -96,18 +112,255 @@ void main() {
       );
 
       test(
-        'try to add an ssl server and see if it persists',
+        'Import WIF',
         () async {
-          await driver.tap(find.byTooltip('Show menu'));
+          await performWIFImport(driver);
+          await driver.tap(find.text('Import'));
+          await driver.tap(find.text('Import'));
+        },
+      );
+
+      test('Check if WIF is in Address book', () async {
+        await driver.tap(find.byTooltip('Address Book'));
+        await driver.waitFor(find.text('mm5pM9sJzVjsafctQJJrJuhGsw1CTucZ2v'));
+      });
+
+      test('Transaction signing, success', () async {
+        await driver.tap(find.byTooltip('Transactions'));
+        await driver.tap(find.byTooltip('Show menu'));
+        await driver.runUnsynchronized(
+          () async {
+            await driver.tap(find.text('Sign Transaction'));
+          },
+        );
+        await driver.tap(find.text('Select'));
+        await driver.tap(find.text('mm5pM9sJzVjsafctQJJrJuhGsw1CTucZ2v'));
+        await driver.tap(find.pageBack());
+        await driver.tap(find.byValueKey('transactionHexInput'));
+        await driver.enterText(
+          '0300000001d8af09713b116ecce194add86bd6def0e2dc3abe99c53bfbcd34576061baca9f000000002221022ef8df0bfd68434e2db934e88a7e30b06b88507dac60fa7cc2b732a1b5147ef7ffffffff010a8f9800000000001976a914ff9296d92c5efc397d0e0b9ebe94d95a532270c488ac00000000',
+        );
+        await driver.tap(find.text('Sign'));
+        await driver.waitFor(
+          find.text(
+            '0300000001d8af09713b116ecce194add86bd6def0e2dc3abe99c53bfbcd34576061baca9f000000006a47304402200455cf81bde046213814387da5bde30e657fe7977c4c35ffe78edd3fe5cada7b0220186524598ac87de9b944f61e819b29c8a9a331c8a52b1694b8559cd9ec3395800121022ef8df0bfd68434e2db934e88a7e30b06b88507dac60fa7cc2b732a1b5147ef7ffffffff010a8f9800000000001976a914ff9296d92c5efc397d0e0b9ebe94d95a532270c488ac00000000',
+          ),
+        );
+        await driver.scrollIntoView(find.text('Broadcast'));
+        await driver.tap(find.text('Broadcast'));
+        await driver.tap(find.text('Cancel'));
+      });
+
+      test('Transaction signing, fail', () async {
+        await driver.tap(find.pageBack());
+        await driver.tap(find.text('Reset'));
+        await driver.tap(find.text('Reset')); //yes, twice to reset
+        await driver.tap(find.text('Select'));
+        await driver.tap(find.text('mm5pM9sJzVjsafctQJJrJuhGsw1CTucZ2v'));
+        await driver.tap(find.pageBack());
+        await driver.tap(find.byValueKey('transactionHexInput'));
+        await driver.enterText(
+          'xxx',
+        );
+        await driver.tap(find.text('Sign'));
+        await driver.waitFor(
+          find.byValueKey('signingError'),
+        );
+      });
+
+      test('Change wallet title', () async {
+        await driver.tap(find.pageBack());
+        await driver.tap(find.byTooltip('Transactions'));
+        await driver.tap(find.byTooltip('Show menu'));
+        await driver.tap(find.text('Change Title'));
+        await driver.tap(find.byType('TextField'));
+        await driver.enterText('Wallet Test');
+        await driver.tap(find.text('Okay'));
+      });
+
+      test(
+        'tap into new peercoin mainnet wallet',
+        () async {
+          await driver.tap(find.pageBack());
+          await Future.delayed(const Duration(seconds: 1));
           await driver.runUnsynchronized(
             () async {
-              await driver.tap(find.byValueKey('walletHomeServerSettings'));
+              await driver.tap(find.byValueKey('newWalletIconButton'));
+              await driver.tap(find.text('Peercoin'));
+              await driver.tap(find.text('Peercoin')); //tap into wallet
+              expect(await driver.getText(find.text('connected')), 'connected');
             },
           );
+        },
+      );
+
+      test('create new peercoin mainnet watch-only wallet and delete it again',
+          () async {
+        await Future.delayed(const Duration(seconds: 1));
+        await driver.runUnsynchronized(() async {
+          await driver.tap(find.pageBack());
+          await driver.tap(find.byValueKey('appSettingsButton'));
+        });
+        await driver.tap(find.text('Experimental Features'));
+        await driver.tap(find.byValueKey('watchOnlyWallets'));
+        await driver.tap(find.pageBack());
+        await driver.tap(find.pageBack());
+
+        await driver.runUnsynchronized(() async {
+          await driver.tap(find.byValueKey('newWalletIconButton'));
+          await driver.tap(find.text('Watch only'));
+          await driver
+              .tap(find.text('Peercoin')); //create peercoin watch-only wallet
+          await driver
+              .tap(find.text('Peercoin 2')); //tap into watch-only wallet
+        });
+
+        expect(await driver.getText(find.text('connected')), 'connected');
+        //wallet created succesfully, now delete
+        await driver.tap(find.byTooltip('Show menu'));
+        await driver.runUnsynchronized(
+          () async {
+            await driver.tap(find.text('Delete Wallet'));
+            await driver.tap(find.text('Delete'));
+          },
+        );
+        //expect to not find "Peercoin 2"
+        await driver.runUnsynchronized(
+          () async {
+            try {
+              await driver.getText(find.text('Peercoin 2'));
+              fail('Expected to not find "Peercoin 2"');
+            } catch (e) {
+              // Expected not to find "Peercoin 2", so we swallow the exception
+            }
+          },
+        );
+      });
+
+      test('hide wallet and unhide again', () async {
+        await Future.delayed(const Duration(seconds: 1));
+        await driver.runUnsynchronized(
+          () async => await driver.tap(
+            find.text('Wallet Test'),
+          ),
+        );
+        await driver.tap(find.byTooltip('Show menu'));
+        await driver.runUnsynchronized(
+          () async {
+            await driver.tap(find.text('Hide Wallet'));
+            await driver.tap(find.text('Hide'));
+          },
+        );
+
+        //expect to not find "Wallet Test"
+        await driver.runUnsynchronized(
+          () async {
+            await driver.tap(find.pageBack());
+
+            try {
+              await driver.getText(find.text('Wallet Test'));
+              fail('Expected to not find "Wallet Test"');
+            } catch (e) {
+              // Expected not to find "Wallet Test", so we swallow the exception
+            } finally {
+              expect(
+                await driver.getText(find.text('Show 1 Hidden Wallets')),
+                'Show 1 Hidden Wallets',
+              );
+            }
+          },
+        );
+
+        //press show button in wallet list
+        await driver.runUnsynchronized(
+          () async {
+            await driver.tap(find.text('Show 1 Hidden Wallets'));
+          },
+        );
+
+        //press hide button in wallet list
+        await driver.runUnsynchronized(
+          () async {
+            await driver.tap(find.text('Hide 1 Hidden Wallets'));
+          },
+        );
+
+        await driver.runUnsynchronized(
+          () async {
+            try {
+              await driver.getText(find.text('Wallet Test'));
+              fail('Expected to not find "Wallet Test"');
+            } catch (e) {
+              // Expected not to find "Wallet Test", so we swallow the exception
+            }
+          },
+        );
+
+        //unhide wallet
+        await driver.runUnsynchronized(
+          () async {
+            await driver.tap(find.text('Show 1 Hidden Wallets'));
+          },
+        );
+        await driver.runUnsynchronized(
+          () async {
+            await driver.tap(find.text('Wallet Test'));
+            await driver.tap(find.byTooltip('Show menu'));
+          },
+        );
+
+        await driver.runUnsynchronized(
+          () async {
+            await driver.tap(find.text('Unhide Wallet'));
+            await driver.tap(find.text('Unhide'));
+          },
+        );
+
+        //expect to find "Wallet Test"
+        await driver.runUnsynchronized(
+          () async {
+            await driver.tap(find.pageBack());
+          },
+        );
+
+        await driver.runUnsynchronized(() async {
+          await driver.tap(find.text('Wallet Test'));
+          await driver.tap(find.pageBack());
+        });
+      });
+
+      test('change currency and see if it persists', () async {
+        await driver.runUnsynchronized(() async {
+          await driver.tap(find.byValueKey('appSettingsButton'));
+        });
+        await driver.scrollIntoView(find.text('Price Feed & Currency'));
+        await driver.tap(find.text('Price Feed & Currency'));
+        await driver.tap(find.byTooltip('Click here to start search'));
+        await driver.tap(find.byType('TextField'));
+        await driver.enterText('EUR');
+        await driver.tap(find.text('Euro'));
+        await driver.tap(find.pageBack());
+        await driver.tap(find.pageBack());
+        await driver.tap(find.pageBack());
+        await driver.runUnsynchronized(() async {
+          await driver.waitFor(find.text('0.00 EUR'));
+        });
+      });
+
+      test(
+        'find wallet with edited title and try to add an ssl server and see if it persists',
+        () async {
+          await driver.runUnsynchronized(
+            () async {
+              await driver.tap(find.byValueKey('appSettingsButton'));
+            },
+          );
+          await driver.tap(find.text('Server Settings'));
+          await driver.tap(find.text('Wallet Test'));
           await driver.tap(find.byValueKey('serverSettingsAddServer'));
           await driver.tap(find.byType('TextFormField'));
           await driver.enterText(
-            'ssl://electrum.sumcoinexplorer.net:50002',
+            'ssl://electrum.peercoinexplorer.net:50002',
           ); //main net server for testnet wallet
           await driver.tap(find.byValueKey('saveServerButton'));
           expect(
@@ -119,21 +372,20 @@ void main() {
             'Genesis hash does not match.\nThis server does not support this coin.',
           );
           await driver.enterText(
-            'ssl://testnet-electrum.sumcoinexplorer.net:50008',
-          ); //main net server for testnet wallet
+            'ssl://testnet-electrum.peercoinexplorer.net:50008',
+          ); //testnet server for testnet wallet
           await driver.tap(find.byValueKey('saveServerButton'));
           await driver.tap(find.pageBack());
-          await driver.tap(find.byTooltip('Show menu'));
           await driver.runUnsynchronized(
             () async {
-              await driver.tap(find.byValueKey('walletHomeServerSettings'));
+              await driver.tap(find.text('Wallet Test'));
             },
           );
           expect(
             await driver.getText(
-              find.text('ssl://testnet-electrum.sumcoinexplorer.net:50008'),
+              find.text('ssl://testnet-electrum.peercoinexplorer.net:50008'),
             ),
-            'ssl://testnet-electrum.sumcoinexplorer.net:50008',
+            'ssl://testnet-electrum.peercoinexplorer.net:50008',
           );
         },
         retry: 2,

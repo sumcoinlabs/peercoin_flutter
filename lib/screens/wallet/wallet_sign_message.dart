@@ -1,17 +1,12 @@
-import 'dart:convert';
-
-import 'package:coinslib/coinslib.dart';
+import 'package:coinlib_flutter/coinlib_flutter.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
-import '../../widgets/banner_ad_widget.dart';
-import '../../widgets/native_ad_widget.dart';
-
 import '../../models/available_coins.dart';
 import '../../models/coin.dart';
-import '../../providers/active_wallets.dart';
+import '../../providers/wallet_provider.dart';
 import '../../tools/app_localizations.dart';
 import '../../tools/app_routes.dart';
 import '../../tools/logger_wrapper.dart';
@@ -20,7 +15,7 @@ import '../../widgets/double_tab_to_clipboard.dart';
 import '../../widgets/service_container.dart';
 
 class WalletMessageSigningScreen extends StatefulWidget {
-  const WalletMessageSigningScreen({Key? key}) : super(key: key);
+  const WalletMessageSigningScreen({super.key});
 
   @override
   State<WalletMessageSigningScreen> createState() =>
@@ -30,7 +25,7 @@ class WalletMessageSigningScreen extends StatefulWidget {
 class _WalletMessageSigningScreenState
     extends State<WalletMessageSigningScreen> {
   late String _walletName;
-  late ActiveWallets _activeWallets;
+  late WalletProvider _walletProvider;
   bool _initial = true;
   late Coin _activeCoin;
   bool _signingDone = false;
@@ -42,7 +37,7 @@ class _WalletMessageSigningScreenState
   void didChangeDependencies() {
     if (_initial == true) {
       _walletName = ModalRoute.of(context)!.settings.arguments as String;
-      _activeWallets = Provider.of<ActiveWallets>(context);
+      _walletProvider = Provider.of<WalletProvider>(context);
       _activeCoin = AvailableCoins.getSpecificCoin(_walletName);
       setState(() {
         _initial = false;
@@ -71,8 +66,8 @@ class _WalletMessageSigningScreenState
     var result = await Navigator.of(context).pushNamed(
       Routes.addressSelector,
       arguments: {
-        'addresses': await _activeWallets.getWalletAddresses(_walletName),
-        'selectedAddress': _signingAddress
+        'addresses': await _walletProvider.getWalletAddresses(_walletName),
+        'selectedAddress': _signingAddress,
       },
     );
     setState(() {
@@ -85,33 +80,39 @@ class _WalletMessageSigningScreenState
 
   Future<void> _handleSign() async {
     LoggerWrapper.logInfo(
-      'WalletSigning',
+      'WalletMessageSigning',
       'handleSign',
       'signing message with $_signingAddress on $_walletName, message: ${_messageInputController.text}',
     );
 
     try {
-      var wif = await _activeWallets.getWif(
+      var wif = await _walletProvider.getWif(
         identifier: _walletName,
         address: _signingAddress,
       );
-      var result = Wallet.fromWIF(
-        wif,
-        _activeCoin.networkType,
-      ).sign(_messageInputController.text);
+
+      var result = MessageSignature.sign(
+        key: WIF.fromString(wif).privkey,
+        message: _messageInputController.text,
+        prefix: _activeCoin.networkType.messagePrefix,
+      );
 
       setState(() {
-        _signature = base64.encode(result);
+        _signature = result.toString();
         _signingDone = true;
       });
 
       LoggerWrapper.logInfo(
-        'WalletSigning',
+        'WalletMessageSigning',
         'handleSign',
         'signature produced $_signature',
       );
     } catch (e) {
-      LoggerWrapper.logError('WalletSigning', 'handleSign', e.toString());
+      LoggerWrapper.logError(
+        'WalletMessageSigning',
+        'handleSign',
+        e.toString(),
+      );
     }
   }
 
@@ -142,7 +143,7 @@ class _WalletMessageSigningScreenState
             icon: const Icon(Icons.check),
             onPressed: () async {
               LoggerWrapper.logInfo(
-                'WalletSigning',
+                'WalletMessageSigning',
                 '_performReset',
                 'reset performed',
               );
@@ -202,6 +203,7 @@ class _WalletMessageSigningScreenState
                                   )
                                 : DoubleTabToClipboard(
                                     clipBoardData: _signingAddress,
+                                    withHintText: false,
                                     child: SelectableText(_signingAddress),
                                   ),
                           ),
@@ -247,7 +249,10 @@ class _WalletMessageSigningScreenState
                             onPressed: () async {
                               if (_signingDone) return;
                               var data = await Clipboard.getData('text/plain');
-                              _messageInputController.text = data!.text!.trim();
+                              setState(() {
+                                _messageInputController.text =
+                                    data!.text!.trim();
+                              });
                             },
                             icon: Icon(
                               Icons.paste_rounded,
@@ -282,6 +287,7 @@ class _WalletMessageSigningScreenState
                               children: [
                                 DoubleTabToClipboard(
                                   clipBoardData: _signature,
+                                  withHintText: true,
                                   child: SelectableText(
                                     _signature,
                                     key: const Key('signature'),
@@ -337,19 +343,13 @@ class _WalletMessageSigningScreenState
                               small: true,
                               action: () async => await _performReset(context),
                             )
-                          : Container()
+                          : Container(),
                     ],
                   ),
                 ),
               ),
             ),
           ),
-          // Add some space
-          const SizedBox(height: 25),
-          // Add the banner ad widget here.
-          // BannerAdWidget(),
-          // Add the native ad widget here.
-         // NativeAdWidget(),
         ],
       ),
     );

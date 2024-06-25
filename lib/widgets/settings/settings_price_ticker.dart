@@ -1,46 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import '../../providers/app_settings.dart';
+import '../../providers/app_settings_provider.dart';
 import '../../tools/app_localizations.dart';
 import '../../tools/price_ticker.dart';
 import '../buttons.dart';
-import '../expanded_section.dart';
 
 class SettingsPriceTicker extends StatefulWidget {
-  final AppSettings _settings;
+  final AppSettingsProvider _settings;
   final Function _saveSnack;
+  final String _searchString;
 
-  const SettingsPriceTicker(this._settings, this._saveSnack, {Key? key})
-      : super(key: key);
+  const SettingsPriceTicker(
+    this._settings,
+    this._saveSnack,
+    this._searchString, {
+    super.key,
+  });
 
   @override
   State<SettingsPriceTicker> createState() => _SettingsPriceTickerState();
 }
 
 class _SettingsPriceTickerState extends State<SettingsPriceTicker> {
-  late bool _listExpanded;
-  late String formattedTime;
-
-  @override
-  void initState() {
-    if (widget._settings.exchangeRates.isNotEmpty &&
-        widget._settings.selectedCurrency.isNotEmpty) {
-      setState(() {
-        _listExpanded = true;
-      });
-    } else {
-      setState(() {
-        _listExpanded = false;
-      });
-    }
-    super.initState();
-  }
+  late String _formattedTime;
 
   @override
   void didChangeDependencies() {
-    formattedTime = DateFormat('yyyy-MM-dd HH:mm:ss')
+    _formattedTime = DateFormat('yyyy-MM-dd HH:mm:ss')
         .format(widget._settings.latestTickerUpdate);
+
     super.didChangeDependencies();
   }
 
@@ -72,9 +61,6 @@ class _SettingsPriceTickerState extends State<SettingsPriceTicker> {
                 widget._settings.setSelectedCurrency('USD');
                 PriceTicker.checkUpdate(widget._settings);
                 Navigator.pop(context);
-                setState(() {
-                  _listExpanded = true;
-                });
               },
               child: Text(
                 AppLocalizations.instance.translate('continue'),
@@ -99,9 +85,6 @@ class _SettingsPriceTickerState extends State<SettingsPriceTicker> {
           .translate('app_settings_price_feed_disable_button'),
       action: () {
         widget._settings.setSelectedCurrency('');
-        setState(() {
-          _listExpanded = false;
-        });
       },
     );
   }
@@ -117,9 +100,14 @@ class _SettingsPriceTickerState extends State<SettingsPriceTicker> {
       //copy data
       final currencyData = widget._settings.exchangeRates.keys.toList();
       currencyData.insert(0, 'USD'); //add USD
-      currencyData.remove('SUM'); //don't show SUM
+      currencyData.remove('PPC'); //don't show PPC
 
-      return currencyData.map((currency) {
+      final filteredMap = currencyData.where(
+        (element) =>
+            element.toLowerCase().contains(widget._searchString.toLowerCase()),
+      );
+
+      return filteredMap.map((currency) {
         return InkWell(
           onTap: () => saveCurrency(ctx, currency),
           child: ListTile(
@@ -127,7 +115,7 @@ class _SettingsPriceTickerState extends State<SettingsPriceTicker> {
               AppLocalizations.instance.translate('currency_$currency'),
             ),
             subtitle: Text(
-              '1 SUM = ${PriceTicker.renderPrice(1, currency, "SUM", widget._settings.exchangeRates).toStringAsFixed(2)} $currency',
+              '1 PPC = ${PriceTicker.renderPrice(1, currency, "PPC", widget._settings.exchangeRates).toStringAsFixed(6)} $currency',
             ),
             leading: Radio(
               value: currency,
@@ -153,7 +141,7 @@ class _SettingsPriceTickerState extends State<SettingsPriceTicker> {
             ? Text(
                 AppLocalizations.instance.translate(
                   'setup_price_feed_last_update',
-                  {'timestamp': formattedTime},
+                  {'timestamp': _formattedTime},
                 ),
                 style: TextStyle(
                   fontSize: 12,
@@ -161,11 +149,8 @@ class _SettingsPriceTickerState extends State<SettingsPriceTicker> {
                 ),
               )
             : Container(),
-        ExpandedSection(
-          expand: _listExpanded,
-          child: Column(
-            children: renderCurrencies(context),
-          ),
+        Column(
+          children: renderCurrencies(context),
         ),
         renderButton(context),
       ],

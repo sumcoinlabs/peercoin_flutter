@@ -1,12 +1,8 @@
-import 'dart:convert';
-
-import 'package:coinslib/coinslib.dart';
+import 'package:coinlib_flutter/coinlib_flutter.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
-import '../../widgets/banner_ad_widget.dart';
-import '../../widgets/native_ad_widget.dart';
+import 'package:peercoin/tools/validators.dart';
 
 import '../../models/available_coins.dart';
 import '../../models/coin.dart';
@@ -16,7 +12,7 @@ import '../../widgets/buttons.dart';
 import '../../widgets/service_container.dart';
 
 class WaleltMessagesVerificationScreen extends StatefulWidget {
-  const WaleltMessagesVerificationScreen({Key? key}) : super(key: key);
+  const WaleltMessagesVerificationScreen({super.key});
 
   @override
   State<WaleltMessagesVerificationScreen> createState() =>
@@ -67,11 +63,14 @@ class _WaleltMessagesVerificationScreenState
     );
 
     try {
-      final verificationResult = verifySignedMessageForAddress(
-        address: address,
+      final sig = MessageSignature.fromBase64(signature);
+      final verificationResult = sig.verifyAddress(
+        address: Address.fromString(
+          address,
+          _activeCoin.networkType,
+        ),
         message: message,
-        signature: base64.decode(signature),
-        network: _activeCoin.networkType,
+        prefix: _activeCoin.networkType.messagePrefix,
       );
 
       setState(() {
@@ -118,7 +117,7 @@ class _WaleltMessagesVerificationScreenState
                 _verificationResult = false;
               });
             },
-          )
+          ),
         ],
       ),
       body: Column(
@@ -313,12 +312,6 @@ class _WaleltMessagesVerificationScreenState
               ),
             ),
           ),
-          // Add some space
-          const SizedBox(height: 25),
-          // Add the banner ad widget here.
-          // BannerAdWidget(),
-          // Add the native ad widget here.
-         // NativeAdWidget(),
         ],
       ),
     );

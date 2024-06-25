@@ -1,4 +1,4 @@
-import 'package:sumcoin/models/wallet_utxo.dart';
+import 'hive/wallet_utxo.dart';
 
 class BuildResult {
   final int fee;

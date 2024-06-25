@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:sumcoin/widgets/loading_indicator.dart';
+import 'package:peercoin/widgets/loading_indicator.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/buildresult.dart';
-import '../../providers/active_wallets.dart';
-import '../../providers/electrum_connection.dart';
+import '../../providers/wallet_provider.dart';
+import '../../providers/connection_provider.dart';
 import '../../tools/app_localizations.dart';
 import '../../tools/logger_wrapper.dart';
 import '../../widgets/buttons.dart';
@@ -52,8 +52,8 @@ class TransactionConfirmationArguments {
 
 class TransactionConfirmationScreen extends StatefulWidget {
   const TransactionConfirmationScreen({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<TransactionConfirmationScreen> createState() =>
@@ -146,7 +146,7 @@ class _TransactionConfirmationScreenState
                                   '${((buildResult.fee / decimalProduct) * arguments.fiatPricePerCoin).toStringAsFixed(4)} ${arguments.fiatCode}',
                                 ),
                             ],
-                          )
+                          ),
                         ],
                       ),
                       if (buildResult.destroyedChange > 0) const Divider(),
@@ -208,7 +208,7 @@ class _TransactionConfirmationScreenState
                                   '${((totalAmountWithFeesAndDust / decimalProduct) * arguments.fiatPricePerCoin).toStringAsFixed(4)} ${arguments.fiatCode}',
                                 ),
                             ],
-                          )
+                          ),
                         ],
                       ),
                       const Divider(),
@@ -224,7 +224,7 @@ class _TransactionConfirmationScreenState
                             recipients: buildResult.recipients,
                             letterCode: coinLetterCode,
                             decimalProduct: decimalProduct,
-                          )
+                          ),
                         ],
                       ),
                       buildResult.opReturn.isNotEmpty
@@ -239,7 +239,7 @@ class _TransactionConfirmationScreenState
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                                SelectableText(buildResult.opReturn)
+                                SelectableText(buildResult.opReturn),
                               ],
                             )
                           : const SizedBox(),
@@ -277,13 +277,13 @@ class _TransactionConfirmationScreenState
                                       _firstPress = false;
                                     });
                                     final electrumConnection =
-                                        context.read<ElectrumConnection>();
-                                    final activeWallets =
-                                        context.read<ActiveWallets>();
+                                        context.read<ConnectionProvider>();
+                                    final walletProvcider =
+                                        context.read<WalletProvider>();
                                     final navigator = Navigator.of(context);
                                     try {
                                       //write tx to history
-                                      await activeWallets.putOutgoingTx(
+                                      await walletProvcider.putOutgoingTx(
                                         identifier: arguments.coinIdentifier,
                                         buildResult: buildResult,
                                         totalFees: buildResult.fee,
@@ -302,7 +302,7 @@ class _TransactionConfirmationScreenState
                                         element.newHeight = -1;
                                       }
                                       //update balance
-                                      await activeWallets.updateWalletBalance(
+                                      await walletProvcider.updateWalletBalance(
                                         arguments.coinIdentifier,
                                       );
                                       //pop message
@@ -315,16 +315,19 @@ class _TransactionConfirmationScreenState
                                         'showTransactionConfirmation',
                                         e.toString(),
                                       );
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        SnackBar(
-                                          content: Text(
-                                            AppLocalizations.instance.translate(
-                                              'send_oops',
+                                      if (context.mounted) {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          SnackBar(
+                                            content: Text(
+                                              AppLocalizations.instance
+                                                  .translate(
+                                                'send_oops',
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                      );
+                                        );
+                                      }
                                     }
                                   },
                                 ),

@@ -10,7 +10,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../tools/app_localizations.dart';
 
 class LogoutDialog extends StatelessWidget {
-  const LogoutDialog({Key? key}) : super(key: key);
+  const LogoutDialog({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -70,8 +70,8 @@ class LogoutDialog extends StatelessWidget {
     window.indexedDB?.deleteDatabase('vaultbox');
     window.indexedDB?.deleteDatabase('wallets');
     window.indexedDB?.deleteDatabase('optionsbox');
-    window.indexedDB?.deleteDatabase('serverbox-sumcoin');
-    window.indexedDB?.deleteDatabase('serverbox-sumcointestnet');
+    window.indexedDB?.deleteDatabase('serverbox-peercoin');
+    window.indexedDB?.deleteDatabase('serverbox-peercointestnet');
     await Future.delayed(const Duration(seconds: 1));
 
     LoggerWrapper.logInfo('Logout', 'clearData', 'Hive Storage cleared');

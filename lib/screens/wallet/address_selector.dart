@@ -1,11 +1,11 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
-import '../../models/wallet_address.dart';
+import '../../models/hive/wallet_address.dart';
 import '../../tools/app_localizations.dart';
 
 class AddressSelectorScreen extends StatefulWidget {
-  const AddressSelectorScreen({Key? key}) : super(key: key);
+  const AddressSelectorScreen({super.key});
 
   @override
   State<AddressSelectorScreen> createState() => _AddressSelectorScreenState();
@@ -22,8 +22,8 @@ class _AddressSelectorScreenState extends State<AddressSelectorScreen> {
   void didChangeDependencies() {
     if (_initial) {
       final args = ModalRoute.of(context)!.settings.arguments as Map;
-      _addresses = args["addresses"] as List<WalletAddress>;
-      _selectedAddress = args["selectedAddress"] as String;
+      _addresses = args['addresses'] as List<WalletAddress>;
+      _selectedAddress = args['selectedAddress'] as String;
 
       applyFilter();
       setState(() {
@@ -48,8 +48,7 @@ class _AddressSelectorScreenState extends State<AddressSelectorScreen> {
       if (searchedKey != null && searchedKey.isNotEmpty) {
         filteredList = _addresses.where((element) {
           return element.address.contains(searchedKey) ||
-              element.addressBookName != null &&
-                  element.addressBookName!.contains(searchedKey);
+              element.addressBookName.contains(searchedKey);
         }).toList();
       } else {
         filteredList = _addresses;
@@ -80,7 +79,7 @@ class _AddressSelectorScreenState extends State<AddressSelectorScreen> {
               ),
             ),
             subtitle: Text(
-              address.addressBookName ?? '',
+              address.addressBookName,
               textAlign: TextAlign.center,
             ),
             leading: Radio(
@@ -105,15 +104,10 @@ class _AddressSelectorScreenState extends State<AddressSelectorScreen> {
     ];
   }
 
-  Future<bool> _onWillPop() async {
-    Navigator.pop(context, _selectedAddress);
-    return true;
-  }
-
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: _onWillPop,
+    return PopScope(
+      canPop: false,
       child: Scaffold(
         appBar: AppBar(
           centerTitle: true,
@@ -128,23 +122,26 @@ class _AddressSelectorScreenState extends State<AddressSelectorScreen> {
               ? Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
+                    AutoSizeText(
                       AppLocalizations.instance
                           .translate('address_selector_title'),
+                      maxFontSize: 17,
                     ),
                     IconButton(
                       onPressed: () => setState(() {
                         _searchActive = true;
                       }),
                       icon: const Icon(Icons.search),
-                    )
+                    ),
                   ],
                 )
               : Form(
                   key: const Key('selectorSearchBar'),
                   child: TextFormField(
                     autofocus: true,
-                    style: TextStyle(color: Theme.of(context).colorScheme.background),
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.surface,
+                    ),
                     key: const Key('selectorSearchKey'),
                     textInputAction: TextInputAction.done,
                     autocorrect: false,
@@ -152,7 +149,7 @@ class _AddressSelectorScreenState extends State<AddressSelectorScreen> {
                       hintText: AppLocalizations.instance
                           .translate('addressbook_search'),
                       hintStyle: TextStyle(
-                        color: Theme.of(context).colorScheme.background,
+                        color: Theme.of(context).colorScheme.surface,
                       ),
                       suffixIcon: IconButton(
                         onPressed: () => setState(() {
@@ -160,7 +157,7 @@ class _AddressSelectorScreenState extends State<AddressSelectorScreen> {
                         }),
                         icon: Icon(
                           Icons.close,
-                          color: Theme.of(context).colorScheme.background,
+                          color: Theme.of(context).colorScheme.surface,
                         ),
                       ),
                     ),

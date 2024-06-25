@@ -3,13 +3,13 @@ import 'dart:math';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:sumcoin/providers/active_wallets.dart';
+import 'package:peercoin/providers/wallet_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../models/available_periodic_reminder_items.dart';
 import '../models/periodic_reminder_item.dart';
-import '../providers/app_settings.dart';
+import '../providers/app_settings_provider.dart';
 import 'app_localizations.dart';
 import 'app_routes.dart';
 import 'logger_wrapper.dart';
@@ -19,8 +19,8 @@ class PeriodicReminders {
     BuildContext ctx,
     PeriodicReminderItem reminderItem,
   ) async {
-    final activeWallets = ctx.read<ActiveWallets>();
-    final listOfActiveWallets = activeWallets.activeWalletsKeys;
+    final walletProvider = ctx.read<WalletProvider>();
+    final listOfAvailableWallets = walletProvider.availableWalletKeys;
 
     //show alert
     await showDialog(
@@ -39,8 +39,7 @@ class PeriodicReminders {
               TextButton(
                 onPressed: () async {
                   final navigator = Navigator.of(context);
-                  var url = 'https://www.sumcoin.org/foundation/';
-//                  var url = 'https://sumcoin.org/fndtn/';
+                  var url = 'https://ppc.lol/fndtn/';
                   await canLaunchUrlString(url)
                       ? await launchUrlString(url)
                       : throw 'Could not launch $url';
@@ -51,21 +50,21 @@ class PeriodicReminders {
                 ),
               ),
             if (reminderItem.id == 'donate' && !kIsWeb)
-              listOfActiveWallets.contains('sumcoin') && !Platform.isIOS
+              listOfAvailableWallets.contains('peercoin') && !Platform.isIOS
                   ? TextButton(
                       onPressed: () async {
                         final navigator = Navigator.of(context);
-                        final values = activeWallets.activeWalletsValues;
-                        final sumWallet = values.firstWhere(
-                          (element) => element.name == 'sumcoin',
+                        final values = walletProvider.availableWalletValues;
+                        final ppcWallet = values.firstWhere(
+                          (element) => element.name == 'peercoin',
                         );
 
                         await navigator.popAndPushNamed(
                           Routes.walletHome,
                           arguments: {
-                            'wallet': sumWallet,
+                            'wallet': ppcWallet,
                             'pushedAddress':
-                                'SU97wjt7X1kZaU2tafMK18Ar15CiKAn4FN',
+                                'p77CZFn9jvg9waCzKBzkQfSvBBzPH1nRre',
                           },
                         );
                       },
@@ -96,7 +95,7 @@ class PeriodicReminders {
     );
   }
 
-  static void scheduleNextEvent(String name, AppSettings settings) {
+  static void scheduleNextEvent(String name, AppSettingsProvider settings) {
     final newDate = (DateTime.now()).add(
       Duration(
         days: 30 + Random().nextInt(45 - 30),
@@ -115,7 +114,7 @@ class PeriodicReminders {
   }
 
   static Future<bool> checkReminder(
-    AppSettings settings,
+    AppSettingsProvider settings,
     BuildContext context,
   ) async {
     LoggerWrapper.logInfo(
@@ -156,7 +155,7 @@ class PeriodicReminders {
           LoggerWrapper.logInfo(
             'PriceTicker',
             'checkUpdate',
-            'reminder $name is not initialized})',
+            'reminder $name is not initialized',
           );
           shouldDisplayReminder = true;
         }

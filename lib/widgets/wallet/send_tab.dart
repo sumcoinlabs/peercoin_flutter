@@ -2,26 +2,27 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:coinslib/coinslib.dart';
+import 'package:decimal/decimal.dart';
 import 'package:fast_csv/fast_csv.dart' as fast_csv;
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
-import 'package:sumcoin/exceptions/exceptions.dart';
-import 'package:sumcoin/models/buildresult.dart';
-import 'package:sumcoin/widgets/wallet/send_tab_management.dart';
-import 'package:sumcoin/widgets/wallet/send_tab_navigator.dart';
+import 'package:peercoin/exceptions/exceptions.dart';
+import 'package:peercoin/models/buildresult.dart';
+import 'package:peercoin/tools/validators.dart';
+import 'package:peercoin/widgets/wallet/send_tab_management.dart';
+import 'package:peercoin/widgets/wallet/send_tab_navigator.dart';
 import 'package:provider/provider.dart';
 
 import '/../models/available_coins.dart';
 import '/../models/coin.dart';
-import '/../models/coin_wallet.dart';
-import '/../models/wallet_address.dart';
-import '/../providers/active_wallets.dart';
-import '/../providers/app_settings.dart';
-import '/../providers/electrum_connection.dart';
+import '/../models/hive/coin_wallet.dart';
+import '/../models/hive/wallet_address.dart';
+import '../../providers/wallet_provider.dart';
+import '../../providers/app_settings_provider.dart';
+import '../../providers/connection_provider.dart';
 import '/../screens/wallet/wallet_home.dart';
 import '/../tools/app_localizations.dart';
 import '/../tools/app_routes.dart';
@@ -35,19 +36,19 @@ import '../../tools/logger_wrapper.dart';
 import '../../tools/price_ticker.dart';
 
 class SendTab extends StatefulWidget {
-  final Function changeIndex;
+  final Function changeTab;
   final String? address;
   final String? label;
-  final ElectrumConnectionState connectionState;
+  final BackendConnectionState connectionState;
   final CoinWallet wallet;
   const SendTab({
-    required this.changeIndex,
+    required this.changeTab,
     this.address,
     this.label,
     required this.wallet,
     required this.connectionState,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<SendTab> createState() => _SendTabState();
@@ -65,10 +66,10 @@ class _SendTabState extends State<SendTab> {
   final _opReturnController = TextEditingController();
   bool _initial = true;
   late Coin _availableCoin;
-  late ActiveWallets _activeWallets;
+  late WalletProvider _walletProvider;
   late List<WalletAddress> _availableAddresses = [];
   bool _expertMode = false;
-  late AppSettings _appSettings;
+  late AppSettingsProvider _appSettings;
   late final int _decimalProduct;
   bool _fiatEnabled = false;
   bool _fiatInputEnabled = false;
@@ -119,11 +120,10 @@ class _SendTabState extends State<SendTab> {
                               currentIndex: _currentAddressIndex + 1,
                               numberOfRecipients: _numberOfRecipients,
                               raiseNewindex: (int newIndex) => setState(
-                                () => {
-                                  if (triggerFormValidation())
-                                    {
-                                      _currentAddressIndex = newIndex - 1,
-                                    }
+                                () {
+                                  if (triggerFormValidation()) {
+                                    _currentAddressIndex = newIndex - 1;
+                                  }
                                 },
                               ),
                             )
@@ -272,7 +272,7 @@ class _SendTabState extends State<SendTab> {
                           key: _opReturnKey,
                           controller: _opReturnController,
                           autocorrect: false,
-                          maxLength: _availableCoin.networkType.opreturnSize,
+                          maxLength: _availableCoin.opreturnSize,
                           minLines: 1,
                           maxLines: 5,
                           buildCounter: (
@@ -290,7 +290,7 @@ class _SendTabState extends State<SendTab> {
                           },
                           inputFormatters: [
                             Utf8LengthLimitingTextInputFormatter(
-                              _availableCoin.networkType.opreturnSize,
+                              _availableCoin.opreturnSize,
                             ),
                           ],
                           decoration: InputDecoration(
@@ -494,11 +494,11 @@ class _SendTabState extends State<SendTab> {
   void didChangeDependencies() async {
     if (_initial == true) {
       _availableCoin = AvailableCoins.getSpecificCoin(widget.wallet.name);
-      _activeWallets = Provider.of<ActiveWallets>(context);
-      _appSettings = context.read<AppSettings>();
+      _walletProvider = Provider.of<WalletProvider>(context);
+      _appSettings = context.read<AppSettingsProvider>();
 
       _availableAddresses =
-          await _activeWallets.getWalletAddresses(widget.wallet.name);
+          await _walletProvider.getWalletAddresses(widget.wallet.name);
       _decimalProduct = AvailableCoins.getDecimalProduct(
         identifier: widget.wallet.name,
       );
@@ -597,10 +597,11 @@ class _SendTabState extends State<SendTab> {
     Map<String, int> recipients = {};
     double totalCoins = 0;
     _amountControllerList.asMap().forEach((key, value) {
-      var coins = _requestedAmountInCoinsList[key];
+      var coins = Decimal.parse(_requestedAmountInCoinsList[key].toString());
+      var decimalProduct = Decimal.parse(_decimalProduct.toString());
       recipients[_addressControllerList[key].text.trim()] =
-          (coins! * _decimalProduct).toInt();
-      totalCoins += coins;
+          int.parse((coins * decimalProduct).toString());
+      totalCoins += coins.toDouble();
     });
 
     setState(() {
@@ -611,13 +612,18 @@ class _SendTabState extends State<SendTab> {
 
   Future<BuildResult?> _buildTx() async {
     try {
-      return await _activeWallets.buildTransaction(
+      return await _walletProvider.buildTransaction(
         identifier: widget.wallet.name,
         recipients: _buildRecipientMap(),
         fee: 0,
         opReturn: _opReturnKey.currentState?.value ?? '',
       );
     } catch (e) {
+      LoggerWrapper.logError(
+        'SendTab',
+        'buildTx',
+        'error building tx: ${e.toString()}',
+      );
       if (e.runtimeType == CantPayForFeesException) {
         final exception = e as CantPayForFeesException;
         ScaffoldMessenger.of(context).showSnackBar(
@@ -628,7 +634,7 @@ class _SendTabState extends State<SendTab> {
                 {
                   'feesMissing':
                       (exception.feesMissing / _decimalProduct).toString(),
-                  'letter_code': widget.wallet.letterCode
+                  'letter_code': widget.wallet.letterCode,
                 },
               ),
             ),
@@ -686,8 +692,7 @@ class _SendTabState extends State<SendTab> {
       if (element.isOurs == false && element.address.contains(pattern)) {
         return true;
       } else if (element.isOurs == false &&
-          element.addressBookName != null &&
-          element.addressBookName!.contains(pattern)) {
+          element.addressBookName.contains(pattern)) {
         return true;
       }
       return false;
@@ -754,7 +759,7 @@ class _SendTabState extends State<SendTab> {
           decimalProduct: _decimalProduct,
           coinLetterCode: widget.wallet.letterCode,
           coinIdentifier: widget.wallet.name,
-          callBackAfterSend: () => widget.changeIndex(Tabs.transactions),
+          callBackAfterSend: () => widget.changeTab(WalletTab.transactions),
           fiatPricePerCoin: _coinValue,
           fiatCode: _appSettings.selectedCurrency,
         ),
@@ -764,10 +769,10 @@ class _SendTabState extends State<SendTab> {
       _labelControllerList.asMap().forEach(
         (index, controller) {
           if (controller.text != '') {
-            _activeWallets.updateLabel(
-              widget.wallet.name,
-              _addressControllerList[index].text,
-              controller.text,
+            _walletProvider.updateOrCreateAddressLabel(
+              identifier: widget.wallet.name,
+              address: _addressControllerList[index].text,
+              label: controller.text,
             );
           }
         },

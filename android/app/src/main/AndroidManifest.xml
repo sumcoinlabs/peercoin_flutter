@@ -1,15 +1,16 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.sumcoinwallet">
-
+    package="com.coinerella.peercoin">
+    <!-- io.flutter.app.FlutterApplication is an android.app.Application that
+         calls FlutterMain.startInitialization(this); in its onCreate method.
+         In most cases you can leave this as-is, but you if you want to provide
+         additional functionality it is fine to subclass or reimplement
+         FlutterApplication and put your custom class here. -->
     <application
         tools:replace="android:label"
         android:name="${applicationName}"
-        android:label="Sumcoin Wallet"
+        android:label="Peercoin"
         android:icon="@mipmap/launcher_icon">
-        <meta-data
-            android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-1492791099222955~4029127071"/>
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -20,36 +21,25 @@
             android:allowBackup="false"
             android:fullBackupContent="false"
             android:windowSoftInputMode="adjustResize">
-
-            <meta-data
-                android:name="com.google.android.play.integrity.API_KEY"
-                android:value="AIzaSyBrHJuzREfLjQbPm1DRe-qCdJNaaAoKbfk"/>
+            <!-- Specifies an Android theme to apply to this Activity as soon as
+                 the Android process has started. This theme is visible to the user
+                 while the Flutter UI initializes. After that, this theme continues
+                 to determine the Window background behind the Flutter UI. -->
             <meta-data
               android:name="io.flutter.embedding.android.NormalTheme"
-              android:resource="@style/NormalTheme"/>
+              android:resource="@style/NormalTheme"
+              />
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-
-        <service
-            android:name="com.google.firebase.messaging.FirebaseMessagingService"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
-
+        <!-- Don't delete the meta-data below.
+             This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
     </application>
-
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.CAMERA" />

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:sumcoin/tools/app_localizations.dart';
+import 'package:peercoin/tools/app_localizations.dart';
 
 class SendTabNavigator extends StatelessWidget {
   const SendTabNavigator({
-    Key? key,
+    super.key,
     required this.currentIndex,
     required this.numberOfRecipients,
     required this.raiseNewindex,
-  }) : super(key: key);
+  });
   final int currentIndex;
   final int numberOfRecipients;
   final Function raiseNewindex;
@@ -38,8 +38,8 @@ class SendTabNavigator extends StatelessWidget {
               ),
         Text(
           AppLocalizations.instance.translate('send_navigator', {
-            "index": currentIndex.toString(),
-            "maximum": numberOfRecipients.toString()
+            'index': currentIndex.toString(),
+            'maximum': numberOfRecipients.toString(),
           }),
           style: TextStyle(
             fontSize: 12,

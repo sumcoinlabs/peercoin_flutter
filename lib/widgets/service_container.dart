@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class PeerServiceTitle extends StatelessWidget {
   final String title;
-  const PeerServiceTitle({Key? key, required this.title}) : super(key: key);
+  const PeerServiceTitle({super.key, required this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,7 @@ class PeerServiceTitle extends StatelessWidget {
                 thickness: 3,
               ),
             ),
-          )
+          ),
         ],
       ),
     );
@@ -44,11 +44,11 @@ class PeerContainer extends StatelessWidget {
   final bool noSpacers;
 
   const PeerContainer({
-    Key? key,
+    super.key,
     required this.child,
     this.isTransparent = false,
     this.noSpacers = false,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -62,10 +62,57 @@ class PeerContainer extends StatelessWidget {
       decoration: BoxDecoration(
         color: isTransparent
             ? Colors.transparent
-            : Theme.of(context).colorScheme.background,
+            : Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(20),
       ),
       child: child,
+    );
+  }
+}
+
+class ModalBottomSheetContainer extends StatelessWidget {
+  final Widget child;
+
+  const ModalBottomSheetContainer({
+    super.key,
+    required this.child,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: MediaQuery.of(context).size.width > 1200
+          ? MediaQuery.of(context).size.width / 2
+          : MediaQuery.of(context).size.width,
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.surface,
+        borderRadius: const BorderRadius.vertical(
+          top: Radius.circular(20),
+        ),
+      ),
+      padding: const EdgeInsets.all(20),
+      child: child,
+    );
+  }
+}
+
+class GradientContainer extends StatelessWidget {
+  const GradientContainer({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 30,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [
+            BottomAppBarTheme.of(context).color!,
+            Theme.of(context).primaryColor,
+          ],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+        ),
+      ),
     );
   }
 }

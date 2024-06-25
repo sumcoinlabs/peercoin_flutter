@@ -1,16 +1,9 @@
 buildscript {
     ext.kotlin_version = '1.7.21'
     ext {
-       compileSdkVersion   = 33         
-       targetSdkVersion    = 33               
+       compileSdkVersion   = 34        
+       targetSdkVersion    = 34               
        appCompatVersion    = "1.1.0"       
-    }
-
-    allprojects {
-        repositories {
-            google()
-            mavenCentral()
-        }
     }
 
     repositories {
@@ -20,11 +13,6 @@ buildscript {
 
     dependencies {
         classpath 'com.android.tools.build:gradle:7.1.1'
-        // START: FlutterFire Configuration
-        classpath 'com.google.gms:google-services:4.3.10'
-        classpath 'com.google.firebase:perf-plugin:1.4.1'
-        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.8.1'
-        // END: FlutterFire Configuration
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
@@ -47,6 +35,6 @@ subprojects {
     project.evaluationDependsOn(':app')
 }
 
-task clean(type: Delete) {
+tasks.register("clean", Delete) {
     delete rootProject.buildDir
 }

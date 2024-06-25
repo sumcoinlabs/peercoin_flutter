@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 
-class SetupProgressIndicator extends StatelessWidget with PreferredSizeWidget {
+class SetupProgressIndicator extends StatelessWidget
+    implements PreferredSizeWidget {
   @override
   final Size preferredSize;
   final int step;
 
-  SetupProgressIndicator(
+  const SetupProgressIndicator(
     this.step, {
-    Key? key,
-  })  : preferredSize = const Size.fromHeight(50.0),
-        super(key: key);
+    super.key,
+  }) : preferredSize = const Size.fromHeight(50.0);
   @override
   Widget build(BuildContext context) {
     return Container(

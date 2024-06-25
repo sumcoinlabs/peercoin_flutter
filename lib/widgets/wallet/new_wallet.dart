@@ -1,89 +1,93 @@
 import 'package:flutter/material.dart';
+import 'package:peercoin/models/experimental_features.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../models/available_coins.dart';
 import '../../models/coin.dart';
-import '../../providers/active_wallets.dart';
-import '../../providers/app_settings.dart';
+import '../../providers/wallet_provider.dart';
+import '../../providers/app_settings_provider.dart';
 import '../../tools/app_localizations.dart';
-import '../../tools/app_routes.dart';
 import '../../tools/auth.dart';
 
 class NewWalletDialog extends StatefulWidget {
-  const NewWalletDialog({Key? key}) : super(key: key);
+  const NewWalletDialog({super.key});
 
   @override
   State<NewWalletDialog> createState() => _NewWalletDialogState();
 }
 
-Map<String, Coin> availableCoins = AvailableCoins.availableCoins;
-List activeCoins = [];
+Map<String, Coin> _availableCoins = AvailableCoins.availableCoins;
 
 class _NewWalletDialogState extends State<NewWalletDialog> {
   String _coin = '';
   bool _initial = true;
+  bool _watchOnly = false;
+  late AppSettingsProvider _appSettings;
 
   Future<void> addWallet() async {
     try {
-      var appSettings = context.read<AppSettings>();
+      var appSettings = context.read<AppSettingsProvider>();
       final navigator = Navigator.of(context);
-      await context.read<ActiveWallets>().addWallet(
-            _coin,
-            availableCoins[_coin]!.displayName,
-            availableCoins[_coin]!.letterCode,
-          );
+      final WalletProvider walletProvider = context.read<WalletProvider>();
+      final letterCode = _availableCoins[_coin]!.letterCode;
+      final nOfWalletOfLetterCode = walletProvider.availableWalletValues
+          .where((element) => element.letterCode == letterCode)
+          .length;
+      final walletName = '${_coin}_$nOfWalletOfLetterCode';
+
+      String title = _availableCoins[_coin]!.displayName;
+      if (nOfWalletOfLetterCode > 0) {
+        title = '$title ${nOfWalletOfLetterCode + 1}';
+      }
+      final prefs = await SharedPreferences.getInstance();
+
+      await walletProvider.addWallet(
+        name: walletName,
+        title: title,
+        letterCode: letterCode,
+        isImportedSeed: prefs.getBool('importedSeed') == true,
+        watchOnly: _watchOnly,
+      );
+
+      //add to order list
+      _appSettings.setWalletOrder(_appSettings.walletOrder..add(walletName));
 
       //enable notifications
       var notificationList = appSettings.notificationActiveWallets;
-      notificationList.add(availableCoins[_coin]!.letterCode);
+      notificationList.add(walletName);
       appSettings.setNotificationActiveWallets(notificationList);
 
-      var prefs = await SharedPreferences.getInstance();
-      if (prefs.getBool('importedSeed') == true) {
-        await navigator.pushNamedAndRemoveUntil(
-          Routes.walletImportScan,
-          (_) => false,
-          arguments: _coin,
-        );
-      } else {
-        navigator.pop();
-      }
+      navigator.pop();
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            _coin == ''
-                ? AppLocalizations.instance.translate('select_coin')
-                : AppLocalizations.instance.translate('add_coin_failed'),
-            textAlign: TextAlign.center,
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              _coin == ''
+                  ? AppLocalizations.instance.translate('select_coin')
+                  : AppLocalizations.instance.translate('add_coin_failed'),
+              textAlign: TextAlign.center,
+            ),
+            duration: const Duration(seconds: 2),
           ),
-          duration: const Duration(seconds: 2),
-        ),
-      );
+        );
+      }
     }
   }
 
   @override
   void didChangeDependencies() async {
     if (_initial) {
-      var appSettings = context.read<AppSettings>();
-      var activeWallets = context.read<ActiveWallets>();
-      if (appSettings.authenticationOptions!['newWallet']!) {
+      _appSettings = context.read<AppSettingsProvider>();
+      if (_appSettings.authenticationOptions!['newWallet']!) {
         await Auth.requireAuth(
           context: context,
-          biometricsAllowed: appSettings.biometricsAllowed,
+          biometricsAllowed: _appSettings.biometricsAllowed,
           canCancel: false,
         );
       }
-      var activeWalletList = activeWallets.activeWalletsKeys;
-      for (var element in activeWalletList) {
-        if (availableCoins.keys.contains(element)) {
-          setState(() {
-            activeCoins.add(element);
-          });
-        }
-      }
+
       setState(() {
         _initial = false;
       });
@@ -95,9 +99,7 @@ class _NewWalletDialogState extends State<NewWalletDialog> {
   @override
   Widget build(BuildContext context) {
     var list = <Widget>[];
-    final actualAvailableWallets = availableCoins.keys
-        .where((element) => !activeCoins.contains(element))
-        .toList();
+    final actualAvailableWallets = _availableCoins.keys;
 
     if (actualAvailableWallets.isNotEmpty) {
       for (var wallet in actualAvailableWallets) {
@@ -111,12 +113,12 @@ class _NewWalletDialogState extends State<NewWalletDialog> {
               leading: CircleAvatar(
                 backgroundColor: Colors.white,
                 child: Image.asset(
-                  AvailableCoins.getSpecificCoin(availableCoins[wallet]!.name)
+                  AvailableCoins.getSpecificCoin(_availableCoins[wallet]!.name)
                       .iconPath,
                   width: 16,
                 ),
               ),
-              title: Text(availableCoins[wallet]!.displayName),
+              title: Text(_availableCoins[wallet]!.displayName),
             ),
           ),
         );
@@ -125,6 +127,31 @@ class _NewWalletDialogState extends State<NewWalletDialog> {
       list.add(
         Center(
           child: Text(AppLocalizations.instance.translate('no_new_wallet')),
+        ),
+      );
+    }
+
+    if (_appSettings.activatedExperimentalFeatures
+        .contains(ExperimentalFeatures.watchOnlyWallets.name)) {
+      list.add(
+        SimpleDialogOption(
+          child: GestureDetector(
+            onTap: () => setState(() {
+              _watchOnly = !_watchOnly;
+            }),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Checkbox(
+                  value: _watchOnly,
+                  onChanged: (e) => setState(() {
+                    _watchOnly = e!;
+                  }),
+                ),
+                Text(AppLocalizations.instance.translate('watch_only')),
+              ],
+            ),
+          ),
         ),
       );
     }

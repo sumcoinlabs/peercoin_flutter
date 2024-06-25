@@ -1,31 +1,34 @@
+import 'dart:io';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
-import '../../providers/electrum_connection.dart';
+import '../../providers/connection_provider.dart';
 import '../../tools/share_wrapper.dart';
-import '/../providers/active_wallets.dart';
+import '../../providers/wallet_provider.dart';
 import '/../tools/app_localizations.dart';
 import '/../models/available_coins.dart';
 import '/../models/coin.dart';
-import '/../models/coin_wallet.dart';
+import '/../models/hive/coin_wallet.dart';
 import '/../widgets/buttons.dart';
 import '/../widgets/double_tab_to_clipboard.dart';
 import '/../widgets/service_container.dart';
 import '/../widgets/wallet/wallet_balance_header.dart';
-import '/../widgets/wallet/wallet_home_qr.dart';
+import 'wallet_home/wallet_home_qr.dart';
 
 class ReceiveTab extends StatefulWidget {
   final String unusedAddress;
-  final ElectrumConnectionState connectionState;
+  final BackendConnectionState connectionState;
   final CoinWallet wallet;
   const ReceiveTab({
     required this.unusedAddress,
     required this.connectionState,
     required this.wallet,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<ReceiveTab> createState() => _ReceiveTabState();
@@ -101,10 +104,10 @@ class _ReceiveTabState extends State<ReceiveTab> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text(
-            AppLocalizations.instance.translate('buy_sumcoin_dialog_title'),
+            AppLocalizations.instance.translate('buy_peercoin_dialog_title'),
           ),
           content: Text(
-            AppLocalizations.instance.translate('buy_sumcoin_dialog_content'),
+            AppLocalizations.instance.translate('buy_peercoin_dialog_content'),
           ),
           actions: <Widget>[
             TextButton(
@@ -133,6 +136,73 @@ class _ReceiveTabState extends State<ReceiveTab> {
         );
       },
     );
+  }
+
+  Widget renderPurchaseButtons() {
+    if (widget.wallet.letterCode == 'tPPC') {
+      return Align(
+        child: PeerContainer(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              PeerServiceTitle(
+                title: AppLocalizations.instance.translate('receive_obtain'),
+              ),
+              const SizedBox(height: 20),
+              Text(
+                AppLocalizations.instance.translate('receive_website_faucet'),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 20),
+              PeerButton(
+                text: AppLocalizations.instance.translate('receive_faucet'),
+                action: () {
+                  launchURL('https://ppc.lol/faucet/');
+                },
+              ),
+            ],
+          ),
+        ),
+      );
+    } else if (!kIsWeb) {
+      if (widget.wallet.letterCode == 'PPC' && Platform.isIOS == false) {
+        return Align(
+          child: PeerContainer(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                PeerServiceTitle(
+                  title: AppLocalizations.instance.translate('buy_peercoin'),
+                ),
+                const SizedBox(height: 20),
+                Text(
+                  AppLocalizations.instance
+                      .translate('receive_website_description'),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 20),
+                PeerButton(
+                  text: AppLocalizations.instance
+                      .translate('receive_website_credit'),
+                  action: () {
+                    launchURL('https://ppc.lol/buy');
+                  },
+                ),
+                const SizedBox(height: 20),
+                PeerButton(
+                  text: AppLocalizations.instance
+                      .translate('receive_website_exchandes'),
+                  action: () {
+                    launchURL('https://ppc.lol/exchanges');
+                  },
+                ),
+              ],
+            ),
+          ),
+        );
+      }
+    }
+    return const SizedBox();
   }
 
   @override
@@ -182,6 +252,7 @@ class _ReceiveTabState extends State<ReceiveTab> {
                           padding: const EdgeInsets.all(8.0),
                           child: FittedBox(
                             child: DoubleTabToClipboard(
+                              withHintText: false,
                               clipBoardData: widget.unusedAddress,
                               child: SelectableText(
                                 widget.unusedAddress,
@@ -256,10 +327,12 @@ class _ReceiveTabState extends State<ReceiveTab> {
                             .translate('receive_share'),
                         action: () async {
                           if (labelController.text != '') {
-                            context.read<ActiveWallets>().updateLabel(
-                                  widget.wallet.name,
-                                  widget.unusedAddress,
-                                  labelController.text,
+                            context
+                                .read<WalletProvider>()
+                                .updateOrCreateAddressLabel(
+                                  identifier: widget.wallet.name,
+                                  address: widget.unusedAddress,
+                                  label: labelController.text,
                                 );
                           }
                           await ShareWrapper.share(
@@ -293,70 +366,7 @@ class _ReceiveTabState extends State<ReceiveTab> {
                 ),
               ),
             ),
-            widget.wallet.title.contains('Sumcoin')
-                ? Align(
-                    child: PeerContainer(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          PeerServiceTitle(
-                            title: AppLocalizations.instance
-                                .translate('receive_obtain'),
-                          ),
-                          const SizedBox(height: 20),
-                          Text(
-                            AppLocalizations.instance
-                                .translate('receive_website_faucet'),
-                            textAlign: TextAlign.center,
-                          ),
-                          const SizedBox(height: 20),
-                          PeerButton(
-                            text: AppLocalizations.instance
-                                .translate('receive_faucet'),
-                            action: () {
-                              launchURL('https://sumcoinindex.com/faucets/');
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
-                  )
-                  // NOTE: : Align() had ')' added to make code happy temporaraly
-                : Align()
-//                    child: PeerContainer(
-//                      child: Column(
-//                        crossAxisAlignment: CrossAxisAlignment.center,
-//                        children: <Widget>[
-//                          PeerServiceTitle(
-//                            title: AppLocalizations.instance
-//                                .translate('buy_sumcoin'),
-//                          ),
-//                          const SizedBox(height: 20),
-//                          Text(
-//                            AppLocalizations.instance
-//                                .translate('receive_website_description'),
-//                            textAlign: TextAlign.center,
-//                          ),
-//                          const SizedBox(height: 20),
-//                          PeerButton(
-//                            text: AppLocalizations.instance
-//                                .translate('receive_website_credit'),
-//                            action: () {
-//                              launchURL('https://sumcoin.org/buy');
-//                            },
-//                          ),
-//                          const SizedBox(height: 20),
-//                          PeerButton(
-//                            text: AppLocalizations.instance
-//                                .translate('receive_website_exchandes'),
-//                            action: () {
-//                              launchURL('https://sumcoin.org/exchanges');
-//                            },
-//                          ),
-//                        ],
-//                      ),
-//                    ),
-//                  ),
+            renderPurchaseButtons(),
           ],
         ),
       ],

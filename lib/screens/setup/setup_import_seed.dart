@@ -5,7 +5,7 @@ import 'package:bip39/bip39.dart' as bip39;
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../providers/active_wallets.dart';
+import '../../providers/wallet_provider.dart';
 import '../../tools/app_localizations.dart';
 import '../../tools/app_routes.dart';
 import '../../tools/logger_wrapper.dart';
@@ -13,7 +13,7 @@ import '../../widgets/buttons.dart';
 import 'setup_landing.dart';
 
 class SetupImportSeedScreen extends StatefulWidget {
-  const SetupImportSeedScreen({Key? key}) : super(key: key);
+  const SetupImportSeedScreen({super.key});
 
   @override
   State<SetupImportSeedScreen> createState() => _SetupImportSeedState();
@@ -34,27 +34,29 @@ class _SetupImportSeedState extends State<SetupImportSeedScreen> {
     setState(() {
       _loading = true;
     });
-    final activeWallets = context.read<ActiveWallets>();
+    final walletProvider = context.read<WalletProvider>();
     final navigator = Navigator.of(context);
     try {
-      await activeWallets.init();
+      await walletProvider.init();
     } catch (e) {
       LoggerWrapper.logError(
         'SetupImportSeed',
         'createWallet',
         e.toString(),
       );
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            AppLocalizations.instance.translate('setup_securebox_fail'),
-            textAlign: TextAlign.center,
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              AppLocalizations.instance.translate('setup_securebox_fail'),
+              textAlign: TextAlign.center,
+            ),
+            duration: const Duration(seconds: 10),
           ),
-          duration: const Duration(seconds: 10),
-        ),
-      );
+        );
+      }
     }
-    await activeWallets.createPhrase(_controller.text);
+    await walletProvider.createPhrase(_controller.text);
     var prefs = await SharedPreferences.getInstance();
     await prefs.setBool('importedSeed', true);
     await navigator.pushNamed(Routes.setupAuth);
@@ -174,7 +176,7 @@ class _SetupImportSeedState extends State<SetupImportSeedScreen> {
                                 borderRadius: const BorderRadius.all(
                                   Radius.circular(20),
                                 ),
-                                color: Theme.of(context).colorScheme.background,
+                                color: Theme.of(context).colorScheme.surface,
                                 border: Border.all(
                                   width: 2,
                                   color: Theme.of(context).primaryColor,
@@ -211,7 +213,7 @@ class _SetupImportSeedState extends State<SetupImportSeedScreen> {
                                   ),
                                   decoration: InputDecoration(
                                     hintText:
-                                        'e.g. happy ran quickly through mushrooms pepper courgette onion asparagus garlic sweetcorn nut pumpkin potato bean spinach dog park flowers birds green the leg loop',
+                                        'e.g. mushrooms pepper courgette onion asparagus garlic sweetcorn nut pumpkin potato bean spinach',
                                     hintStyle: TextStyle(
                                       color: Theme.of(context)
                                           .colorScheme
@@ -221,7 +223,7 @@ class _SetupImportSeedState extends State<SetupImportSeedScreen> {
                                     filled: true,
                                     fillColor: Theme.of(context)
                                         .colorScheme
-                                        .background,
+                                        .surface,
                                     suffixIcon: IconButton(
                                       onPressed: () async {
                                         final focusScope =

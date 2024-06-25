@@ -1,7 +1,4 @@
-import 'dart:async';
-import 'dart:io';
-
-import 'package:cryptography_flutter/cryptography_flutter.dart';
+import 'package:coinlib_flutter/coinlib_flutter.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -15,74 +12,52 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:theme_mode_handler/theme_mode_handler.dart';
 
-import 'package:google_mobile_ads/google_mobile_ads.dart';
-
-import 'models/app_options.dart';
-import 'models/pending_notifications.dart';
-import './models/server.dart';
-import 'providers/app_settings.dart';
-import 'providers/servers.dart';
+import 'models/hive/app_options.dart';
+import 'models/hive/pending_notifications.dart';
+import 'models/hive/server.dart';
+import 'providers/app_settings_provider.dart';
+import 'providers/server_provider.dart';
 import 'screens/auth_jail.dart';
 import 'screens/secure_storage_error_screen.dart';
 import 'tools/logger_wrapper.dart';
 import 'tools/theme_manager.dart';
-import 'models/coin_wallet.dart';
-import 'models/wallet_address.dart';
-import 'models/wallet_transaction.dart';
-import 'models/wallet_utxo.dart';
-import 'providers/active_wallets.dart';
-import 'providers/electrum_connection.dart';
-import 'providers/encrypted_box.dart';
+import 'models/hive/coin_wallet.dart';
+import 'models/hive/wallet_address.dart';
+import 'models/hive/wallet_transaction.dart';
+import 'models/hive/wallet_utxo.dart';
+import 'providers/wallet_provider.dart';
+import 'providers/connection_provider.dart';
+import 'providers/encrypted_box_provider.dart';
 import 'screens/setup/setup_landing.dart';
 import 'screens/wallet/wallet_list.dart';
 import 'tools/app_localizations.dart';
 import 'tools/app_routes.dart';
 import 'tools/app_themes.dart';
 import 'tools/session_checker.dart';
-import 'widgets/spinning_sumcoin_icon.dart';
+import 'widgets/spinning_peercoin_icon.dart';
 
-import 'package:firebase_core/firebase_core.dart';
-import 'firebase_options.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
-import 'tabs_page.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:location/location.dart';
-import 'package:flutter_app_badger/flutter_app_badger.dart';
-
-
-bool setupFinished = false;
-Widget _homeWidget = Container(); // Initialize with an empty Container or any other widget as a placeholder.
-Locale _locale = const Locale('en', 'US'); // Initialize with a default Locale. Modify this as per your needs.
-
-
-FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-FirebaseAnalyticsObserver observer = FirebaseAnalyticsObserver(analytics: analytics);
-
-// The background message handler must be a top-level function.
-// This function will be called to handle incoming messages when your app is in the background.
-Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  // If you're going to use other Firebase services in the background, such as Firestore,
-  // make sure you call `initializeApp` before using other Firebase services.
-
-
-//  print("Handling a background message: ${message.messageId}");
-}
+late bool setupFinished;
+late Widget _homeWidget;
+late Locale _locale;
 
 void main() async {
+  //init sharedpreferences
   WidgetsFlutterBinding.ensureInitialized();
-
-  if (Firebase.apps.isEmpty) {
-    // No Firebase app is initialized, so we need to initialize it.
-    await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  }
-
   var prefs = await SharedPreferences.getInstance();
   setupFinished = prefs.getBool('setupFinished') ?? false;
   _locale = Locale(prefs.getString('language_code') ?? 'und');
 
-  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-  MobileAds.instance.initialize();
+  //clear storage if setup is not finished
+  if (!setupFinished) {
+    await prefs.clear();
+    LoggerWrapper.logInfo(
+      'main',
+      'SharedPreferences',
+      'SharedPreferences flushed',
+    );
+  }
 
+  //init hive
   await Hive.initFlutter();
   Hive.registerAdapter(CoinWalletAdapter());
   Hive.registerAdapter(WalletTransactionAdapter());
@@ -92,56 +67,11 @@ void main() async {
   Hive.registerAdapter(ServerAdapter());
   Hive.registerAdapter(PendingNotificationAdapter());
 
+  //init coinlib
+  await loadCoinlib();
+
+  //init notifications
   var flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-
-  // Reset the badge number for iOS on press
-  FlutterAppBadger.removeBadge();
-
-  final FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
-
-  NotificationSettings settings = await firebaseMessaging.requestPermission(
-    alert: true,
-    announcement: false,
-    badge: true,
-    carPlay: false,
-    criticalAlert: false,
-    provisional: false,
-    sound: true,
-  );
-
-  print('User granted permission: ${settings.authorizationStatus}');
-
-  FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-    print('A new onMessageOpenedApp event was published!');
-    // Reset the badge number
-    FlutterLocalNotificationsPlugin().cancelAll();
-  });
-
-
-  FirebaseMessaging.instance
-      .getInitialMessage()
-      .then((RemoteMessage? message) {
-    if (message != null) {
-      print('A new getInitialMessage event was published!');
-      print('Message data: ${message.data}');
-    }
-  });
-
-  FirebaseMessaging.instance.getToken().then((String? token) {
-    print('Token: $token');
-  });
-
-  analytics.logEvent(
-      name: 'my_event',
-      parameters: <String, dynamic>{
-        'string': 'string example',
-        'int': 42,
-      },
-  );
-
-FirebaseMessaging.instance.onTokenRefresh.listen((String token) {
-    print('Token refreshed: $token');
-  });
 
   await flutterLocalNotificationsPlugin
       .resolvePlatformSpecificImplementation<
@@ -176,12 +106,23 @@ FirebaseMessaging.instance.onTokenRefresh.listen((String token) {
   final notificationAppLaunchDetails =
       await flutterLocalNotificationsPlugin.getNotificationAppLaunchDetails();
 
+  //check if app is locked
   var secureStorageError = false;
   var failedAuths = 0;
   var sessionExpired = await checkSessionExpired();
 
   try {
     const secureStorage = FlutterSecureStorage();
+    //clear secureStorage if setup is not finished
+    if (!setupFinished) {
+      await secureStorage.deleteAll();
+      LoggerWrapper.logInfo(
+        'main',
+        'secureStorage',
+        'secureStorage flushed',
+      );
+    }
+
     failedAuths =
         int.parse(await secureStorage.read(key: 'failedAuths') ?? '0');
   } catch (e) {
@@ -192,6 +133,8 @@ FirebaseMessaging.instance.onTokenRefresh.listen((String token) {
   if (secureStorageError == true) {
     _homeWidget = const SecureStorageFailedScreen();
   } else {
+    //check web session expired
+
     if (setupFinished == false || sessionExpired == true) {
       _homeWidget = const SetupLandingScreen();
     } else if (failedAuths > 0) {
@@ -208,14 +151,13 @@ FirebaseMessaging.instance.onTokenRefresh.listen((String token) {
   }
 
   if (!kIsWeb) {
-    FlutterCryptography.enable();
-
+    //init logger
     await FlutterLogs.initLogs(
       logLevelsEnabled: [
         LogLevel.INFO,
         LogLevel.WARNING,
         LogLevel.ERROR,
-        LogLevel.SEVERE
+        LogLevel.SEVERE,
       ],
       timeStampFormat: TimeStampFormat.TIME_FORMAT_READABLE,
       directoryStructure: DirectoryStructure.FOR_DATE,
@@ -236,129 +178,63 @@ FirebaseMessaging.instance.onTokenRefresh.listen((String token) {
     );
   }
 
-  runApp(const SumcoinApp());
+  //run
+  runApp(const PeercoinApp());
 }
 
-class SumcoinApp extends StatefulWidget {
-  const SumcoinApp({Key? key}) : super(key: key);
-
-  @override
-  _SumcoinAppState createState() => _SumcoinAppState();
-}
-
-class _SumcoinAppState extends State<SumcoinApp> {
-  // Initialize the location plugin
-  Location location = Location();
-
-  // This will hold the current location data
-  LocationData? _locationData;
-
-  // This will listen for location changes
-  StreamSubscription<LocationData>? locationSubscription;
-
-  @override
-  void initState() {
-    super.initState();
-    _getLocation();
-
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      // existing code...
-    });
-  }
-
-  // New function to get location data
-  Future<void> _getLocation() async {
-    bool serviceEnabled;
-    PermissionStatus permissionGranted;
-
-    serviceEnabled = await location.serviceEnabled();
-    if (!serviceEnabled) {
-      serviceEnabled = await location.requestService();
-      if (!serviceEnabled) {
-        return;
-      }
-    }
-
-    permissionGranted = await location.hasPermission();
-    if (permissionGranted == PermissionStatus.denied) {
-      permissionGranted = await location.requestPermission();
-      if (permissionGranted != PermissionStatus.granted) {
-        return;
-      }
-    }
-
-    _locationData = await location.getLocation();
-
-    locationSubscription =
-        location.onLocationChanged.listen((LocationData currentLocation) {
-          setState(() {
-            _locationData = currentLocation;
-          });
-        });
-
-    print("Current Location: $_locationData");
-  }
-
-  @override
-  void dispose() {
-    locationSubscription?.cancel();
-    super.dispose();
-  }
-
+class PeercoinApp extends StatelessWidget {
+  const PeercoinApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider.value(value: EncryptedBox()),
+        ChangeNotifierProvider.value(value: EncryptedBoxProvider()),
         ChangeNotifierProvider(
           create: (context) {
-            return ActiveWallets(
-              Provider.of<EncryptedBox>(context, listen: false),
+            return WalletProvider(
+              Provider.of<EncryptedBoxProvider>(context, listen: false),
             );
           },
         ),
         ChangeNotifierProvider(
           create: (context) {
-            return AppSettings(
-              Provider.of<EncryptedBox>(context, listen: false),
+            return AppSettingsProvider(
+              Provider.of<EncryptedBoxProvider>(context, listen: false),
             );
           },
         ),
         ChangeNotifierProvider(
           create: (context) {
-            return Servers(
-              Provider.of<EncryptedBox>(context, listen: false),
+            return ServerProvider(
+              Provider.of<EncryptedBoxProvider>(context, listen: false),
             );
           },
         ),
-        ChangeNotifierProvider(
-          create: (context) {
-            return ElectrumConnection(
-              Provider.of<ActiveWallets>(context, listen: false),
-              Provider.of<Servers>(context, listen: false),
-            );
-          },
-        ),
+        ChangeNotifierProvider.value(value: ConnectionProvider()),
       ],
       child: ThemeModeHandler(
         manager: ThemeManager(),
         builder: (ThemeMode themeMode) {
           return GlobalLoaderOverlay(
             useDefaultLoading: false,
-            overlayOpacity: 0.6,
+            overlayColor: Colors.grey.withOpacity(0.6),
             overlayWidget: const Center(
-              child: SpinningSumcoinIcon(),
+              child: SpinningPeercoinIcon(),
             ),
             child: MaterialApp(
-              title: 'Sumcoin',
+              title: 'Peercoin',
               debugShowCheckedModeBanner: false,
-              supportedLocales: AppLocalizations.availableLocales.keys
-                  .map((lang) => Locale(lang)),
+              supportedLocales: AppLocalizations.availableLocales.values.map(
+                (e) {
+                  var (locale, _) = e;
+                  return locale;
+                },
+              ),
               localizationsDelegates: const [
                 AppLocalizations.delegate,
                 GlobalMaterialLocalizations.delegate,
-                GlobalCupertinoLocalizations.delegate
+                GlobalCupertinoLocalizations.delegate,
               ],
               locale: _locale == const Locale('und') ? null : _locale,
               themeMode: themeMode,
@@ -366,7 +242,6 @@ class _SumcoinAppState extends State<SumcoinApp> {
               darkTheme: MyTheme.getTheme(ThemeMode.dark),
               home: _homeWidget,
               routes: Routes.getRoutes(),
-              navigatorObservers: [observer],
             ),
           );
         },

@@ -5,20 +5,16 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:mailto/mailto.dart';
-import 'package:sumcoin/widgets/service_container.dart';
+import 'package:peercoin/widgets/service_container.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
-import '../providers/active_wallets.dart';
+import '../providers/wallet_provider.dart';
 import '../tools/app_localizations.dart';
 import '../tools/app_routes.dart';
 
-import '../../widgets/banner_ad_widget.dart';
-import '../../widgets/native_ad_widget.dart';
-import 'package:visibility_detector/visibility_detector.dart';
-
 class AboutScreen extends StatefulWidget {
-  const AboutScreen({Key? key}) : super(key: key);
+  const AboutScreen({super.key});
 
   @override
   State<AboutScreen> createState() => _AboutScreenState();
@@ -27,14 +23,14 @@ class AboutScreen extends StatefulWidget {
 class _AboutScreenState extends State<AboutScreen> {
   bool _initial = true;
   late PackageInfo _packageInfo;
-  late ActiveWallets _activeWallets;
-  late List _listOfActiveWallets;
+  late WalletProvider _walletProvider;
+  late List _listOfAvailableWallets;
 
   @override
   void didChangeDependencies() async {
     if (_initial) {
-      _activeWallets = context.read<ActiveWallets>();
-      _listOfActiveWallets = _activeWallets.activeWalletsKeys;
+      _walletProvider = context.read<WalletProvider>();
+      _listOfAvailableWallets = _walletProvider.availableWalletKeys;
       _packageInfo = await PackageInfo.fromPlatform();
       setState(() {
         _initial = false;
@@ -53,8 +49,8 @@ class _AboutScreenState extends State<AboutScreen> {
 
   Future<void> launchMailto() async {
     final mailtoLink = Mailto(
-      to: ['hello@sumcoinwallet.org'],
-      subject: 'Sumcoin Wallet - in app mail',
+      to: ['hello@app.peercoin.net'],
+      subject: 'Peercoin Wallet',
     );
     await launchUrlString('$mailtoLink');
   }
@@ -90,7 +86,7 @@ class _AboutScreenState extends State<AboutScreen> {
                       ),
                       TextButton(
                         onPressed: () => _launchURL(
-                          'https://github.com/sumcoinlabs/sumcoin_flutter/blob/main/LICENSE',
+                          'https://github.com/peercoin/peercoin_flutter/blob/main/LICENSE',
                         ),
                         child: Text(
                           AppLocalizations.instance.translate(
@@ -128,7 +124,7 @@ class _AboutScreenState extends State<AboutScreen> {
                       ),
                       TextButton(
                         onPressed: () => _launchURL(
-                          'https://github.com/sumcoinlabs/sumcoin_flutter',
+                          'https://github.com/peercoin/peercoin_flutter',
                         ),
                         child: Text(
                           AppLocalizations.instance.translate(
@@ -146,7 +142,7 @@ class _AboutScreenState extends State<AboutScreen> {
                       ),
                       TextButton(
                         onPressed: () => _launchURL(
-                          'https://github.com/sumcoinlabs/sumcoin_flutter/blob/main/data_protection.md',
+                          'https://github.com/peercoin/peercoin_flutter/blob/main/data_protection.md',
                         ),
                         child: Text(
                           AppLocalizations.instance.translate(
@@ -163,23 +159,23 @@ class _AboutScreenState extends State<AboutScreen> {
                         ),
                       ),
                       if (!kIsWeb)
-                        _listOfActiveWallets.contains('sumcoin') &&
+                        _listOfAvailableWallets.contains('peercoin') &&
                                 !Platform.isIOS
                             ? TextButton(
                                 onPressed: () async {
                                   final navigator = Navigator.of(context);
                                   final values =
-                                      _activeWallets.activeWalletsValues;
-                                  final sumWallet = values.firstWhere(
-                                    (element) => element.name == 'sumcoin',
+                                      _walletProvider.availableWalletValues;
+                                  final ppcWallet = values.firstWhere(
+                                    (element) => element.name == 'peercoin',
                                   );
 
                                   navigator.pushNamed(
                                     Routes.walletHome,
                                     arguments: {
-                                      'wallet': sumWallet,
+                                      'wallet': ppcWallet,
                                       'pushedAddress':
-                                          'SU97wjt7X1kZaU2tafMK18Ar15CiKAn4FN',
+                                          'p77CZFn9jvg9waCzKBzkQfSvBBzPH1nRre',
                                     },
                                   );
                                 },
@@ -192,7 +188,7 @@ class _AboutScreenState extends State<AboutScreen> {
                             : const SizedBox(),
                       TextButton(
                         onPressed: () => _launchURL(
-                          'https://www.sumcoin.org/foundation',
+                          'https://www.peercoin.net/foundation',
                         ),
                         child: Text(
                           AppLocalizations.instance.translate(
@@ -244,7 +240,7 @@ class _AboutScreenState extends State<AboutScreen> {
                       ),
                       TextButton(
                         onPressed: () async => _launchURL(
-                          'https://www.sumcoin.org',
+                          'https://designs.ai',
                         ),
                         child: Text(
                           AppLocalizations.instance.translate(
@@ -259,10 +255,6 @@ class _AboutScreenState extends State<AboutScreen> {
               ),
             ),
           ),
-          // Add the banner ad widget here.
-          // This will make it appear at the bottom of the screen.
-          // BannerAdWidget(),
-        //   NativeAdWidget(),
         ],
       ),
     );

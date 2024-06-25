@@ -11,7 +11,7 @@
 		<key>CFBundleInfoDictionaryVersion</key>
 		<string>6.0</string>
 		<key>CFBundleName</key>
-		<string>Sumcoin Wallet</string>
+		<string>Peercoin</string>
 		<key>CFBundlePackageType</key>
 		<string>APPL</string>
 		<key>CFBundleShortVersionString</key>
@@ -25,27 +25,16 @@
 		<key>LSRequiresIPhoneOS</key>
 		<true/>
 		<key>NSCameraUsageDescription</key>
-		<string>Can we access your camera in order to scan barcodes?</string>
+		<string>We would like to access your camera to scan QR codes.</string>
 		<key>NSFaceIDUsageDescription</key>
-		<string>FaceID protects your wallet from unauthorized use.</string>
+		<string>We would like to use FaceID to protect your wallet from unauthorized use.</string>
 		<key>NSPhotoLibraryUsageDescription</key>
 		<string>We would like to access your filesystem to import the CSV file.</string>
-        <key>NSLocationWhenInUseUsageDescription</key>
-        <string>Location Sharing Helps Locate Kiosks Where You Can Purchase Sumcoin.</string>
-        <key>NSLocationAlwaysUsageDescription</key>
-        <string>Location Sharing Helps Locate Kiosks Where You Can Purchase Sumcoin.</string>
-        <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-        <string>Location Sharing Helps Locate Kiosks Where You Can Purchase Sumcoin.</string>
-
-        <key>UIBackgroundModes</key>
-        <array>
-          <string>fetch</string>
-          <string>remote-notification</string>
-        </array>
-				<key>NSUserNotificationAlertStyle</key>
-		<string>banner</string>
-		<key>GADApplicationIdentifier</key>
-    <string>ca-app-pub-1492791099222955~2384302091</string>
+		<key>UIBackgroundModes</key>
+		<array>
+			<string>fetch</string>
+			<string>remote-notification</string>
+		</array>
 		<key>UILaunchStoryboardName</key>
 		<string>LaunchScreen</string>
 		<key>UIMainStoryboardFile</key>
@@ -79,22 +68,6 @@
 		<key>CADisableMinimumFrameDurationOnPhone</key>
 		<true/>
 		<key>UIApplicationSupportsIndirectInputEvents</key>
-		<true/>
-		<!-- Inserting Firebase configurations -->
-		<key>FirebaseAppDelegateProxyEnabled</key>
-		<true/>
-		<key>NSAppTransportSecurity</key>
-		<dict>
-			<key>NSAllowsArbitraryLoads</key>
-			<true/>
-			<key>NSExceptionDomains</key>
-			<dict>
-				<key>com.sumcoinwallet</key>
-				<dict>
-					<key>NSExceptionAllowsInsecureHTTPLoads</key>
-					<true/>
-				</dict>
-			</dict>
-		</dict>
-	</dict>
+	<true/>
+</dict>
 </plist>

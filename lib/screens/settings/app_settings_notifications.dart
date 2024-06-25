@@ -2,15 +2,15 @@ import 'package:background_fetch/background_fetch.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../models/coin_wallet.dart';
-import '../../providers/active_wallets.dart';
-import '../../providers/app_settings.dart';
+import '../../models/hive/coin_wallet.dart';
+import '../../providers/wallet_provider.dart';
+import '../../providers/app_settings_provider.dart';
 import '../../tools/app_localizations.dart';
 import '../../tools/background_sync.dart';
 import '../../widgets/buttons.dart';
 
 class AppSettingsNotificationsScreen extends StatefulWidget {
-  const AppSettingsNotificationsScreen({Key? key}) : super(key: key);
+  const AppSettingsNotificationsScreen({super.key});
 
   @override
   State<AppSettingsNotificationsScreen> createState() =>
@@ -20,16 +20,16 @@ class AppSettingsNotificationsScreen extends StatefulWidget {
 class _AppSettingsNotificationsScreenState
     extends State<AppSettingsNotificationsScreen> {
   bool _initial = true;
-  late AppSettings _appSettings;
-  late ActiveWallets _activeWallets;
+  late AppSettingsProvider _appSettings;
+  late WalletProvider _walletProvider;
   List<CoinWallet> _availableWallets = [];
 
   @override
   void didChangeDependencies() async {
     if (_initial == true) {
-      _appSettings = Provider.of<AppSettings>(context);
-      _activeWallets = context.watch<ActiveWallets>();
-      _availableWallets = _activeWallets.activeWalletsValues;
+      _appSettings = Provider.of<AppSettingsProvider>(context);
+      _walletProvider = context.watch<WalletProvider>();
+      _availableWallets = _walletProvider.availableWalletValues;
       setState(() {
         _initial = false;
       });
@@ -105,7 +105,7 @@ class _AppSettingsNotificationsScreenState
           action: () async {
             await enableNotifications(context);
           },
-        )
+        ),
       ],
     );
   }
@@ -134,16 +134,16 @@ class _AppSettingsNotificationsScreenState
         Column(
           children: _availableWallets.map((wallet) {
             return SwitchListTile(
-              key: Key(wallet.letterCode),
+              key: Key(wallet.name),
               title: Text(wallet.title),
-              value: _appSettings.notificationActiveWallets
-                  .contains(wallet.letterCode),
+              value:
+                  _appSettings.notificationActiveWallets.contains(wallet.name),
               onChanged: (newState) {
                 var newList = _appSettings.notificationActiveWallets;
                 if (newState == true) {
-                  newList.add(wallet.letterCode);
+                  newList.add(wallet.name);
                 } else {
-                  newList.remove(wallet.letterCode);
+                  newList.remove(wallet.name);
                 }
                 _appSettings.setNotificationActiveWallets(newList);
                 saveSnack(context);
@@ -203,7 +203,7 @@ class _AppSettingsNotificationsScreenState
             _appSettings.setNotificationInterval(0);
             _appSettings.setNotificationActiveWallets([]);
           },
-        )
+        ),
       ],
     );
   }
@@ -229,7 +229,7 @@ class _AppSettingsNotificationsScreenState
                 children: [
                   _appSettings.notificationInterval == 0
                       ? enableBlock()
-                      : manageBlock()
+                      : manageBlock(),
                 ],
               ),
             ),
