@@ -70,7 +70,7 @@ class LogoutDialog extends StatelessWidget {
     window.indexedDB?.deleteDatabase('vaultbox');
     window.indexedDB?.deleteDatabase('wallets');
     window.indexedDB?.deleteDatabase('optionsbox');
-    window.indexedDB?.deleteDatabase('serverbox-peercoin');
+    window.indexedDB?.deleteDatabase('serverbox-sumcoin');
     window.indexedDB?.deleteDatabase('serverbox-peercointestnet');
     await Future.delayed(const Duration(seconds: 1));
 

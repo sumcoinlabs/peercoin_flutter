@@ -1,8 +1,8 @@
 import 'package:flutter/widgets.dart';
-import 'package:peercoin/screens/wallet/transaction_confirmation.dart';
-import 'package:peercoin/screens/wallet/wallet_sign_transaction.dart';
-import 'package:peercoin/screens/wallet/wallet_sign_transaction_confirmation.dart';
-import 'package:peercoin/screens/wallet/wallet_verify_message.dart';
+import 'package:sumcoin/screens/wallet/transaction_confirmation.dart';
+import 'package:sumcoin/screens/wallet/wallet_sign_transaction.dart';
+import 'package:sumcoin/screens/wallet/wallet_sign_transaction_confirmation.dart';
+import 'package:sumcoin/screens/wallet/wallet_verify_message.dart';
 
 import '../screens/settings/app_settings_app_theme.dart';
 import '../screens/settings/app_settings_authentication.dart';

@@ -9,7 +9,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:grpc/grpc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:peercoin/models/available_coins.dart';
+import 'package:sumcoin/models/available_coins.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../generated/marisma.pbgrpc.dart';

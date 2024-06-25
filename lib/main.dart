@@ -223,7 +223,7 @@ class PeercoinApp extends StatelessWidget {
               child: SpinningPeercoinIcon(),
             ),
             child: MaterialApp(
-              title: 'Peercoin',
+              title: 'Sumcoin',
               debugShowCheckedModeBanner: false,
               supportedLocales: AppLocalizations.availableLocales.values.map(
                 (e) {

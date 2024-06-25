@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:peercoin/tools/app_localizations.dart';
+import 'package:sumcoin/tools/app_localizations.dart';
 
 class SendTabNavigator extends StatelessWidget {
   const SendTabNavigator({

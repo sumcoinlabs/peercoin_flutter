@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_logs/flutter_logs.dart';
 
 import 'package:flutter/material.dart';
-import 'package:peercoin/screens/settings/settings_helpers.dart';
+import 'package:sumcoin/screens/settings/settings_helpers.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/wallet_provider.dart';

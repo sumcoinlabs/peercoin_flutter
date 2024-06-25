@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.coinerella.peercoin">
+    package="com.coinerella.sumcoin">
     <!-- io.flutter.app.FlutterApplication is an android.app.Application that
          calls FlutterMain.startInitialization(this); in its onCreate method.
          In most cases you can leave this as-is, but you if you want to provide
@@ -9,7 +9,7 @@
     <application
         tools:replace="android:label"
         android:name="${applicationName}"
-        android:label="Peercoin"
+        android:label="Sumcoin"
         android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"

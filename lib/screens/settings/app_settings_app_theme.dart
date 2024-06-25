@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:peercoin/screens/settings/settings_helpers.dart';
+import 'package:sumcoin/screens/settings/settings_helpers.dart';
 import 'package:theme_mode_handler/theme_mode_handler.dart';
 
 import '../../tools/app_localizations.dart';

@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_logs/flutter_logs.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:peercoin/tools/logger_wrapper.dart';
+import 'package:sumcoin/tools/logger_wrapper.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -132,8 +132,8 @@ class _WalletListScreenState extends State<WalletListScreen>
                                 ShareWrapper.share(
                                   context: context,
                                   message: Platform.isAndroid
-                                      ? 'https://play.google.com/store/apps/details?id=com.coinerella.peercoin'
-                                      : 'https://apps.apple.com/app/peercoin-wallet/id1571755170',
+                                      ? 'https://play.google.com/store/apps/details?id=com.coinerella.sumcoin'
+                                      : 'https://apps.apple.com/app/sumcoin-wallet/id1571755170',
                                 );
                               }
                             },
@@ -148,7 +148,7 @@ class _WalletListScreenState extends State<WalletListScreen>
                   Padding(
                     padding: const EdgeInsets.only(top: 16),
                     child: Text(
-                      'Peercoin Wallet',
+                      'Sumcoin Wallet',
                       style: TextStyle(
                         letterSpacing: 1.4,
                         fontSize: 24,

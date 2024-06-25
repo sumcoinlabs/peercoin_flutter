@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:peercoin/tools/app_localizations.dart';
-import 'package:peercoin/widgets/buttons.dart';
-import 'package:peercoin/widgets/service_container.dart';
+import 'package:sumcoin/tools/app_localizations.dart';
+import 'package:sumcoin/widgets/buttons.dart';
+import 'package:sumcoin/widgets/service_container.dart';
 
 class WalletDeleteWatchOnlyBottomSheet extends StatelessWidget {
   final Function action;

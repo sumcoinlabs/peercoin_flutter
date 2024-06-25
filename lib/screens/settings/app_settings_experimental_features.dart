@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:peercoin/models/experimental_features.dart';
+import 'package:sumcoin/models/experimental_features.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/app_settings_provider.dart';

@@ -7,13 +7,13 @@ import 'package:coinlib_flutter/coinlib_flutter.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
 import 'package:mockito/mockito.dart';
-import 'package:peercoin/exceptions/exceptions.dart';
-import 'package:peercoin/models/hive/coin_wallet.dart';
-import 'package:peercoin/models/hive/wallet_address.dart';
-import 'package:peercoin/models/hive/wallet_transaction.dart';
-import 'package:peercoin/models/hive/wallet_utxo.dart';
-import 'package:peercoin/providers/wallet_provider.dart';
-import 'package:peercoin/providers/encrypted_box_provider.dart';
+import 'package:sumcoin/exceptions/exceptions.dart';
+import 'package:sumcoin/models/hive/coin_wallet.dart';
+import 'package:sumcoin/models/hive/wallet_address.dart';
+import 'package:sumcoin/models/hive/wallet_transaction.dart';
+import 'package:sumcoin/models/hive/wallet_utxo.dart';
+import 'package:sumcoin/providers/wallet_provider.dart';
+import 'package:sumcoin/providers/encrypted_box_provider.dart';
 import 'package:fast_csv/fast_csv.dart' as fast_csv;
 
 class MockHiveBox extends Mock implements EncryptedBoxProvider {
@@ -36,7 +36,7 @@ class MockHiveBox extends Mock implements EncryptedBoxProvider {
 }
 
 void main() async {
-  const walletName = 'peercoin';
+  const walletName = 'sumcoin';
   const testnetWalletName = 'peercoinTestnet';
 
   //init coinlib
@@ -60,7 +60,7 @@ void main() async {
     wallet.addWallet(
       name: walletName,
       title: walletName,
-      letterCode: 'PPC',
+      letterCode: 'SUM',
       isImportedSeed: false,
       watchOnly: false,
     );
@@ -338,7 +338,7 @@ void main() async {
       });
 
       test(
-          'Import 1000 addresses from CSV, only have 10 PPC utxo and expect exception',
+          'Import 1000 addresses from CSV, only have 10 SUM utxo and expect exception',
           () async {
         Map<String, int> recipientMap = {};
         final parsed = fast_csv

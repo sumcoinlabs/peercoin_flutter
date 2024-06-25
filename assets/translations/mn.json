@@ -175,7 +175,7 @@
     "periodic_reminder_backup_title": "Backup-ийн сануулга",
     "periodic_reminder_backup_body": "Таны гар утасны seed-ийг аюулгүй байдалд хадгалахын тулд оршин суух хэрэгтэй. Үгүй болсныг алдахад та таны мөнгөө мартсанаас хамгаалахаа анхаарна уу.",
     "periodic_reminder_backup_button": "Foundation Вэб сайт нээх",
-    "peercoin": "Пиркойн",
+    "sumcoin": "Пиркойн",
     "peercoinC": "Пиркойн",
     "receive_enter_amount": "Төлбөрийг оруулна уу",
     "receive_faucet": "Кран нээх",
@@ -258,7 +258,7 @@
     "setup_securebox_fail": "Уучлаарай.\nТаны төхөөрөмж нууцлалын талаар дараахь шаардлагатай тодорхойлж чадахгүй байна.",
     "setup_seed_slider_label": "Үгийн тоог өөрчил",
     "setup_title": "Тавтай морил",
-    "setup_subtitle": "Peercoin Wallet-д",
+    "setup_subtitle": "Sumcoin Wallet-д",
     "setup_text1": "Хэрэв та аль хэдийн цахим хаяг үүсгэсэн бол, та",
     "setup_text2": "шинэ Пиркойн түрийвчээ үүсгэ",
     "setup_text3": "эсвэл",
@@ -344,7 +344,7 @@
     "setup_auth_subtitle_plural": "Таны сессийн хугацаа $days хоногийн дараа дуусах болно.",
     "setup_auth_subtitle_singular": "Таны сессийн хугацаа $days хоногийн дараа дуусна.",
     "setup_auth_hint": "Сессийн хугацаа дууссаны дараа та өөрөө нууцлагдана уу.",
-    "about_donate_button": "Одоо PPC донатлох",
+    "about_donate_button": "Одоо SUM донатлох",
     "app_settings_delete": "Аккаунтыг устгах",
     "app_settings_delete_description": "Та энэ апп дээр аль хэдийн аккаунт үүсгээгүй ба устгах зүйл алга. Та \"seed\"-ээ үүсгэсэн ба тэдэн нь крипто бодис болох учир үүнийг алга тавихгүй. Таньд дэлгэрэнгүй мэдэгдэлийн, үнэн, таарсан боломжууд байхгүй. Энэ апп нь таны нууцлалыг хамгаалдаг ба нууцлалыг ашиглан нөхөн төлөвлөн хэсэг байхгүй."
 }

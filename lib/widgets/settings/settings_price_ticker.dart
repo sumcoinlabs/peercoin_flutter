@@ -100,7 +100,7 @@ class _SettingsPriceTickerState extends State<SettingsPriceTicker> {
       //copy data
       final currencyData = widget._settings.exchangeRates.keys.toList();
       currencyData.insert(0, 'USD'); //add USD
-      currencyData.remove('PPC'); //don't show PPC
+      currencyData.remove('SUM'); //don't show SUM
 
       final filteredMap = currencyData.where(
         (element) =>
@@ -115,7 +115,7 @@ class _SettingsPriceTickerState extends State<SettingsPriceTicker> {
               AppLocalizations.instance.translate('currency_$currency'),
             ),
             subtitle: Text(
-              '1 PPC = ${PriceTicker.renderPrice(1, currency, "PPC", widget._settings.exchangeRates).toStringAsFixed(6)} $currency',
+              '1 SUM = ${PriceTicker.renderPrice(1, currency, "SUM", widget._settings.exchangeRates).toStringAsFixed(6)} $currency',
             ),
             leading: Radio(
               value: currency,

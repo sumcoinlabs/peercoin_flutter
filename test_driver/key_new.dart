@@ -48,7 +48,7 @@ void main() {
       test(
         'create new wallet from scratch',
         () async {
-          //creates a brand new peercoin testnet wallet from scratch and check if it connects
+          //creates a brand new sumcoin testnet wallet from scratch and check if it connects
           await driver.tap(find.byValueKey('setupLanguageButton'));
           await driver.scrollIntoView(find.text('Deutsch'));
           await driver.tap(find.text('Deutsch'));
@@ -96,13 +96,13 @@ void main() {
       );
 
       test(
-        'tap into new peercoin testnet wallet',
+        'tap into new sumcoin testnet wallet',
         () async {
           await driver.runUnsynchronized(
             () async {
               await driver.tap(find.byValueKey('newWalletIconButton'));
-              await driver.tap(find.text('Peercoin Testnet'));
-              await driver.tap(find.text('Peercoin Testnet')); //tap into wallet
+              await driver.tap(find.text('Sumcoin Testnet'));
+              await driver.tap(find.text('Sumcoin Testnet')); //tap into wallet
               expect(await driver.getText(find.text('connected')), 'connected');
             },
           );
@@ -179,22 +179,22 @@ void main() {
       });
 
       test(
-        'tap into new peercoin mainnet wallet',
+        'tap into new sumcoin mainnet wallet',
         () async {
           await driver.tap(find.pageBack());
           await Future.delayed(const Duration(seconds: 1));
           await driver.runUnsynchronized(
             () async {
               await driver.tap(find.byValueKey('newWalletIconButton'));
-              await driver.tap(find.text('Peercoin'));
-              await driver.tap(find.text('Peercoin')); //tap into wallet
+              await driver.tap(find.text('Sumcoin'));
+              await driver.tap(find.text('Sumcoin')); //tap into wallet
               expect(await driver.getText(find.text('connected')), 'connected');
             },
           );
         },
       );
 
-      test('create new peercoin mainnet watch-only wallet and delete it again',
+      test('create new sumcoin mainnet watch-only wallet and delete it again',
           () async {
         await Future.delayed(const Duration(seconds: 1));
         await driver.runUnsynchronized(() async {
@@ -210,9 +210,9 @@ void main() {
           await driver.tap(find.byValueKey('newWalletIconButton'));
           await driver.tap(find.text('Watch only'));
           await driver
-              .tap(find.text('Peercoin')); //create peercoin watch-only wallet
+              .tap(find.text('Sumcoin')); //create sumcoin watch-only wallet
           await driver
-              .tap(find.text('Peercoin 2')); //tap into watch-only wallet
+              .tap(find.text('Sumcoin 2')); //tap into watch-only wallet
         });
 
         expect(await driver.getText(find.text('connected')), 'connected');
@@ -224,14 +224,14 @@ void main() {
             await driver.tap(find.text('Delete'));
           },
         );
-        //expect to not find "Peercoin 2"
+        //expect to not find "Sumcoin 2"
         await driver.runUnsynchronized(
           () async {
             try {
-              await driver.getText(find.text('Peercoin 2'));
-              fail('Expected to not find "Peercoin 2"');
+              await driver.getText(find.text('Sumcoin 2'));
+              fail('Expected to not find "Sumcoin 2"');
             } catch (e) {
-              // Expected not to find "Peercoin 2", so we swallow the exception
+              // Expected not to find "Sumcoin 2", so we swallow the exception
             }
           },
         );

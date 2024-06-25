@@ -1,6 +1,6 @@
 import 'package:app_bar_with_search_switch/app_bar_with_search_switch.dart';
 import 'package:flutter/material.dart';
-import 'package:peercoin/screens/settings/settings_helpers.dart';
+import 'package:sumcoin/screens/settings/settings_helpers.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/app_settings_provider.dart';

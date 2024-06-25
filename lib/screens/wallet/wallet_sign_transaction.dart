@@ -3,15 +3,15 @@ import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:peercoin/models/available_coins.dart';
-import 'package:peercoin/providers/wallet_provider.dart';
-import 'package:peercoin/screens/wallet/wallet_sign_transaction_confirmation.dart';
-import 'package:peercoin/tools/app_localizations.dart';
-import 'package:peercoin/tools/app_routes.dart';
-import 'package:peercoin/tools/logger_wrapper.dart';
-import 'package:peercoin/widgets/buttons.dart';
-import 'package:peercoin/widgets/double_tab_to_clipboard.dart';
-import 'package:peercoin/widgets/service_container.dart';
+import 'package:sumcoin/models/available_coins.dart';
+import 'package:sumcoin/providers/wallet_provider.dart';
+import 'package:sumcoin/screens/wallet/wallet_sign_transaction_confirmation.dart';
+import 'package:sumcoin/tools/app_localizations.dart';
+import 'package:sumcoin/tools/app_routes.dart';
+import 'package:sumcoin/tools/logger_wrapper.dart';
+import 'package:sumcoin/widgets/buttons.dart';
+import 'package:sumcoin/widgets/double_tab_to_clipboard.dart';
+import 'package:sumcoin/widgets/service_container.dart';
 import 'package:provider/provider.dart';
 
 class WalletSignTransactionArguments {

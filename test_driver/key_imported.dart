@@ -40,7 +40,7 @@ void main() {
       test(
         'Setup, create wallet from imported seed',
         () async {
-          //creates a peercoin testnet wallet from an imported seed and checks if it connects
+          //creates a sumcoin testnet wallet from an imported seed and checks if it connects
           await driver.tap(find.byValueKey('setupLanguageButton'));
           await driver.scrollIntoView(find.text('English'));
           await driver.tap(find.text('English'));
@@ -93,12 +93,12 @@ void main() {
             await driver.waitFor(find.text('2 new wallets found'));
             await driver.tap(find.text('Close'));
             expect(
-              await driver.getText(find.text('Peercoin Testnet')),
-              'Peercoin Testnet',
+              await driver.getText(find.text('Sumcoin Testnet')),
+              'Sumcoin Testnet',
             );
             expect(
-              await driver.getText(find.text('Peercoin')),
-              'Peercoin',
+              await driver.getText(find.text('Sumcoin')),
+              'Sumcoin',
             );
           });
         },
@@ -109,7 +109,7 @@ void main() {
           'Message signing, tap into sign message, select address and sign message',
           () async {
         await driver.runUnsynchronized(() async {
-          await driver.tap(find.text('Peercoin Testnet'));
+          await driver.tap(find.text('Sumcoin Testnet'));
         });
         await driver.getText(find.text('Scanning this Wallet'));
         await driver.tap(find.byTooltip('Show menu'));
@@ -323,7 +323,7 @@ void main() {
 
       test('Wallets, try reset', () async {
         await driver.runUnsynchronized(() async {
-          await driver.tap(find.text('Peercoin Testnet'));
+          await driver.tap(find.text('Sumcoin Testnet'));
         });
         await driver.tap(find.byTooltip('Show menu'));
         await driver.tap(find.text('Reset'));
@@ -339,7 +339,7 @@ void main() {
 
         await driver.tap(find.pageBack());
         await driver.runUnsynchronized(() async {
-          await driver.waitFor(find.text('Peercoin Wallet'));
+          await driver.waitFor(find.text('Sumcoin Wallet'));
         });
       });
     },

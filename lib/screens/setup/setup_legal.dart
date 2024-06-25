@@ -96,7 +96,7 @@ class _SetupLegalScreenState extends State<SetupLegalScreen> {
                           children: [
                             PeerButton(
                               action: () => _launchURL(
-                                'https://github.com/peercoin/peercoin_flutter/blob/main/LICENSE',
+                                'https://github.com/sumcoin/peercoin_flutter/blob/main/LICENSE',
                               ),
                               text: AppLocalizations.instance.translate(
                                 'setup_legal_license',

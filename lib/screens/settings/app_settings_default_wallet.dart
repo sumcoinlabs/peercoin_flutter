@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:peercoin/screens/settings/settings_helpers.dart';
+import 'package:sumcoin/screens/settings/settings_helpers.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/hive/coin_wallet.dart';

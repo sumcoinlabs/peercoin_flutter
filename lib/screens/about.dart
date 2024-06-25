@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:mailto/mailto.dart';
-import 'package:peercoin/widgets/service_container.dart';
+import 'package:sumcoin/widgets/service_container.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
@@ -49,8 +49,8 @@ class _AboutScreenState extends State<AboutScreen> {
 
   Future<void> launchMailto() async {
     final mailtoLink = Mailto(
-      to: ['hello@app.peercoin.net'],
-      subject: 'Peercoin Wallet',
+      to: ['hello@app.sumcoin.net'],
+      subject: 'Sumcoin Wallet',
     );
     await launchUrlString('$mailtoLink');
   }
@@ -86,7 +86,7 @@ class _AboutScreenState extends State<AboutScreen> {
                       ),
                       TextButton(
                         onPressed: () => _launchURL(
-                          'https://github.com/peercoin/peercoin_flutter/blob/main/LICENSE',
+                          'https://github.com/sumcoin/peercoin_flutter/blob/main/LICENSE',
                         ),
                         child: Text(
                           AppLocalizations.instance.translate(
@@ -124,7 +124,7 @@ class _AboutScreenState extends State<AboutScreen> {
                       ),
                       TextButton(
                         onPressed: () => _launchURL(
-                          'https://github.com/peercoin/peercoin_flutter',
+                          'https://github.com/sumcoin/peercoin_flutter',
                         ),
                         child: Text(
                           AppLocalizations.instance.translate(
@@ -142,7 +142,7 @@ class _AboutScreenState extends State<AboutScreen> {
                       ),
                       TextButton(
                         onPressed: () => _launchURL(
-                          'https://github.com/peercoin/peercoin_flutter/blob/main/data_protection.md',
+                          'https://github.com/sumcoin/peercoin_flutter/blob/main/data_protection.md',
                         ),
                         child: Text(
                           AppLocalizations.instance.translate(
@@ -159,7 +159,7 @@ class _AboutScreenState extends State<AboutScreen> {
                         ),
                       ),
                       if (!kIsWeb)
-                        _listOfAvailableWallets.contains('peercoin') &&
+                        _listOfAvailableWallets.contains('sumcoin') &&
                                 !Platform.isIOS
                             ? TextButton(
                                 onPressed: () async {
@@ -167,7 +167,7 @@ class _AboutScreenState extends State<AboutScreen> {
                                   final values =
                                       _walletProvider.availableWalletValues;
                                   final ppcWallet = values.firstWhere(
-                                    (element) => element.name == 'peercoin',
+                                    (element) => element.name == 'sumcoin',
                                   );
 
                                   navigator.pushNamed(
@@ -188,7 +188,7 @@ class _AboutScreenState extends State<AboutScreen> {
                             : const SizedBox(),
                       TextButton(
                         onPressed: () => _launchURL(
-                          'https://www.peercoin.net/foundation',
+                          'https://www.sumcoin.net/foundation',
                         ),
                         child: Text(
                           AppLocalizations.instance.translate(

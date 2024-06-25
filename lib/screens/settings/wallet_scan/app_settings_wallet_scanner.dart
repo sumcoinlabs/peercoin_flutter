@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:loader_overlay/loader_overlay.dart';
-import 'package:peercoin/data_sources/data_source.dart';
-import 'package:peercoin/models/available_coins.dart';
-import 'package:peercoin/models/wallet_scanner_stream_reply.dart';
-import 'package:peercoin/providers/server_provider.dart';
-import 'package:peercoin/tools/logger_wrapper.dart';
-import 'package:peercoin/tools/scanner/wallet_scanner.dart';
-import 'package:peercoin/widgets/buttons.dart';
+import 'package:sumcoin/data_sources/data_source.dart';
+import 'package:sumcoin/models/available_coins.dart';
+import 'package:sumcoin/models/wallet_scanner_stream_reply.dart';
+import 'package:sumcoin/providers/server_provider.dart';
+import 'package:sumcoin/tools/logger_wrapper.dart';
+import 'package:sumcoin/tools/scanner/wallet_scanner.dart';
+import 'package:sumcoin/widgets/buttons.dart';
 import 'package:provider/provider.dart';
 
 import '../../../providers/wallet_provider.dart';

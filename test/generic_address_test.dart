@@ -1,6 +1,6 @@
 import 'package:coinlib_flutter/coinlib_flutter.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:peercoin/tools/generic_address.dart';
+import 'package:sumcoin/tools/generic_address.dart';
 
 void main() {
   group('GenericAddress', () {

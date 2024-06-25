@@ -148,7 +148,7 @@
     "paperwallet_step_3_text": "Перевірити баланс",
     "paperwallet_step_4": "Крок 4",
     "paperwallet_step_4_text": "Зіскребти Паперовий Гаманець",
-    "peercoin": "Пиркойн",
+    "sumcoin": "Пиркойн",
     "peercoinC": "Пиркойн",
     "receive_enter_amount": "Введіть суму",
     "receive_faucet": "Відкрити кран",
@@ -200,7 +200,7 @@
     "setup_bg_sync_allow": "Дозволити фонову синхронізацію API",
     "setup_seed_slider_label": "Проведіть пальцем, щоб змінити кількість слів",
     "setup_title": "Ласкаво просимо",
-    "setup_subtitle": "до Peercoin Wallet",
+    "setup_subtitle": "до Sumcoin Wallet",
     "setup_text1": "Якщо ви вже створили гаманець та у вас все ще є мнемонічна фраза, виберіть",
     "setup_text3": "або",
     "setup_text2": "створіть новий гаманець Пиркойн",
@@ -344,7 +344,7 @@
     "setup_legal_license": "Переглянути Ліцензію",
     "setup_auth_title": "Виберіть час закінчення веб-сеансу:",
     "setup_auth_subtitle_plural": "Ваш сеанс закінчиться через $days дн.",
-    "about_donate_button": "Пожертвуйте PPC зараз",
+    "about_donate_button": "Пожертвуйте SUM зараз",
     "app_settings_delete": "Видалити аккаунт",
     "setup_auth_hint": "Після завершення сеансу потрібно знову ввести початковий мнемонічну фразу."
 }

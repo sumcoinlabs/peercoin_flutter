@@ -165,7 +165,7 @@ class _ReceiveTabState extends State<ReceiveTab> {
         ),
       );
     } else if (!kIsWeb) {
-      if (widget.wallet.letterCode == 'PPC' && Platform.isIOS == false) {
+      if (widget.wallet.letterCode == 'SUM' && Platform.isIOS == false) {
         return Align(
           child: PeerContainer(
             child: Column(

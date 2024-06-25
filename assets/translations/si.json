@@ -101,7 +101,7 @@
     "authenticate_subtitle_singular": "$retriesLeft වෙනස් කිරීම් සඳහා මෙහෙයුම්කරු ඉදිරියට යෑමේ හැකියාව",
     "authenticate_title": "කරුණාකර ඔබේ PIN ඇතුළත් කරන්න",
     "authenticate_title_new": "කරුණාකර ඔබේ නව PIN ඇතුළත් කරන්න",
-    "buy_peercoin": "Peercoin වෙත මිලදී ගැනීම",
+    "buy_peercoin": "Sumcoin වෙත මිලදී ගැනීම",
     "buy_peercoin_dialog_title": "ඔබ දැනට සහතික වේලාවක් සිටීමෙන් පසු තෙක් අනුරාධයට යා වීමට ඔබට පැවරීමේ වෙනස් වේලාවක් හෝ අවම කරන්නෙයි.",
     "buy_peercoin_dialog_content": "මෙම යෙදුම් ආරම්භ කරන ලදියේ දැනටමත් ඔබ වෙබ් අඩවියකට පිවිසුනු නොලැබීයේය.",
     "changelog_appbar": "වර්ගේ පැත්තට්",
@@ -175,7 +175,7 @@
     "periodic_reminder_backup_title": "උපකාරය නිර්මාණය",
     "periodic_reminder_backup_body": "ඔබගේ බහුවරණය වෙනස් කිරීම සඳහා සීඩි වල උපකාරය සුරැකියාවේ ගත් ස්වයං වේලාව ගෙන එනවානම් නියමිත ලිපිය සුරැකියාවක් වේ.",
     "periodic_reminder_backup_button": "පීර්කොයින් සබැඳුම් වෙබ් අඩවිය විවෘත කරන්න",
-    "peercoin": "පීර්කොයින්",
+    "sumcoin": "පීර්කොයින්",
     "peercoinC": "පීර්කොයින්",
     "receive_enter_amount": "කරුණාකර ප්‍රමාණයක් ඇතුළත් කරන්න",
     "receive_faucet": "ෆවාට් වෙන්න",
@@ -344,7 +344,7 @@
     "setup_auth_subtitle_plural": "ඔබගේ සැසිකාර උපකාරය $days දින පසු සීමාව අවසන් වේ.",
     "setup_auth_subtitle_singular": "ඔබගේ සැසිකාර උපකාරය $days දිනට පසු සීමාව අවසන් වේ.",
     "setup_auth_hint": "සීමාව අවස්ථාව වීමේදී ඔබ ඔබේ අනතුරු මාලාව පුරවා යතුරුය.",
-    "about_donate_button": "දායක කරන්න PPC සහිතව",
+    "about_donate_button": "දායක කරන්න SUM සහිතව",
     "app_settings_delete": "ගිණුම මකා දමන්න",
     "app_settings_delete_description": "මෙම යෙදුමේ විකාශයක් සොයා නොකර ඔබ පෙන්වීමට නොහැකි අංකයක් නොමැත. ඔබ \"වෙලමුලුව නිවැරදිව\" නම් එය ගන්න හෝ නම් ඔබේ අනතුරු සීඩි හිමිකම් භාවිතා කළ හැකිය. ඔබේ අනතුරු වීඩියෝ හෝ මුදල් වෙබ් API සදහා කිසිදු ගිණුම් නැත. මෙම යෙදුම ඔබගේ පුරවැසිය සාක්ෂිත වීමේදී සංඥාව පමණි."
 }

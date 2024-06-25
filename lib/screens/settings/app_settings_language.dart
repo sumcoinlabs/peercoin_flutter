@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:peercoin/screens/language_selector.dart';
+import 'package:sumcoin/screens/language_selector.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/app_settings_provider.dart';

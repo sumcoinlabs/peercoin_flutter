@@ -40,7 +40,7 @@
 
 ### **1.2.2** (2023-09-27)
 
-- Change the options for purchasing Peercoin on some devices
+- Change the options for purchasing Sumcoin on some devices
 
 ### **1.2.1** (2023-09-24)
 
@@ -121,7 +121,7 @@
 
 ### **1.1.6** (2023-03-15)
 
-- Update Peercoin Foundation address
+- Update Sumcoin Foundation address
 
 ### **1.1.5** (2023-02-23)
 
@@ -373,7 +373,7 @@
 
 - Fix for older devices
 - Fix for price data feed
-- Peercoin v0.11 hard fork preperation (Nov 1st 2021)
+- Sumcoin v0.11 hard fork preperation (Nov 1st 2021)
 
 ### **0.6.3** (2021-09-17)
 

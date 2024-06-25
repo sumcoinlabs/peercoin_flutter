@@ -175,7 +175,7 @@
     "periodic_reminder_backup_title": "የመረጡን ስርጊት ለማስጠንቀቅ",
     "periodic_reminder_backup_body": "የግል እንባንን በሚገባ መረጃ በሞባይል መረጃ ላይ ላስጠንቀቅ የሚፈልጉትን ሊኖር ይችላል።",
     "periodic_reminder_backup_button": "በስርጊት ክፍል ውጪ",
-    "peercoin": "ፒርኮን",
+    "sumcoin": "ፒርኮን",
     "peercoinC": "ፒርኮን",
     "receive_enter_amount": "እባክዎ በብዛት ይምረጡ",
     "receive_faucet": "ፋይሸት ክፍል ይገኛል",
@@ -258,8 +258,8 @@
     "setup_securebox_fail": "በጣም አዝነናል።\nመሣሪያዎ በቂ ቁልፎችን ለማከማቸት ደህንነቱ የተጠበቀ መንገድን አይደግፍም።",
     "setup_seed_slider_label": "በቃል ቁጥር ላይ ቀጥሎ ለማወቅ ሂደት",
     "setup_title": "እንኳን ደህና መጡ",
-    "setup_subtitle": "የPeercoin የወይልን መቀጠል",
-    "setup_text1": "ከሌላ መቀጠል ስታቀርብ ተስተካክሏል፣ በመመለስ የሚያስቀመጥው ስታቀርብ የPeercoin የአጭር ወይልን ላይ ያሉትን ወረቀቶች አርጉብ",
+    "setup_subtitle": "የSumcoin የወይልን መቀጠል",
+    "setup_text1": "ከሌላ መቀጠል ስታቀርብ ተስተካክሏል፣ በመመለስ የሚያስቀመጥው ስታቀርብ የSumcoin የአጭር ወይልን ላይ ያሉትን ወረቀቶች አርጉብ",
     "setup_text2": "እንዲሁም",
     "setup_text3": "መስመር",
     "setup_save_title": "የአባል ወይልን ፍጠር",
@@ -344,7 +344,7 @@
     "setup_auth_subtitle_plural": "የምርጫው የቀን ግለሰብ $days ቀን።",
     "setup_auth_subtitle_singular": "የምርጫው የቀን ግለሰብ $days ቀን።",
     "setup_auth_hint": "በምርጫ የሚተኩል ርዕስ፣ ከምርጫ ላይ ሁሉንም በምርጫ የሚክፈት ስም ሊኖር ይርግፍ ይመስጠዋል።",
-    "about_donate_button": "ወደ PPC ማስቀመጥ",
+    "about_donate_button": "ወደ SUM ማስቀመጥ",
     "app_settings_delete": "አካውንት ሰርቨር",
     "app_settings_delete_description": "በዚህ መቀጠል አካውንት አንዳንድነት አልፎ በማጥቀም የሚሄዱ የሚከተለውን የፕሮግራሚው ሥራዎች አይሰሩም። እኔ ምንም ሰካር የምንስብር ሥራውን የሚገባው እንደሆነ መርሀግቦ በመሆን፣ በከምርጫው ላይ እየተተርጉ መሆኑን ለማጥቀም ይምረጡ።"
 }

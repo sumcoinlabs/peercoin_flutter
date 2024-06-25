@@ -1,4 +1,4 @@
-Send and receive Peercoin, the first Proof-of-Stake cryptocurrency, on your phone.
+Send and receive Sumcoin, the first Proof-of-Stake cryptocurrency, on your phone.
 
 Keep your wallet seed protected. 
 This app comes with absolutely no warranty. 
@@ -6,9 +6,9 @@ Use at own risk.
 
 Features:
 - Based on electrum protocol.
-- Send and receive peercoin.
+- Send and receive sumcoin.
 - Ready to transact after installation (no waiting).
-- Peercoin and Peercoin testnet wallets.
+- Sumcoin and Sumcoin testnet wallets.
 - Address book management.
 - Import paper wallets.
 - Import & export private keys (WIF).

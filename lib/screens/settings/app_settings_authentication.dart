@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:local_auth/local_auth.dart';
-import 'package:peercoin/screens/settings/settings_helpers.dart';
+import 'package:sumcoin/screens/settings/settings_helpers.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/app_settings_provider.dart';

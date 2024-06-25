@@ -1,4 +1,4 @@
-package com.coinerella.peercoin
+package com.coinerella.sumcoin
 
 import io.flutter.embedding.android.FlutterFragmentActivity
 import io.flutter.embedding.android.FlutterActivity

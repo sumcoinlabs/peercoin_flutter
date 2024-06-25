@@ -6,11 +6,11 @@ import 'coin.dart';
 
 class AvailableCoins {
   static final Map<String, Coin> _availableCoinList = {
-    'peercoin': Coin(
-      name: 'peercoin',
-      displayName: 'Peercoin',
-      uriCode: 'peercoin',
-      letterCode: 'PPC',
+    'sumcoin': Coin(
+      name: 'sumcoin',
+      displayName: 'Sumcoin',
+      uriCode: 'sumcoin',
+      letterCode: 'SUM',
       iconPath: 'assets/icon/ppc-icon-48.png',
       iconPathTransparent: 'assets/icon/ppc-icon-white-48.png',
       networkType: Network.mainnet,
@@ -19,7 +19,7 @@ class AvailableCoins {
       minimumTxValue: 10000,
       fixedFee: true,
       fixedFeePerKb: 0.01,
-      explorerUrl: 'https://blockbook.peercoin.net',
+      explorerUrl: 'https://blockbook.sumcoin.net',
       genesisHash:
           '0000000032fe677166d54963b62a4677d8957e87c508eaa4fd7eb1c880cd27e3',
       txVersion: 3,
@@ -34,8 +34,8 @@ class AvailableCoins {
     ),
     'peercoinTestnet': Coin(
       name: 'peercoinTestnet',
-      displayName: 'Peercoin Testnet',
-      uriCode: 'peercoin',
+      displayName: 'Sumcoin Testnet',
+      uriCode: 'sumcoin',
       letterCode: 'tPPC',
       iconPath: 'assets/icon/ppc-icon-48-grey.png',
       iconPathTransparent: 'assets/icon/ppc-icon-48-grey.png',
@@ -45,7 +45,7 @@ class AvailableCoins {
       fractions: 6,
       minimumTxValue: 10000,
       fixedFeePerKb: 0.01,
-      explorerUrl: 'https://tblockbook.peercoin.net',
+      explorerUrl: 'https://tblockbook.sumcoin.net',
       genesisHash:
           '00000001f757bb737f6596503e17cd17b0658ce630cc727c0cca81aec47c9f06',
       txVersion: 3,
