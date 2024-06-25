@@ -82,7 +82,7 @@ flutter_launcher_name:
 
 flutter_native_splash:
   color: "#FFFFFF"
-  image: assets/icon/ppc-icon-256.png
+  image: assets/icon/sum-icon-256.png
 
 flutter:
   uses-material-design: true
