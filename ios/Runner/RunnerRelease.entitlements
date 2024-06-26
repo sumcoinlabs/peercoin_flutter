@@ -2,7 +2,16 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>aps-environment</key>
-	<string>development</string>
+    <key>aps-environment</key>
+    <string>production</string> <!-- Assuming this is for production environment -->
+
+    <!-- Add web browser engine entitlements -->
+    <key>com.apple.developer.web-browser-engine.rendering</key>
+    <true/>
+    <key>com.apple.developer.web-browser-engine.networking</key>
+    <true/>
+    <key>com.apple.developer.web-browser-engine.webcontent</key>
+    <true/>
 </dict>
 </plist>
+
