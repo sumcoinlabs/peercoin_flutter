@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
+import '../../widgets/banner_ad_widget.dart';
+import '../../widgets/native_ad_widget.dart';
+
 import '../../models/available_coins.dart';
 import '../../models/coin.dart';
 import '../../providers/wallet_provider.dart';
@@ -344,6 +347,13 @@ class _WalletMessageSigningScreenState
                               action: () async => await _performReset(context),
                             )
                           : Container(),
+                          // Add some space
+                          const SizedBox(height: 25),
+                          // Add the banner ad widget here.
+                          BannerAdWidget(),
+                          // Add the native ad widget here.
+                          //const SizedBox(height: 25),
+                          //NativeAdWidget(),
                     ],
                   ),
                 ),

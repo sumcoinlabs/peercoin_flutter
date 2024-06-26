@@ -14,6 +14,9 @@ import 'package:sumcoin/widgets/double_tab_to_clipboard.dart';
 import 'package:sumcoin/widgets/service_container.dart';
 import 'package:provider/provider.dart';
 
+import '../../widgets/banner_ad_widget.dart';
+import '../../widgets/native_ad_widget.dart';
+
 class WalletSignTransactionArguments {
   final String walletName;
   final String coinLetterCode;
@@ -442,6 +445,13 @@ class _WalletSignTransactionScreenState
                         small: true,
                         action: () async => await _performReset(context),
                       ),
+                      // Add some space
+                      const SizedBox(height: 25),
+                      // Add the banner ad widget here.
+                      BannerAdWidget(),
+                      // Add the native ad widget here.
+                      //const SizedBox(height: 25),
+                      //NativeAdWidget(),
                     ],
                   ),
                 ),
