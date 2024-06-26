@@ -5,6 +5,9 @@ import 'package:sumcoin/widgets/double_tab_to_clipboard.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
+import '../../widgets/banner_ad_widget.dart';
+import '../../widgets/native_ad_widget.dart';
+
 import '../../models/available_coins.dart';
 import '../../models/hive/coin_wallet.dart';
 import '../../models/hive/wallet_transaction.dart';
@@ -211,6 +214,13 @@ class TransactionDetails extends StatelessWidget {
                         ),
                       ),
                     ),
+                    // Add some space
+                    const SizedBox(height: 25),
+                    // Add the banner ad widget here.
+                    BannerAdWidget(),
+                    // Add the native ad widget here.
+                    //const SizedBox(height: 25),
+                    //NativeAdWidget(),
             ],
           ),
         ),
