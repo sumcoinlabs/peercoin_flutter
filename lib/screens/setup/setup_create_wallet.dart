@@ -18,11 +18,10 @@ import '../../widgets/logout_dialog_dummy.dart'
     if (dart.library.html) '../../widgets/logout_dialog.dart';
 
 class SetupCreateWalletScreen extends StatefulWidget {
-  const SetupCreateWalletScreen({super.key});
+  const SetupCreateWalletScreen({Key? key}) : super(key: key);
 
   @override
-  State<SetupCreateWalletScreen> createState() =>
-      _SetupCreateWalletScreenState();
+  State<SetupCreateWalletScreen> createState() => _SetupCreateWalletScreenState();
 }
 
 class _SetupCreateWalletScreenState extends State<SetupCreateWalletScreen> {
@@ -30,95 +29,45 @@ class _SetupCreateWalletScreenState extends State<SetupCreateWalletScreen> {
   bool _initial = true;
   bool _isLoading = false;
   String _seed = '';
-  double _currentSliderValue = 12;
   late WalletProvider _walletProvider;
 
   Future<void> shareSeed(seed) async {
     final scaffoldMessenger = ScaffoldMessenger.of(context);
     if (kIsWeb) {
-      await Clipboard.setData(
-        ClipboardData(text: seed),
-      );
+      await Clipboard.setData(ClipboardData(text: seed));
       scaffoldMessenger.showSnackBar(
         SnackBar(
-          content: Text(
-            AppLocalizations.instance.translate('snack_copied'),
-            textAlign: TextAlign.center,
-          ),
+          content: Text(AppLocalizations.instance.translate('snack_copied'), textAlign: TextAlign.center),
           duration: const Duration(seconds: 2),
         ),
       );
     } else {
-      await ShareWrapper.share(
-        context: context,
-        message: seed,
-      );
+      await ShareWrapper.share(context: context, message: seed);
     }
-    Timer(
-      const Duration(seconds: kIsWeb ? 2 : 1),
-      () => setState(() {
-        _sharedYet = true;
-      }),
-    );
+    Timer(const Duration(seconds: kIsWeb ? 2 : 1), () => setState(() => _sharedYet = true));
   }
 
   Future<void> createWallet(context) async {
-    setState(() {
-      _isLoading = true;
-    });
+    setState(() => _isLoading = true);
     try {
       await _walletProvider.init();
-      await _walletProvider.createPhrase();
+      await _walletProvider.createPhrase(null, 256);
       _seed = await _walletProvider.seedPhrase;
     } catch (e) {
       await LogoutDialog.clearData();
       await createWallet(context);
     }
-    setState(() {
-      _isLoading = false;
-    });
+    setState(() => _isLoading = false);
   }
 
   @override
-  void didChangeDependencies() async {
+  void didChangeDependencies() {
+    super.didChangeDependencies();
     if (_initial) {
       _walletProvider = Provider.of<WalletProvider>(context);
-      await createWallet(context);
-      setState(() {
-        _initial = false;
-      });
+      createWallet(context);
+      _initial = false;
     }
-
-    super.didChangeDependencies();
-  }
-
-  void recreatePhrase(double sliderValue) async {
-    var entropy = 128;
-    var intValue = sliderValue.toInt();
-
-    switch (intValue) {
-      case 15:
-        entropy = 160;
-        break;
-      case 18:
-        entropy = 192;
-        break;
-      case 21:
-        entropy = 224;
-        break;
-      case 24:
-        entropy = 256;
-        break;
-      default:
-        entropy = 128;
-    }
-
-    await _walletProvider.createPhrase(null, entropy);
-    _seed = await _walletProvider.seedPhrase;
-
-    setState(() {
-      _sharedYet = false;
-    });
   }
 
   Future<void> handleContinue() async {
@@ -126,22 +75,12 @@ class _SetupCreateWalletScreenState extends State<SetupCreateWalletScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text(
-            AppLocalizations.instance.translate('setup_continue_alert_title'),
-            textAlign: TextAlign.center,
-          ),
-          content: Text(
-            AppLocalizations.instance.translate('setup_continue_alert_content'),
-          ),
+          title: Text(AppLocalizations.instance.translate('setup_continue_alert_title'), textAlign: TextAlign.center),
+          content: Text(AppLocalizations.instance.translate('setup_continue_alert_content')),
           actions: <Widget>[
             TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: Text(
-                AppLocalizations.instance
-                    .translate('server_settings_alert_cancel'),
-              ),
+              onPressed: () => Navigator.pop(context),
+              child: Text(AppLocalizations.instance.translate('server_settings_alert_cancel')),
             ),
             TextButton(
               onPressed: () async {
@@ -149,14 +88,9 @@ class _SetupCreateWalletScreenState extends State<SetupCreateWalletScreen> {
                 var prefs = await SharedPreferences.getInstance();
                 await prefs.setBool('importedSeed', false);
                 navigator.pop();
-
-                await navigator.pushNamed(
-                  Routes.setupAuth,
-                );
+                await navigator.pushNamed(Routes.setupAuth);
               },
-              child: Text(
-                AppLocalizations.instance.translate('continue'),
-              ),
+              child: Text(AppLocalizations.instance.translate('continue')),
             ),
           ],
         );
@@ -167,19 +101,13 @@ class _SetupCreateWalletScreenState extends State<SetupCreateWalletScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        toolbarHeight: 0,
-        automaticallyImplyLeading: false,
-      ),
+      appBar: AppBar(centerTitle: true, toolbarHeight: 0, automaticallyImplyLeading: false),
       body: SingleChildScrollView(
         child: Container(
           height: SetupLandingScreen.calcContainerHeight(context),
           color: Theme.of(context).primaryColor,
           child: _isLoading
-              ? const Center(
-                  child: LoadingIndicator(),
-                )
+              ? const Center(child: LoadingIndicator())
               : Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -195,31 +123,23 @@ class _SetupCreateWalletScreenState extends State<SetupCreateWalletScreen> {
                               children: [
                                 const PeerButtonSetupBack(),
                                 AutoSizeText(
-                                  AppLocalizations.instance
-                                      .translate('setup_save_title'),
+                                  AppLocalizations.instance.translate('setup_save_title'),
                                   maxFontSize: 28,
                                   minFontSize: 25,
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                  ),
+                                  style: const TextStyle(color: Colors.white),
                                 ),
-                                const SizedBox(
-                                  width: 40,
-                                ),
+                                const SizedBox(width: 40),
                               ],
                             ),
                             Column(
                               children: [
                                 Container(
                                   padding: const EdgeInsets.all(4),
-                                  width: MediaQuery.of(context).size.width >
-                                          1200
+                                  width: MediaQuery.of(context).size.width > 1200
                                       ? MediaQuery.of(context).size.width / 2
                                       : MediaQuery.of(context).size.width,
                                   decoration: BoxDecoration(
-                                    borderRadius: const BorderRadius.all(
-                                      Radius.circular(20),
-                                    ),
+                                    borderRadius: const BorderRadius.all(Radius.circular(20)),
                                     color: Theme.of(context).shadowColor,
                                   ),
                                   child: Column(
@@ -227,44 +147,22 @@ class _SetupCreateWalletScreenState extends State<SetupCreateWalletScreen> {
                                       Padding(
                                         padding: const EdgeInsets.all(24),
                                         child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
+                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                           children: [
-                                            Icon(
-                                              Icons.vpn_key_rounded,
-                                              color: Theme.of(context)
-                                                  .primaryColor,
-                                              size: 40,
-                                            ),
-                                            const SizedBox(
-                                              width: 24,
-                                            ),
+                                            Icon(Icons.vpn_key_rounded, color: Theme.of(context).primaryColor, size: 40),
+                                            const SizedBox(width: 24),
                                             SizedBox(
-                                              width: MediaQuery.of(context)
-                                                          .size
-                                                          .width >
-                                                      1200
-                                                  ? MediaQuery.of(context)
-                                                          .size
-                                                          .width /
-                                                      2.5
-                                                  : MediaQuery.of(context)
-                                                          .size
-                                                          .width /
-                                                      1.9,
+                                              width: MediaQuery.of(context).size.width > 1200
+                                                  ? MediaQuery.of(context).size.width / 2.5
+                                                  : MediaQuery.of(context).size.width / 1.9,
                                               child: Text(
-                                                AppLocalizations.instance
-                                                    .translate(
-                                                  'setup_save_text1',
-                                                ),
+                                                AppLocalizations.instance.translate('setup_save_text1'),
                                                 style: TextStyle(
-                                                  color: Theme.of(context)
-                                                      .colorScheme
-                                                      .primaryContainer,
+                                                  color: Theme.of(context).colorScheme.primaryContainer,
                                                   fontSize: 15,
                                                 ),
                                                 textAlign: TextAlign.left,
-                                                maxLines: 5,
+                                                maxLines: 12,
                                               ),
                                             ),
                                           ],
@@ -272,76 +170,36 @@ class _SetupCreateWalletScreenState extends State<SetupCreateWalletScreen> {
                                       ),
                                       GestureDetector(
                                         onDoubleTap: () {
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(
+                                          ScaffoldMessenger.of(context).showSnackBar(
                                             SnackBar(
-                                              content: Text(
-                                                AppLocalizations.instance
-                                                    .translate('snack_copied'),
-                                                textAlign: TextAlign.center,
-                                              ),
-                                              duration:
-                                                  const Duration(seconds: 1),
+                                              content: Text(AppLocalizations.instance.translate('snack_copied'), textAlign: TextAlign.center),
+                                              duration: const Duration(seconds: 1),
                                             ),
                                           );
-                                          Clipboard.setData(
-                                            ClipboardData(text: _seed),
-                                          );
-                                          setState(() {
-                                            _sharedYet = true;
-                                          });
+                                          Clipboard.setData(ClipboardData(text: _seed));
+                                          setState(() => _sharedYet = true);
                                         },
                                         child: Container(
                                           height: 250,
-                                          padding: const EdgeInsets.fromLTRB(
-                                            16,
-                                            32,
-                                            16,
-                                            24,
-                                          ),
+                                          padding: const EdgeInsets.fromLTRB(16, 32, 16, 24),
                                           decoration: BoxDecoration(
-                                            borderRadius:
-                                                const BorderRadius.all(
-                                              Radius.circular(20),
-                                            ),
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .surface,
+                                            borderRadius: const BorderRadius.all(Radius.circular(20)),
+                                            color: Theme.of(context).colorScheme.background,
                                             border: Border.all(
                                               width: 2,
-                                              color: _sharedYet
-                                                  ? Theme.of(context)
-                                                      .shadowColor
-                                                  : Theme.of(context)
-                                                      .primaryColor,
+                                              color: _sharedYet ? Theme.of(context).shadowColor : Theme.of(context).primaryColor,
                                             ),
                                           ),
                                           child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
+                                            mainAxisAlignment: MainAxisAlignment.center,
                                             children: [
                                               SizedBox(
-                                                width: MediaQuery.of(context)
-                                                            .size
-                                                            .width >
-                                                        1200
-                                                    ? MediaQuery.of(context)
-                                                            .size
-                                                            .width /
-                                                        3
-                                                    : MediaQuery.of(context)
-                                                            .size
-                                                            .width *
-                                                        0.7,
+                                                width: MediaQuery.of(context).size.width > 1200
+                                                    ? MediaQuery.of(context).size.width / 3
+                                                    : MediaQuery.of(context).size.width * 0.7,
                                                 child: Text(
                                                   _seed,
-                                                  style: TextStyle(
-                                                    fontSize: 16,
-                                                    wordSpacing: 16,
-                                                    color: Theme.of(context)
-                                                        .colorScheme
-                                                        .primaryContainer,
-                                                  ),
+                                                  style: TextStyle(fontSize: 16, wordSpacing: 16, color: Theme.of(context).colorScheme.primaryContainer),
                                                 ),
                                               ),
                                             ],
@@ -350,44 +208,6 @@ class _SetupCreateWalletScreenState extends State<SetupCreateWalletScreen> {
                                       ),
                                     ],
                                   ),
-                                ),
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                SizedBox(
-                                  width: MediaQuery.of(context).size.width >
-                                          1200
-                                      ? MediaQuery.of(context).size.width / 2
-                                      : MediaQuery.of(context).size.width,
-                                  child: Slider(
-                                    activeColor: Colors.white,
-                                    inactiveColor:
-                                        Theme.of(context).shadowColor,
-                                    value: _currentSliderValue,
-                                    min: 12,
-                                    max: 24,
-                                    divisions: 4,
-                                    label:
-                                        _currentSliderValue.round().toString(),
-                                    onChanged: (value) {
-                                      setState(() {
-                                        _currentSliderValue = value;
-                                      });
-                                      if (value % 3 == 0) {
-                                        recreatePhrase(value);
-                                      }
-                                    },
-                                  ),
-                                ),
-                                Text(
-                                  AppLocalizations.instance
-                                      .translate('setup_seed_slider_label'),
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 14,
-                                  ),
-                                  textAlign: TextAlign.center,
                                 ),
                               ],
                             ),
@@ -405,9 +225,7 @@ class _SetupCreateWalletScreenState extends State<SetupCreateWalletScreen> {
                         action: () async => await shareSeed(_seed),
                         text: AppLocalizations.instance.translate('export_now'),
                       ),
-                    const SizedBox(
-                      height: 32,
-                    ),
+                    const SizedBox(height: 32),
                   ],
                 ),
         ),
