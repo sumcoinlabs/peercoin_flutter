@@ -57,7 +57,10 @@ dependencies:
   characters: ^1.2.0
   sumcoinlib_flutter: ^0.0.2
 
+  firebase_core: ^2.27.1
+  firebase_messaging: ^14.6.8
   google_mobile_ads: ^5.1.0
+  visibility_detector: ^0.3.3
 
 dev_dependencies:
   integration_test:
