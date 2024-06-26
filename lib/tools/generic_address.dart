@@ -1,4 +1,4 @@
-import 'package:coinlib_flutter/coinlib_flutter.dart';
+import 'package:sumcoinlib_flutter/sumcoinlib_flutter.dart';
 
 class GenericAddress {
   static Address fromAsm(String asm, Network network) {

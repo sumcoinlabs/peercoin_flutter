@@ -1,4 +1,4 @@
-import 'package:coinlib_flutter/coinlib_flutter.dart';
+import 'package:sumcoinlib_flutter/sumcoinlib_flutter.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';

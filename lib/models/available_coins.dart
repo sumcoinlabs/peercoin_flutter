@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:coinlib_flutter/coinlib_flutter.dart';
+import 'package:sumcoinlib_flutter/sumcoinlib_flutter.dart';
 
 import 'coin.dart';
 
@@ -19,20 +19,20 @@ class AvailableCoins {
       minimumTxValue: 10000,
       fixedFee: true,
       fixedFeePerKb: 0.01,
-      explorerUrl: 'https://blockbook.sumcoin.net',
+      explorerUrl: 'https://sumexplorer.com',
       genesisHash:
-          '0000000032fe677166d54963b62a4677d8957e87c508eaa4fd7eb1c880cd27e3',
+          '000000f40beaad5804ce621cca107c37dccd119e887625fe79fe0f4e161f6219',
       txVersion: 3,
       electrumRequiredProtocol: 1.4,
       electrumServers: [
-        'wss://electrum.peercoinexplorer.net:50004',
-        'wss://allingas.peercoinexplorer.net:50004',
+      'ssl://sumpos.electrum-sum.org:50002',
+      'ssl://sumpos2.electrum-sum.org:50002',
       ],
       marismaServers: [
         ('marisma.ppc.lol', 8443),
       ],
     ),
-    'peercoinTestnet': Coin(
+  /*  'peercoinTestnet': Coin(
       name: 'peercoinTestnet',
       displayName: 'Sumcoin Testnet',
       uriCode: 'sumcoin',
@@ -57,7 +57,7 @@ class AvailableCoins {
       marismaServers: [
         ('test-marisma.ppc.lol', 2096),
       ],
-    ),
+    ), */
   };
 
   static Map<String, Coin> get availableCoins {

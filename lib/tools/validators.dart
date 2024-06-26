@@ -1,4 +1,4 @@
-import 'package:coinlib_flutter/coinlib_flutter.dart';
+import 'package:sumcoinlib_flutter/sumcoinlib_flutter.dart';
 
 /// Returns true if the address is valid for the given network.
 bool validateAddress(String address, Network network) {

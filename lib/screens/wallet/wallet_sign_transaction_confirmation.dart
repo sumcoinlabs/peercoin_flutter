@@ -1,5 +1,5 @@
 import 'dart:typed_data';
-import 'package:coinlib_flutter/coinlib_flutter.dart';
+import 'package:sumcoinlib_flutter/sumcoinlib_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:sumcoin/providers/connection_provider.dart';
 import 'package:sumcoin/screens/wallet/transaction_details.dart';
