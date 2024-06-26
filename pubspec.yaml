@@ -57,6 +57,8 @@ dependencies:
   characters: ^1.2.0
   sumcoinlib_flutter: ^0.0.2
 
+  google_mobile_ads: ^5.1.0
+
 dev_dependencies:
   integration_test:
     sdk: flutter

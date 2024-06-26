@@ -27,8 +27,10 @@ import '../../tools/share_wrapper.dart';
 import '../../widgets/buttons.dart';
 import '../../widgets/logout_dialog_dummy.dart'
     if (dart.library.html) '../../widgets/logout_dialog.dart';
-import '../../widgets/spinning_peercoin_icon.dart';
+import '../../widgets/spinning_sumcoin_icon.dart';
 import '../../widgets/wallet/new_wallet.dart';
+
+import '../../widgets/banner_ad_widget.dart';
 
 class WalletListScreen extends StatefulWidget {
   final bool fromColdStart;
@@ -100,7 +102,7 @@ class _WalletListScreenState extends State<WalletListScreen>
       ),
       body: _initial
           ? const Center(
-              child: SpinningPeercoinIcon(),
+              child: SpinningSumcoinIcon(),
             )
           : Container(
               width: double.infinity,
@@ -345,6 +347,10 @@ class _WalletListScreenState extends State<WalletListScreen>
                             'nOfHiddenWallets': _nOfHiddenWallets.toString(),
                           }),
                     ),
+                    // Add the banner ad widget here.
+                    // This will make it appear at the bottom of the screen.
+                    BannerAdWidget(),
+                    //   NativeAdWidget(),
                 ],
               ),
             ),

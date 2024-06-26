@@ -12,6 +12,8 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:theme_mode_handler/theme_mode_handler.dart';
 
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+
 import 'models/hive/app_options.dart';
 import 'models/hive/pending_notifications.dart';
 import 'models/hive/server.dart';
@@ -34,7 +36,7 @@ import 'tools/app_localizations.dart';
 import 'tools/app_routes.dart';
 import 'tools/app_themes.dart';
 import 'tools/session_checker.dart';
-import 'widgets/spinning_peercoin_icon.dart';
+import 'widgets/spinning_sumcoin_icon.dart';
 
 late bool setupFinished;
 late Widget _homeWidget;
@@ -46,6 +48,8 @@ void main() async {
   var prefs = await SharedPreferences.getInstance();
   setupFinished = prefs.getBool('setupFinished') ?? false;
   _locale = Locale(prefs.getString('language_code') ?? 'und');
+
+  MobileAds.instance.initialize();
 
   //clear storage if setup is not finished
   if (!setupFinished) {
@@ -220,7 +224,7 @@ class PeercoinApp extends StatelessWidget {
             useDefaultLoading: false,
             overlayColor: Colors.grey.withOpacity(0.6),
             overlayWidget: const Center(
-              child: SpinningPeercoinIcon(),
+              child: SpinningSumcoinIcon(),
             ),
             child: MaterialApp(
               title: 'Sumcoin',
