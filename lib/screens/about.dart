@@ -49,8 +49,8 @@ class _AboutScreenState extends State<AboutScreen> {
 
   Future<void> launchMailto() async {
     final mailtoLink = Mailto(
-      to: ['hello@app.sumcoin.net'],
-      subject: 'Sumcoin Wallet',
+      to: ['sumcoinwallet@gmail.com'],
+      subject: 'Sumcoin Wallet - in app mail',
     );
     await launchUrlString('$mailtoLink');
   }
@@ -86,7 +86,7 @@ class _AboutScreenState extends State<AboutScreen> {
                       ),
                       TextButton(
                         onPressed: () => _launchURL(
-                          'https://github.com/sumcoin/peercoin_flutter/blob/main/LICENSE',
+                          'https://github.com/sumcoinlabs/sumcoin_flutter/blob/main/LICENSE',
                         ),
                         child: Text(
                           AppLocalizations.instance.translate(
@@ -124,7 +124,7 @@ class _AboutScreenState extends State<AboutScreen> {
                       ),
                       TextButton(
                         onPressed: () => _launchURL(
-                          'https://github.com/sumcoin/peercoin_flutter',
+                          'https://github.com/sumcoinlabs/sumcoin_flutter',
                         ),
                         child: Text(
                           AppLocalizations.instance.translate(
@@ -142,7 +142,7 @@ class _AboutScreenState extends State<AboutScreen> {
                       ),
                       TextButton(
                         onPressed: () => _launchURL(
-                          'https://github.com/sumcoin/peercoin_flutter/blob/main/data_protection.md',
+                          'https://github.com/sumcoinlabs/sumcoin_flutter/blob/main/data_protection.md',
                         ),
                         child: Text(
                           AppLocalizations.instance.translate(
@@ -166,16 +166,16 @@ class _AboutScreenState extends State<AboutScreen> {
                                   final navigator = Navigator.of(context);
                                   final values =
                                       _walletProvider.availableWalletValues;
-                                  final ppcWallet = values.firstWhere(
+                                  final sumWallet = values.firstWhere(
                                     (element) => element.name == 'sumcoin',
                                   );
 
                                   navigator.pushNamed(
                                     Routes.walletHome,
                                     arguments: {
-                                      'wallet': ppcWallet,
+                                      'wallet': sumWallet,
                                       'pushedAddress':
-                                          'p77CZFn9jvg9waCzKBzkQfSvBBzPH1nRre',
+                                          'SiKHm23qe5y4XDkmXE1op9oXbVYax7wrG8',
                                     },
                                   );
                                 },
@@ -188,7 +188,7 @@ class _AboutScreenState extends State<AboutScreen> {
                             : const SizedBox(),
                       TextButton(
                         onPressed: () => _launchURL(
-                          'https://www.sumcoin.net/foundation',
+                          'https://www.sumcoin.org/',
                         ),
                         child: Text(
                           AppLocalizations.instance.translate(
@@ -206,7 +206,7 @@ class _AboutScreenState extends State<AboutScreen> {
                       ),
                       TextButton(
                         onPressed: () async => _launchURL(
-                          'https://weblate.ppc.lol',
+                          'https://weblate.sumcoinwallet.org',
                         ),
                         child: Text(
                           AppLocalizations.instance.translate(
@@ -240,7 +240,7 @@ class _AboutScreenState extends State<AboutScreen> {
                       ),
                       TextButton(
                         onPressed: () async => _launchURL(
-                          'https://designs.ai',
+                          'https://www.sumcoin.org',
                         ),
                         child: Text(
                           AppLocalizations.instance.translate(
