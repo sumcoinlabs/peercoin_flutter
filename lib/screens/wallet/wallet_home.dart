@@ -334,8 +334,8 @@ class _WalletHomeState extends State<WalletHomeScreen>
                 _wallet.letterCode,
                 _appSettings.exchangeRates,
               ) >=
-              1000) {
-        //Coins worth 1000 USD or more
+              1000000) {
+        //Coins worth 1,000,000 USD or more
         if (mounted) {
           await showDialog(
             context: context,
