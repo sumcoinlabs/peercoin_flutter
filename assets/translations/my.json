@@ -1,6 +1,6 @@
 {
-    "about_illustrations_button": "designs.AI",
-    "about_developers": "© ။ $year မှာ The peercoin_flutter Developers",
+    "about_illustrations_button": "Sumcoin.org",
+    "about_developers": "© ။ $year မှာ The sumcoin_flutter Developers",
     "about_show_license": "လိုအပ်ပါနှင့်",
     "about_free": "ဤဆော့ဖ်ဝဲသည် ကြေင်းပြန်သော အခြေအနေကို မဖြစ်စေရန်ဖြစ်နိုင်သည်။\nသင်အသုံးပြုပါက သင့်ရဲ့အခွင့်များဖြင့်အသုံးပြုပါ။",
     "about_data_protection": "ဤဆော့ဖ်ဝဲသည် သင့်ရဲ့ဒေတာများနှင့်သင့်ရဲ့ကိုယ်စားပြုမှုကို အကြောင်းအသေးစိတ်ကွင်းလွှားနေပါသည်။\nဤအပတ်ကြောင်းသည် သင့်ရဲ့ကိုယ်စားပြုမှုအား သင့်ရဲ့ဒိုင်ကျန်းပြန်မှုဖြစ်နိုင်သည်။\nအောက်တွင်မရနိုင်သည်ဖြင့် အနှံ့အတောင်းစားရင်းခွင့်ကိုပေးရန် မသုံးပါ။",
@@ -218,7 +218,7 @@
     "sumcoin": "ပီအာရင်",
     "peercoinC": "ပီအာရင်",
     "receive_faucet": "ဆွေးနွေးပိတ်ခြင်း",
-    "receive_obtain": "tSUM ရယူရန်",
+    "receive_obtain": "SUM ရယူရန်",
     "receive_share": "မျှဝေခြင်း",
     "receive_show_qr": "QR ကုဒ် ပြပါ",
     "receive_website": "ဝက်ဘ်ဆိုက် ဖွင့်ရန်",

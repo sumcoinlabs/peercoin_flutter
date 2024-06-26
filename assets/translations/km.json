@@ -1,6 +1,6 @@
 {
     "about": "អំពី",
-    "about_developers": "© $year ក្រុមហ៊ុន peercoin_flutter",
+    "about_developers": "© $year ក្រុមហ៊ុន sumcoin_flutter",
     "about_license": "បានអនុញ្ញាតឱ្យត្រឡប់មកវិញដូចនេះ AGPL-3.0",
     "about_show_license": "បង្ហាញអាជ្ញាធរ",
     "about_free": "កម្មវិធីនេះគឺជាកម្មវិធីបើកបរិច្ឆេទដោយឥតគិតថ្លៃហើយមិនមានការធានាលំដាប់ណា។\nប្រើជាមួយនឹងបណ្តាញទំនាក់ទំនងផ្សេងៗ។",
@@ -13,7 +13,7 @@
     "about_translate": "អ្នកអាចជួយបកប្រែកម្មវិធីនេះនៅក្នុងប្រព័ន្ធកម្មវិធីទុកប្រាក់ Sumcoin Weblate។",
     "about_go_weblate": "បើក Weblate",
     "about_send_mail": "ផ្ញើអ៊ីមែល",
-    "about_illustrations_button": "designs.AI",
+    "about_illustrations_button": "Sumcoin.org",
     "about_illustrations": "ការរៀបចំរូបស្លាយតាមការភាគច្រើនរបស់",
     "add_coin_failed": "បន្ថែមកញ្ចប់បានបរាជ័យ!",
     "add_new_wallet": "បន្ថែមកញ្ចប់ថ្មី",

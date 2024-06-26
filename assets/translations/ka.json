@@ -1,6 +1,6 @@
 {
     "about": "ჩვენ შესახებ",
-    "about_developers": "© $year The peercoin_flutter დეველოპერები",
+    "about_developers": "© $year The sumcoin_flutter დეველოპერები",
     "about_license": "ლიცენზირებულია AGPL-3.0-ით",
     "about_show_license": "ლიცენზიის ჩვენება",
     "about_free": "ეს პროგრამული პროდუქტი არის საზოგადოებრივი, უფასო და არ მოიცავს არც ერთ გარანტიას დასანახად.\nგამოიყენება თქვენს თვალში რისკით.",
@@ -13,7 +13,7 @@
     "about_translate": "შეგიძლიათ გამოიყენოთ თქვენი თარგმანი აპლიკაციის ქმედებაში Sumcoin Weblate-ში.",
     "about_go_weblate": "გახსენით Weblate",
     "about_send_mail": "წერიანი წერილის გაგზავნა",
-    "about_illustrations_button": "designs.AI",
+    "about_illustrations_button": "Sumcoin.org",
     "about_illustrations": "გამოყენებული ილუსტრაციები შემავალში მადლობა",
     "add_coin_failed": "ვალეტის დამატება ვერ ხერხდება!",
     "add_new_wallet": "ახალი ვალეტის დამატება",
