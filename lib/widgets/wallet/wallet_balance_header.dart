@@ -63,7 +63,7 @@ class WalletBalanceHeader extends StatelessWidget {
                   ],
                 ),
                 settings.selectedCurrency.isNotEmpty &&
-                        _wallet.letterCode != 'tPPC'
+                        _wallet.letterCode != 'tSUM'
                     ? WalletBalancePrice(
                         valueInFiat: Text(
                           '${PriceTicker.renderPrice(

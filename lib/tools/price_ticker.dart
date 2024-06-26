@@ -10,7 +10,9 @@ import 'logger_wrapper.dart';
 class PriceTicker {
   static Future<Map<String, dynamic>> getDataFromTicker() async {
     final client = RetryClient(http.Client());
-    var url = Uri.parse('https://peercoinexplorer.net/price-ticker');
+//    var url = Uri.parse('https://peercoinexplorer.net/price-ticker');
+    var url = Uri.parse('https://worker-ticker.totality.workers.dev');
+
     try {
       var response = await client.read(url);
       final Map<String, dynamic> data = json.decode(response);

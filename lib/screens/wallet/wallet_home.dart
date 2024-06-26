@@ -202,7 +202,7 @@ class _WalletHomeState extends State<WalletHomeScreen>
 
     if (!kIsWeb) {
       if (Platform.isIOS || Platform.isAndroid) {
-        if (_wallet.letterCode != 'tPPC') {
+        if (_wallet.letterCode != 'tSUM') {
           _triggerHighValueAlert();
         }
       }

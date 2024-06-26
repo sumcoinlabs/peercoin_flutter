@@ -170,7 +170,7 @@
     "send_amount_below_minimum_unable": "Der Mindestbetrag beträgt $amount.\nDu hast nicht genug Guthaben um die Gebühren zu bezahlen.",
     "receive_faucet": "Faucet öffnen",
     "addressbook_search": "Adressen oder Labels einfügen",
-    "receive_obtain": "tPPC erhalten",
+    "receive_obtain": "tSUM erhalten",
     "receive_website": "Website öffnen",
     "wallet_bottom_nav_addr": "Adressen",
     "tx_rejected": "Transaktion vom Netzwerk abgelehnt. Bitte erneut versuchen.",

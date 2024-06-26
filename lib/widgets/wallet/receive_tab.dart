@@ -139,7 +139,7 @@ class _ReceiveTabState extends State<ReceiveTab> {
   }
 
   Widget renderPurchaseButtons() {
-    if (widget.wallet.letterCode == 'tPPC') {
+    if (widget.wallet.letterCode == 'tSUM') {
       return Align(
         child: PeerContainer(
           child: Column(

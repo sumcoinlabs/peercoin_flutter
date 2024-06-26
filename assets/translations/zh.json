@@ -250,7 +250,7 @@
     "import_wif_hint": "从助记词恢复钱包时，必须再次导入密钥。它未连接到助记词上。",
     "import_wif_intro": "请输入要导入的私钥。\n它必须是WIF格式。",
     "receive_faucet": "打开水龙头",
-    "receive_obtain": "获取tPPC",
+    "receive_obtain": "获取tSUM",
     "send_empty": "空钱包",
     "send_label": "标签（可选）",
     "setup_bg_sync_description": "这将为您的钱包启用后台通知。",

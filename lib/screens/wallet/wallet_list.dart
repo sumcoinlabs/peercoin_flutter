@@ -215,7 +215,7 @@ class _WalletListScreenState extends State<WalletListScreen>
                                           identifier: wallet.name,
                                         ))
                                     .toString();
-                                bool showFiat = wallet.letterCode != 'tPPC' &&
+                                bool showFiat = wallet.letterCode != 'tSUM' &&
                                     _appSettings.selectedCurrency.isNotEmpty;
                                 return Card(
                                   elevation: 0,

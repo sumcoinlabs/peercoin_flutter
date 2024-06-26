@@ -58,7 +58,7 @@
     "app_settings_price_feed_disable_button": "Désactiver l'API de flux de prix",
     "app_settings_price_alert_content": "Cela va activer notre flux de données des prix respectueux de la vie privée.\nIl est possible de désactiver cela à tout moment.",
     "export_now": "Exporter maintenant",
-    "receive_obtain": "Obtenir des tPPC",
+    "receive_obtain": "Obtenir des tSUM",
     "changelog_appbar": "Historique des modifications",
     "changelog_headline": "Qu'y a-t'il de nouveau ?",
     "continue": "Continuer",

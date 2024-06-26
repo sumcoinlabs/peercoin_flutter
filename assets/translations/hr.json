@@ -90,7 +90,7 @@
     "send_amount_exceeds": "Iznos veći od salda",
     "send_amount_below_minimum_unable": "Minimalni iznos je $amount.\nNemate dovoljno sredstava da platite pristojba.",
     "receive_requested_amount": "Zatraženi iznos (opcionalno)",
-    "receive_obtain": "Zatraži tPPC",
+    "receive_obtain": "Zatraži tSUM",
     "paperwallet_step_4_text": "Skeniraj Papirnati Novčanik",
     "paperwallet_error_1": "Novčanik prazan\nili su nedovoljna sredstva",
     "send_confirm_send": "Potvrdi i pošalji",

@@ -67,7 +67,7 @@ void main() async {
     wallet.addWallet(
       name: testnetWalletName,
       title: testnetWalletName,
-      letterCode: 'tPPC',
+      letterCode: 'tSUM',
       isImportedSeed: false,
       watchOnly: false,
     );

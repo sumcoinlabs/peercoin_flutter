@@ -36,7 +36,7 @@ class AvailableCoins {
       name: 'peercoinTestnet',
       displayName: 'Sumcoin Testnet',
       uriCode: 'sumcoin',
-      letterCode: 'tPPC',
+      letterCode: 'tSUM',
       iconPath: 'assets/icon/sum-icon-48-grey.png',
       iconPathTransparent: 'assets/icon/sum-icon-48-grey.png',
       networkType: Network.testnet,

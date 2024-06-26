@@ -252,7 +252,7 @@
     "setup_price_feed_description": "Bu, cüzdan bakiyenizin gerçek zamanlı değişim değerinde görüntülenmesini sağlar.",
     "setup_price_feed_title": "Harici API'ler",
     "receive_faucet": "Faucet aç",
-    "receive_obtain": "tPPC Edin",
+    "receive_obtain": "tSUM Edin",
     "receive_website_faucet": "Bu faucet'te ücretsiz testnet kripto parası alabilirsiniz.",
     "send_transferring": "Gönderiliyor: ",
     "store_description": "Sumcoin'i telefonunuzda gönderip alın, Proof-of-Stake'in öncüsü.\n\nCüzdan seed'inizi koruyun.\nBu uygulama kesinlikle hiçbir garanti içermez.\nRiskler size aittir.\n\nÖzellikler:\n- Electrum protokolü tabanlı.\n- Sumcoin gönderin ve alın.\n- Kurulumdan sonra işlem yapmaya hazır (bekleme yok).\n- Sumcoin ve Sumcoin testnet cüzdanları.\n- Adres defteri yönetimi.\n- Kağıt cüzdanları içe aktarın.\n- Kişisel anahtarları (WIF) içe ve dışa aktarın.\n- Sunucu yönetimi.\n- Çoklu dil desteği.\n- Arka plan bildirimleri.\n\nBilinen sınırlamalar Github veri havuzunda bulunabilir.",
