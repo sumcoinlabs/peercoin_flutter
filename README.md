@@ -16,7 +16,7 @@ Wallet for Sumcoin using Electrumx as backend.
 <img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
      alt="Get it on F-Droid"
      height="80"></a>
-<a href="https://play.google.com/store/apps/details?id=com.coinerella.sumcoin"><img src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png"
+<a href="https://play.google.com/store/apps/details?id=com.sumcoinwallet"><img src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png"
      alt="Get it on Google Play" height="80"></a>
 </p>
 <p align="center">
@@ -41,7 +41,7 @@ You can also sign up for our open beta testing here:
 ## Development
 **Build sumcoinlib**  
 This repository relies on
-[coinlib.](https://github.com/sumcoinlabs/sumcoinlib "https://github.com/sumcoinlabs/sumcoinlib")  
+[sumcoinlib.](https://github.com/sumcoinlabs/sumcoinlib "https://github.com/sumcoinlabs/sumcoinlib")  
 Please follow the build instructions for your OS here:
 [README](https://github.com/sumcoinlabs/sumcoinlib/blob/master/coinlib/README.md)
 
