@@ -49,8 +49,6 @@ void main() async {
   setupFinished = prefs.getBool('setupFinished') ?? false;
   _locale = Locale(prefs.getString('language_code') ?? 'und');
 
-  MobileAds.instance.initialize();
-
   //clear storage if setup is not finished
   if (!setupFinished) {
     await prefs.clear();
@@ -76,6 +74,7 @@ void main() async {
 
   //init notifications
   var flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+  MobileAds.instance.initialize();
 
   await flutterLocalNotificationsPlugin
       .resolvePlatformSpecificImplementation<
@@ -183,11 +182,11 @@ void main() async {
   }
 
   //run
-  runApp(const PeercoinApp());
+  runApp(const SumcoinApp());
 }
 
-class PeercoinApp extends StatelessWidget {
-  const PeercoinApp({super.key});
+class SumcoinApp extends StatelessWidget {
+  const SumcoinApp({super.key});
 
   @override
   Widget build(BuildContext context) {

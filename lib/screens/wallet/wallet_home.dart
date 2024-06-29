@@ -32,6 +32,10 @@ import '../../widgets/wallet/send_tab.dart';
 import '../../widgets/wallet/transactions_list.dart';
 import '../../widgets/wallet/wallet_home/wallet_rescan_bottom_sheet.dart';
 
+import '../../widgets/banner_ad_widget.dart';
+import '../../widgets/native_ad_widget.dart';
+import 'package:visibility_detector/visibility_detector.dart';
+
 class WalletHomeScreen extends StatefulWidget {
   const WalletHomeScreen({super.key});
 
@@ -893,12 +897,33 @@ class _WalletHomeState extends State<WalletHomeScreen>
               color: Theme.of(context).primaryColor,
               child: Column(
                 children: [
-                  _calcBody(),
+                  Expanded(
+                    child: _calcBody(),
+                  ),
+                  VisibilityDetector(
+                    key: Key('banner ad detector'),
+                    onVisibilityChanged: (VisibilityInfo info) {
+                      if (info.visibleFraction == 1) {
+                        print('Banner ad is visible');
+                      }
+                    },
+                    child: BannerAdWidget(),
+                  ),
+                  VisibilityDetector(
+                    key: Key('native ad detector'),
+                    onVisibilityChanged: (VisibilityInfo info) {
+                      if (info.visibleFraction == 1) {
+                        print('Native ad is visible');
+                      }
+                    },
+                    child: NativeAdWidget(),
+                  ),
                 ],
               ),
             ),
     );
   }
+
 
   // TODO wallet list: make larger list prettier
 }
