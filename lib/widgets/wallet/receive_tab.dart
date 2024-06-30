@@ -21,8 +21,9 @@ import 'wallet_home/wallet_home_qr.dart';
 
 class ReceiveTab extends StatefulWidget {
   final String unusedAddress;
-  final BackendConnectionState connectionState;
+  final BackendConnectionState connectionState; // Ensure this type is correctly imported
   final CoinWallet wallet;
+
   const ReceiveTab({
     required this.unusedAddress,
     required this.connectionState,
@@ -139,7 +140,7 @@ class _ReceiveTabState extends State<ReceiveTab> {
   }
 
   Widget renderPurchaseButtons() {
-    if (widget.wallet.letterCode == 'tSUM') {
+    if (widget.wallet.letterCode == 'SUM') {
       return Align(
         child: PeerContainer(
           child: Column(
@@ -157,7 +158,7 @@ class _ReceiveTabState extends State<ReceiveTab> {
               PeerButton(
                 text: AppLocalizations.instance.translate('receive_faucet'),
                 action: () {
-                  launchURL('https://ppc.lol/faucet/');
+                  launchURL('https://sumcoinindex.com/faucets/');
                 },
               ),
             ],
@@ -185,7 +186,7 @@ class _ReceiveTabState extends State<ReceiveTab> {
                   text: AppLocalizations.instance
                       .translate('receive_website_credit'),
                   action: () {
-                    launchURL('https://ppc.lol/buy');
+                    launchURL('https://sumcoin.org/buy');
                   },
                 ),
                 const SizedBox(height: 20),
@@ -193,7 +194,7 @@ class _ReceiveTabState extends State<ReceiveTab> {
                   text: AppLocalizations.instance
                       .translate('receive_website_exchandes'),
                   action: () {
-                    launchURL('https://ppc.lol/exchanges');
+                    launchURL('https://sumcoin.org/exchanges');
                   },
                 ),
               ],
@@ -242,8 +243,9 @@ class _ReceiveTabState extends State<ReceiveTab> {
                       const SizedBox(height: 20),
                       Container(
                         decoration: BoxDecoration(
-                          color:
-                              Theme.of(context).colorScheme.secondaryContainer,
+                          color: Theme.of(context)
+                              .colorScheme
+                              .secondaryContainer,
                           borderRadius: const BorderRadius.all(
                             Radius.circular(4),
                           ),
@@ -256,9 +258,37 @@ class _ReceiveTabState extends State<ReceiveTab> {
                               clipBoardData: widget.unusedAddress,
                               child: SelectableText(
                                 widget.unusedAddress,
+                                style: TextStyle(fontSize: 16), // Adjust font size here
                               ),
                             ),
                           ),
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      ElevatedButton.icon(
+                        onPressed: () {
+                          Clipboard.setData(
+                            ClipboardData(
+                              text: widget.unusedAddress,
+                            ),
+                          );
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text(
+                                'Address copied to clipboard',
+                              ),
+                            ),
+                          );
+                        },
+                        icon: const Icon(Icons.copy, size: 18), // Adjust icon size here
+                        label: const Text(
+                          'Copy Address',
+                          style: TextStyle(fontSize: 14), // Adjust font size here
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8), // Adjust padding here
+                          backgroundColor: Theme.of(context).primaryColor,
+                          foregroundColor: Colors.white,
                         ),
                       ),
                       const SizedBox(height: 20),

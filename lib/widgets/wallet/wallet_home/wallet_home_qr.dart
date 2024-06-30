@@ -8,7 +8,7 @@ import '../../double_tab_to_clipboard.dart';
 
 class WalletHomeQr extends StatelessWidget {
   final String _unusedAddress;
-  const WalletHomeQr(this._unusedAddress, {super.key});
+  const WalletHomeQr(this._unusedAddress, {Key? key}) : super(key: key);
 
   static void showQrDialog(
     BuildContext context,
@@ -27,17 +27,20 @@ class WalletHomeQr extends StatelessWidget {
                     height: MediaQuery.of(context).size.height * 0.33,
                     width: MediaQuery.of(context).size.width * 1,
                     child: Center(
-                      child: QrImageView(
-                        data: address,
+                      child: Container(
+                        color: Colors.white, // Set background color to white
+                        child: QrImageView(
+                          data: address,
+                        ),
                       ),
                     ),
                   ),
-                  if (hideShareButton == false)
+                  if (!hideShareButton)
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: FittedBox(
                         child: DoubleTabToClipboard(
-                          withHintText: false,
+                          withHintText: true, // Provide a value for withHintText
                           clipBoardData: address,
                           child: SelectableText(
                             address,
@@ -46,15 +49,14 @@ class WalletHomeQr extends StatelessWidget {
                         ),
                       ),
                     ),
-                  if (hideShareButton == false)
+                  if (!hideShareButton)
                     PeerButtonBorder(
                       action: () => ShareWrapper.share(
                         context: context,
                         message: address,
                         popNavigator: true,
                       ),
-                      text:
-                          AppLocalizations.instance.translate('receive_share'),
+                      text: AppLocalizations.instance.translate('receive_share'),
                     ),
                 ],
               ),
@@ -75,7 +77,7 @@ class WalletHomeQr extends StatelessWidget {
         padding: const EdgeInsets.all(1),
       ),
     );
-    return _unusedAddress == ''
+    return _unusedAddress.isEmpty
         ? const SizedBox(height: 60, width: 60)
         : inkWell;
   }
