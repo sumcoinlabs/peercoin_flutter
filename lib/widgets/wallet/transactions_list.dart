@@ -214,8 +214,16 @@ class _TransactionListState extends State<TransactionList> {
                                     filteredTx[i - 1].txid,
                                     overflow: TextOverflow.ellipsis,
                                     textScaler: const TextScaler.linear(0.9),
+                                    style: TextStyle(
+                                      color: filteredTx[i - 1].direction == 'out'
+                                          ? Colors.red // Transaction hash color in dark mode
+                                          : Theme.of(context).brightness == Brightness.dark
+                                              ? Color(0xFF00FF00) // Dark mode color for incoming transactions
+                                              : Colors.green, // Light mode color for incoming transactions
+                                    ),
                                   ),
                                 ),
+                                // Receive Address in TX list colors, sizes etc by theme
                                 subtitle: Center(
                                   child: Text(
                                     resolveAddressDisplayName(
@@ -223,6 +231,13 @@ class _TransactionListState extends State<TransactionList> {
                                     ),
                                     overflow: TextOverflow.ellipsis,
                                     textScaler: const TextScaler.linear(1),
+                                    style: TextStyle(
+                                      color: Theme.of(context).brightness ==
+                                              Brightness.dark
+                                          ? Colors.black // for dark mode
+                                          : Colors.black, // for light mode
+                                          fontWeight: FontWeight.bold, // Make the text bold
+                                    ),
                                   ),
                                 ),
                                 trailing: Column(
@@ -232,24 +247,20 @@ class _TransactionListState extends State<TransactionList> {
                                       (filteredTx[i - 1].direction == 'in'
                                               ? '+'
                                               : '-') +
-                                          (filteredTx[i - 1].value /
-                                                  _decimalProduct)
+                                          (filteredTx[i - 1].value / _decimalProduct)
                                               .toString(),
-                                      style: TextStyle(
-                                        fontWeight:
-                                            filteredTx[i - 1].timestamp != 0
-                                                ? FontWeight.bold
-                                                : FontWeight.w300,
-                                        color:
-                                            filteredTx[i - 1].direction == 'out'
-                                                ? Theme.of(context)
-                                                    .colorScheme
-                                                    .error
-                                                : Theme.of(context)
-                                                    .colorScheme
-                                                    .primaryContainer,
-                                      ),
-                                    ),
+                                              style: TextStyle(
+                                                fontWeight: filteredTx[i - 1].timestamp != 0
+                                                    ? FontWeight.bold
+                                                    : FontWeight.w300,
+                                                color: filteredTx[i - 1].direction == 'in'
+                                                    ? Theme.of(context).brightness == Brightness.dark
+                                                        ? Color(0xFF00FF00) // Dark mode color for incoming transactions
+                                                        : Colors.green // Light mode color for incoming transactions
+                                                    : Colors.red, // for outgoing
+                                                fontSize: 16, // Adjust the font size as needed
+                                                ),
+                                              ),
                                     filteredTx[i - 1].direction == 'out'
                                         ? Text(
                                             '-${filteredTx[i - 1].fee / _decimalProduct}',
