@@ -1,27 +1,30 @@
 import 'dart:io';
+import 'dart:async'; // For debounce
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher_string.dart';
+import 'package:intl/intl.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 import '../../providers/connection_provider.dart';
 import '../../tools/share_wrapper.dart';
 import '../../providers/wallet_provider.dart';
-import '/../tools/app_localizations.dart';
-import '/../models/available_coins.dart';
-import '/../models/coin.dart';
-import '/../models/hive/coin_wallet.dart';
-import '/../widgets/buttons.dart';
-import '/../widgets/double_tab_to_clipboard.dart';
-import '/../widgets/service_container.dart';
-import '/../widgets/wallet/wallet_balance_header.dart';
-import 'wallet_home/wallet_home_qr.dart';
+import '../../tools/app_localizations.dart';
+import '../../models/available_coins.dart';
+import '../../models/coin.dart';
+import '../../models/hive/coin_wallet.dart';
+import '../../widgets/buttons.dart';
+import '../../widgets/double_tab_to_clipboard.dart';
+import '../../widgets/service_container.dart';
+import '../../widgets/wallet/wallet_balance_header.dart';
+import '../../tools/price_ticker.dart';
 
 class ReceiveTab extends StatefulWidget {
   final String unusedAddress;
-  final BackendConnectionState connectionState; // Ensure this type is correctly imported
+  final BackendConnectionState connectionState;
   final CoinWallet wallet;
 
   const ReceiveTab({
@@ -39,11 +42,23 @@ class _ReceiveTabState extends State<ReceiveTab> {
   bool _initial = true;
   final amountController = TextEditingController();
   final labelController = TextEditingController();
+  final usdController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   final _amountKey = GlobalKey<FormFieldState>();
   final _labelKey = GlobalKey<FormFieldState>();
   late Coin _availableCoin;
   String? _qrString;
+  Map<String, dynamic> exchangeRates = {};
+  Timer? _debounce;
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchExchangeRates();
+    amountController.addListener(_onAmountChanged);
+    usdController.addListener(_onUsdChanged);
+    labelController.addListener(_onLabelChanged);
+  }
 
   @override
   void didChangeDependencies() {
@@ -55,6 +70,68 @@ class _ReceiveTabState extends State<ReceiveTab> {
       });
     }
     super.didChangeDependencies();
+  }
+
+  void _fetchExchangeRates() async {
+    exchangeRates = await PriceTicker.getDataFromTicker();
+    setState(() {});
+  }
+
+  void _onAmountChanged() {
+    if (_debounce?.isActive ?? false) _debounce!.cancel();
+    _debounce = Timer(const Duration(milliseconds: 1000), () {
+      _updateUsdAmount();
+      stringBuilder();
+    });
+  }
+
+  void _onUsdChanged() {
+    if (_debounce?.isActive ?? false) _debounce!.cancel();
+    _debounce = Timer(const Duration(milliseconds: 1000), () {
+      _updateCoinAmount();
+      stringBuilder();
+    });
+  }
+
+  void _onLabelChanged() {
+    stringBuilder();
+  }
+
+  void _updateUsdAmount() {
+    if (amountController.text.isEmpty) {
+      usdController.text = '';
+    } else {
+      final coinAmount = double.tryParse(amountController.text);
+      if (coinAmount != null && exchangeRates.containsKey(widget.wallet.letterCode)) {
+        final usdAmount = coinAmount * exchangeRates[widget.wallet.letterCode];
+        final formattedUsdAmount = NumberFormat("#,##0.00").format(usdAmount);
+        if (usdController.text != formattedUsdAmount) {
+          usdController.value = TextEditingValue(
+            text: formattedUsdAmount,
+            selection: TextSelection.collapsed(offset: formattedUsdAmount.length),
+          );
+        }
+      }
+    }
+  }
+
+  void _updateCoinAmount() {
+    final usdText = usdController.text.replaceAll(RegExp(r'[^\d.]'), '');
+    if (usdText.isEmpty) {
+      amountController.text = '';
+    } else {
+      final usdAmount = double.tryParse(usdText);
+      if (usdAmount != null && exchangeRates.containsKey(widget.wallet.letterCode)) {
+        final coinAmount = usdAmount / exchangeRates[widget.wallet.letterCode];
+        final formattedCoinAmount = coinAmount.toStringAsFixed(6).replaceAll(RegExp(r'0*$'), '').replaceAll(RegExp(r'\.$'), '');
+        if (amountController.text != formattedCoinAmount) {
+          amountController.value = TextEditingValue(
+            text: formattedCoinAmount,
+            selection: TextSelection.collapsed(offset: formattedCoinAmount.length),
+          );
+        }
+      }
+    }
   }
 
   void stringBuilder() {
@@ -292,6 +369,127 @@ class _ReceiveTabState extends State<ReceiveTab> {
                         ),
                       ),
                       const SizedBox(height: 20),
+                      if (_qrString != null)
+                        Container(
+                          padding: const EdgeInsets.all(8),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          child: QrImageView(
+                            data: _qrString!,
+                            size: 240.0, // Adjust the size of the QR code here
+                            padding: const EdgeInsets.all(8), // Adjust the padding here
+                            embeddedImage: AssetImage(_availableCoin.iconPath),
+                            embeddedImageStyle: QrEmbeddedImageStyle(
+                              size: const Size(50, 50), // Adjust the size of the icon here
+                            ),
+                          ),
+                        ),
+                      const SizedBox(height: 20),
+                      Text(
+                        AppLocalizations.instance.translate('receive_requested_amount'),
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      const SizedBox(height: 10),
+                      Row(
+                        children: [
+                          Image.asset(
+                            _availableCoin.iconPath,
+                            width: 25,
+                            height: 25,
+                          ),
+                          const SizedBox(width: 8),
+                          Expanded(
+                            child: TextFormField(
+                              textInputAction: TextInputAction.done,
+                              key: _amountKey,
+                              controller: amountController,
+                              onChanged: (String newString) {
+                                _onAmountChanged();
+                              },
+                              autocorrect: false,
+                              inputFormatters: [
+                                FilteringTextInputFormatter.allow(
+                                  getValidator(_availableCoin.fractions),
+                                ),
+                              ],
+                              keyboardType: const TextInputType.numberWithOptions(
+                                decimal: true,
+                              ),
+                              decoration: InputDecoration(
+                                border: InputBorder.none,
+                                hintText: 'Coin Amount',
+                              ),
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return AppLocalizations.instance
+                                      .translate('receive_enter_amount');
+                                }
+                                return null;
+                              },
+                            ),
+                          ),
+                          const SizedBox(width: 8),
+                          Text(
+                            widget.wallet.letterCode,
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 10),
+                      Row(
+                        children: [
+                          const Icon(
+                            Icons.attach_money, // Dollar bill icon
+                            color: Colors.white,
+                          ),
+                          const SizedBox(width: 8),
+                          Expanded(
+                            child: TextFormField(
+                              textInputAction: TextInputAction.done,
+                              controller: usdController,
+                              onChanged: (String newString) {
+                                _onUsdChanged();
+                              },
+                              autocorrect: false,
+                              keyboardType: const TextInputType.numberWithOptions(
+                                decimal: true,
+                              ),
+                              inputFormatters: [
+                                FilteringTextInputFormatter.allow(
+                                  RegExp(r'^\$?(\d+|\d{1,3}(,\d{3})*)(\.\d{0,2})?$'),
+                                ),
+                              ],
+                              decoration: InputDecoration(
+                                border: InputBorder.none,
+                              //  prefixText: '\$', // Add dollar sign
+                                hintText: 'USD Amount',
+                              ),
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(width: 8),
+                          const Text(
+                            'USD',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 20),
                       TextFormField(
                         textInputAction: TextInputAction.done,
                         key: _labelKey,
@@ -310,47 +508,7 @@ class _ReceiveTabState extends State<ReceiveTab> {
                         ),
                         maxLength: 32,
                       ),
-                      TextFormField(
-                        textInputAction: TextInputAction.done,
-                        key: _amountKey,
-                        controller: amountController,
-                        onChanged: (String newString) {
-                          stringBuilder();
-                        },
-                        autocorrect: false,
-                        inputFormatters: [
-                          FilteringTextInputFormatter.allow(
-                            getValidator(_availableCoin.fractions),
-                          ),
-                        ],
-                        keyboardType: const TextInputType.numberWithOptions(
-                          decimal: true,
-                        ),
-                        decoration: InputDecoration(
-                          icon: Icon(
-                            Icons.money,
-                            color: Theme.of(context).primaryColor,
-                          ),
-                          labelText: AppLocalizations.instance
-                              .translate('receive_requested_amount'),
-                          suffix: Text(widget.wallet.letterCode),
-                        ),
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return AppLocalizations.instance
-                                .translate('receive_enter_amount');
-                          }
-                          return null;
-                        },
-                      ),
                       const SizedBox(height: 30),
-                      PeerButtonBorder(
-                        text: AppLocalizations.instance
-                            .translate('receive_show_qr'),
-                        action: () {
-                          WalletHomeQr.showQrDialog(context, _qrString!, true);
-                        },
-                      ),
                       const SizedBox(height: 8),
                       PeerButton(
                         text: AppLocalizations.instance
@@ -371,7 +529,7 @@ class _ReceiveTabState extends State<ReceiveTab> {
                           );
                         },
                       ),
-                      const SizedBox(height: 10),
+                      const SizedBox(height: 20), // Increase the space here
                       Text(
                         AppLocalizations.instance
                             .translate('wallet_receive_label_hint'),
@@ -401,5 +559,98 @@ class _ReceiveTabState extends State<ReceiveTab> {
         ),
       ],
     );
+  }
+}
+
+class WalletHomeQr extends StatelessWidget {
+  final String _unusedAddress;
+  final String coinName;
+
+  const WalletHomeQr(this._unusedAddress, this.coinName, {Key? key}) : super(key: key);
+
+  static void showQrDialog(
+    BuildContext context,
+    String address,
+    String coinName, [
+    bool hideShareButton = false,
+  ]) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return SimpleDialog(
+          children: [
+            Center(
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.33,
+                    width: MediaQuery.of(context).size.width * 1,
+                    child: Center(
+                      child: Container(
+                        color: Colors.white, // Set background color to white
+                        child: QrImageView(
+                          data: address,
+                          size: 180.0, // Adjust the size of the QR code here
+                          embeddedImage: AssetImage(
+                            AvailableCoins.getSpecificCoin(coinName).iconPath,
+                          ),
+                          embeddedImageStyle: QrEmbeddedImageStyle(
+                            size: const Size(50, 50), // Adjust the size of the icon here
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  if (!hideShareButton)
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: FittedBox(
+                        child: DoubleTabToClipboard(
+                          withHintText: true, // Provide a value for withHintText
+                          clipBoardData: address,
+                          child: SelectableText(
+                            address,
+                            style: const TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ),
+                    ),
+                  if (!hideShareButton)
+                    PeerButtonBorder(
+                      action: () => ShareWrapper.share(
+                        context: context,
+                        message: address,
+                        popNavigator: true,
+                      ),
+                      text: AppLocalizations.instance.translate('receive_share'),
+                    ),
+                ],
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    var inkWell = InkWell(
+      onTap: () => showQrDialog(context, _unusedAddress, coinName),
+      child: QrImageView(
+        data: _unusedAddress,
+        size: 240.0, // Adjust the size of the QR code here
+        padding: const EdgeInsets.all(1),
+        embeddedImage: AssetImage(
+          AvailableCoins.getSpecificCoin(coinName).iconPath,
+        ),
+        embeddedImageStyle: QrEmbeddedImageStyle(
+          size: const Size(50, 50), // Adjust the size of the icon here
+        ),
+      ),
+    );
+    return _unusedAddress.isEmpty
+        ? const SizedBox(height: 240, width: 240) // Match the size for consistency
+        : inkWell;
   }
 }
