@@ -52,6 +52,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '550596975589',
     projectId: 'sumcoinwallet-com',
     authDomain: 'sumcoinwallet-com.firebaseapp.com',
+    databaseURL: 'https://sumcoinwallet-com-default-rtdb.firebaseio.com',
     storageBucket: 'sumcoinwallet-com.appspot.com',
     measurementId: 'G-C0J7GW8GWR',
   );
@@ -61,6 +62,7 @@ class DefaultFirebaseOptions {
     appId: '1:550596975589:android:900dc250d0e00a17d5ad0c',
     messagingSenderId: '550596975589',
     projectId: 'sumcoinwallet-com',
+    databaseURL: 'https://sumcoinwallet-com-default-rtdb.firebaseio.com',
     storageBucket: 'sumcoinwallet-com.appspot.com',
   );
 
@@ -69,6 +71,7 @@ class DefaultFirebaseOptions {
     appId: '1:550596975589:ios:45a60116f80e65ffd5ad0c',
     messagingSenderId: '550596975589',
     projectId: 'sumcoinwallet-com',
+    databaseURL: 'https://sumcoinwallet-com-default-rtdb.firebaseio.com',
     storageBucket: 'sumcoinwallet-com.appspot.com',
     iosClientId: '550596975589-hpsjj8us7o1aggp2itrsjdlh5pflgual.apps.googleusercontent.com',
     iosBundleId: 'com.sumcoinwallet',

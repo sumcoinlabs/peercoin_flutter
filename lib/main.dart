@@ -1,3 +1,8 @@
+import 'dart:async';
+import 'dart:io';
+
+import 'package:cryptography_flutter/cryptography_flutter.dart';
+
 import 'package:sumcoinlib_flutter/sumcoinlib_flutter.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -38,28 +43,50 @@ import 'tools/app_themes.dart';
 import 'tools/session_checker.dart';
 import 'widgets/spinning_sumcoin_icon.dart';
 
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:location/location.dart';
+import 'package:flutter_app_badger/flutter_app_badger.dart';
+import 'widgets/collector.dart';
+
+// Firebase Messaging background handler
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  print("Handling a background message: ${message.messageId}");
+}
+
 late bool setupFinished;
 late Widget _homeWidget;
 late Locale _locale;
 
 void main() async {
-  //init sharedpreferences
   WidgetsFlutterBinding.ensureInitialized();
+
+  // Initialize Firebase
+  if (Firebase.apps.isEmpty) {
+    await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  }
+
   var prefs = await SharedPreferences.getInstance();
   setupFinished = prefs.getBool('setupFinished') ?? false;
   _locale = Locale(prefs.getString('language_code') ?? 'und');
 
-  //clear storage if setup is not finished
+  // Initialize Firebase Analytics
+  FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+  FirebaseAnalyticsObserver observer = FirebaseAnalyticsObserver(analytics: analytics);
+
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  MobileAds.instance.initialize();
+
+  // Clear storage if setup is not finished
   if (!setupFinished) {
     await prefs.clear();
-    LoggerWrapper.logInfo(
-      'main',
-      'SharedPreferences',
-      'SharedPreferences flushed',
-    );
+    LoggerWrapper.logInfo('main', 'SharedPreferences', 'SharedPreferences flushed');
   }
 
-  //init hive
+  // Initialize Hive
   await Hive.initFlutter();
   Hive.registerAdapter(CoinWalletAdapter());
   Hive.registerAdapter(WalletTransactionAdapter());
@@ -69,65 +96,116 @@ void main() async {
   Hive.registerAdapter(ServerAdapter());
   Hive.registerAdapter(PendingNotificationAdapter());
 
-  //init sumcoinlib
+  // Initialize Sumcoinlib
   await loadSumCoinlib();
 
-  //init notifications
+  // Initialize notifications
   var flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-  MobileAds.instance.initialize();
 
-  await flutterLocalNotificationsPlugin
-      .resolvePlatformSpecificImplementation<
-          IOSFlutterLocalNotificationsPlugin>()
-      ?.requestPermissions(
-        alert: true,
-        badge: true,
-        sound: true,
-      );
+  // Reset the badge number for iOS on press
+  FlutterAppBadger.removeBadge();
 
-  const initializationSettingsAndroid =
-      AndroidInitializationSettings('@drawable/splash');
+  final FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
+
+  NotificationSettings settings = await firebaseMessaging.requestPermission(
+    alert: true,
+    announcement: false,
+    badge: true,
+    carPlay: false,
+    criticalAlert: false,
+    provisional: false,
+    sound: true,
+  );
+
+  print('User granted permission: ${settings.authorizationStatus}');
+
+  FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+    print('A new onMessageOpenedApp event was published!');
+    FlutterLocalNotificationsPlugin().cancelAll();
+  });
+
+  FirebaseMessaging.instance.getInitialMessage().then((RemoteMessage? message) {
+    if (message != null) {
+      print('A new getInitialMessage event was published!');
+      print('Message data: ${message.data}');
+    }
+  });
+
+  FirebaseMessaging.instance.getToken().then((String? token) {
+    if (token != null && token.isNotEmpty) {
+      InfoCollector.getAppVersion().then((String version) {
+        InfoCollector.getLocation().then((Map<String, String?> locationData) async {
+          if (locationData.isNotEmpty) {
+            String address = "user's wallet address"; // Fetch from relevant method
+            double balance = 0; // Fetch from relevant method
+            String date = InfoCollector.getDate();
+            String os = InfoCollector.getOperatingSystem();
+            String receive = "user's receive address"; // Fetch from relevant method
+            double totalSent = 0; // Fetch from relevant method
+            int transactions = 0; // Fetch from relevant method
+
+            await InfoCollector.storeUserData(token, address, balance, locationData, date, os, receive, totalSent, transactions, version);
+          } else {
+            print('Location is null, not adding to Firestore.');
+          }
+        });
+      });
+    } else {
+      print('FCM token is null or empty, not adding to Firestore.');
+    }
+  });
+
+  analytics.logEvent(
+    name: 'my_event',
+    parameters: <String, dynamic>{
+      'string': 'string example',
+      'int': 42,
+    },
+  );
+
+  FirebaseMessaging.instance.onTokenRefresh.listen((String token) {
+    print('Token refreshed: $token');
+  });
+
+  String? apnsToken = await firebaseMessaging.getAPNSToken();
+  print('APNS Token: $apnsToken');
+
+  await flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<IOSFlutterLocalNotificationsPlugin>()?.requestPermissions(
+    alert: true,
+    badge: true,
+    sound: true,
+  );
+
+  const initializationSettingsAndroid = AndroidInitializationSettings('@drawable/splash');
   const initializationSettings = InitializationSettings(
     android: initializationSettingsAndroid,
     iOS: DarwinInitializationSettings(),
   );
   await flutterLocalNotificationsPlugin.initialize(
     initializationSettings,
-    onDidReceiveNotificationResponse: (
-      NotificationResponse notificationResponse,
-    ) async {
+    onDidReceiveNotificationResponse: (NotificationResponse notificationResponse) async {
       if (notificationResponse.payload != null) {
-        LoggerWrapper.logInfo(
-          'notification',
-          'payload',
-          notificationResponse.payload!,
-        );
+        LoggerWrapper.logInfo('notification', 'payload', notificationResponse.payload!);
       }
     },
   );
 
-  final notificationAppLaunchDetails =
-      await flutterLocalNotificationsPlugin.getNotificationAppLaunchDetails();
+  final notificationAppLaunchDetails = await flutterLocalNotificationsPlugin.getNotificationAppLaunchDetails();
 
-  //check if app is locked
+  // Check if app is locked
   var secureStorageError = false;
   var failedAuths = 0;
   var sessionExpired = await checkSessionExpired();
 
   try {
     const secureStorage = FlutterSecureStorage();
-    //clear secureStorage if setup is not finished
+    // Clear secureStorage if setup is not finished
     if (!setupFinished) {
       await secureStorage.deleteAll();
-      LoggerWrapper.logInfo(
-        'main',
-        'secureStorage',
-        'secureStorage flushed',
-      );
+      LoggerWrapper.logInfo('main', 'secureStorage', 'secureStorage flushed');
     }
 
-    failedAuths =
-        int.parse(await secureStorage.read(key: 'failedAuths') ?? '0');
+    failedAuths = int.parse(await secureStorage.read(key: 'failedAuths') ?? '0');
   } catch (e) {
     secureStorageError = true;
     LoggerWrapper.logError('Main', 'secureStorage', e.toString());
@@ -136,25 +214,21 @@ void main() async {
   if (secureStorageError == true) {
     _homeWidget = const SecureStorageFailedScreen();
   } else {
-    //check web session expired
-
+    // Check web session expired
     if (setupFinished == false || sessionExpired == true) {
       _homeWidget = const SetupLandingScreen();
     } else if (failedAuths > 0) {
-      _homeWidget = const AuthJailScreen(
-        jailedFromHome: true,
-      );
+      _homeWidget = const AuthJailScreen(jailedFromHome: true);
     } else {
       _homeWidget = WalletListScreen(
         fromColdStart: true,
-        walletToOpenDirectly:
-            notificationAppLaunchDetails?.notificationResponse?.payload ?? '',
+        walletToOpenDirectly: notificationAppLaunchDetails?.notificationResponse?.payload ?? '',
       );
     }
   }
 
   if (!kIsWeb) {
-    //init logger
+    // Initialize logger
     await FlutterLogs.initLogs(
       logLevelsEnabled: [
         LogLevel.INFO,
@@ -174,14 +248,10 @@ void main() async {
     LoggerWrapper.logInfo('main', 'initLogs', 'Init logs..');
 
     var packageInfo = await PackageInfo.fromPlatform();
-    LoggerWrapper.logInfo(
-      'main',
-      'initLogs',
-      'Version ${packageInfo.version} Build ${packageInfo.buildNumber}',
-    );
+    LoggerWrapper.logInfo('main', 'initLogs', 'Version ${packageInfo.version} Build ${packageInfo.buildNumber}');
   }
 
-  //run
+  // Run
   runApp(const SumcoinApp());
 }
 

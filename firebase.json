@@ -1,9 +1,1 @@
-{
-  "database": {
-    "rules": "database.rules.json"
-  },
-  "firestore": {
-    "rules": "firestore.rules",
-    "indexes": "firestore.indexes.json"
-  }
-}
+{"flutter":{"platforms":{"android":{"default":{"projectId":"sumcoinwallet-com","appId":"1:550596975589:android:900dc250d0e00a17d5ad0c","fileOutput":"android/app/google-services.json"}},"ios":{"default":{"projectId":"sumcoinwallet-com","appId":"1:550596975589:ios:45a60116f80e65ffd5ad0c","uploadDebugSymbols":true,"fileOutput":"ios/Runner/GoogleService-Info.plist"}},"dart":{"lib/firebase_options.dart":{"projectId":"sumcoinwallet-com","configurations":{"android":"1:550596975589:android:900dc250d0e00a17d5ad0c","ios":"1:550596975589:ios:45a60116f80e65ffd5ad0c","web":"1:550596975589:web:3a9e139283a52211d5ad0c"}}}}}}

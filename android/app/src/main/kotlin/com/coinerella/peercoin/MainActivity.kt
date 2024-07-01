@@ -1,4 +1,4 @@
-package com.coinerella.sumcoin
+package com.sumcoinwallet
 
 import io.flutter.embedding.android.FlutterFragmentActivity
 import io.flutter.embedding.android.FlutterActivity
