@@ -17,6 +17,7 @@
 
 # Lib related things
 /lib/widgets/collector.dart
+/lib/firebase_options.dart
 
 # The .vscode folder contains launch configuration and tasks you configure in
 # VS Code which you may wish to be included in version control, so this line
@@ -33,6 +34,15 @@
 .pub-cache/
 .pub/
 /build/
+
+# iOS specific
+/ios/Pods
+/ios/firebase_app_id_file.json
+ios/Runner/GoogleService-Info.plist
+ios/Runner/Runner.entitlements
+ios/Runner/RunnerDebug.entitlements
+ios/Runner/RunnerProfile.entitlements
+ios/Runner/RunnerRelease.entitlements
 
 # Android specific
 /android/app/google-services.json
