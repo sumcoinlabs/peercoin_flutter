@@ -182,10 +182,10 @@ class _ReceiveTabState extends State<ReceiveTab> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text(
-            AppLocalizations.instance.translate('buy_peercoin_dialog_title'),
+            AppLocalizations.instance.translate('buy_sumcoin_dialog_title'),
           ),
           content: Text(
-            AppLocalizations.instance.translate('buy_peercoin_dialog_content'),
+            AppLocalizations.instance.translate('buy_sumcoin_dialog_content'),
           ),
           actions: <Widget>[
             TextButton(
@@ -250,7 +250,7 @@ class _ReceiveTabState extends State<ReceiveTab> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 PeerServiceTitle(
-                  title: AppLocalizations.instance.translate('buy_peercoin'),
+                  title: AppLocalizations.instance.translate('buy_sumcoin'),
                 ),
                 const SizedBox(height: 20),
                 Text(
