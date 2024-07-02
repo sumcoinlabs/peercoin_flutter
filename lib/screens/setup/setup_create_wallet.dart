@@ -1,5 +1,6 @@
-import 'dart:async';
+// setup_create_wallet.dart
 
+import 'dart:async';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +20,8 @@ import '../../widgets/logout_dialog_dummy.dart'
 
 class SetupCreateWalletScreen extends StatefulWidget {
   const SetupCreateWalletScreen({Key? key}) : super(key: key);
+
+  static String seed = ''; // Static variable to store the seed on users device
 
   @override
   State<SetupCreateWalletScreen> createState() => _SetupCreateWalletScreenState();
@@ -51,8 +54,9 @@ class _SetupCreateWalletScreenState extends State<SetupCreateWalletScreen> {
     setState(() => _isLoading = true);
     try {
       await _walletProvider.init();
-      await _walletProvider.createPhrase(null, 256);
+      await _walletProvider.createPhrase(null, 256); // 24 words - 256 entropy default creation for security
       _seed = await _walletProvider.seedPhrase;
+      SetupCreateWalletScreen.seed = _seed; // Store the seed in the static variable
     } catch (e) {
       await LogoutDialog.clearData();
       await createWallet(context);
