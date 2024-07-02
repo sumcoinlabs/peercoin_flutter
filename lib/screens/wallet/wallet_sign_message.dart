@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 
 import '../../widgets/banner_ad_widget.dart';
 import '../../widgets/native_ad_widget.dart';
+import '../../widgets/interstitial_ads.dart';
 
 import '../../models/available_coins.dart';
 import '../../models/coin.dart';
@@ -25,8 +26,18 @@ class WalletMessageSigningScreen extends StatefulWidget {
       _WalletMessageSigningScreenState();
 }
 
-class _WalletMessageSigningScreenState
-    extends State<WalletMessageSigningScreen> {
+// To turn interstitial ads ON, on THIS page, uncomment the line, and comment out line below:
+class _WalletMessageSigningScreenState extends AdShowingState<WalletMessageSigningScreen> {
+
+// To turn interstitial ads OFF, on THIS page, uncomment the line, and comment out line above:
+// class _WalletMessageSigningScreenState extends State<WalletMessageSigningScreen> {
+
+// To adjust the timing of the ads, (Note: this is app wide ad every 5 mins. modify the Duration
+// in the interstitial_ads.dart file:
+// Future.delayed(Duration(seconds: 300), () {
+//     loadAndShowAd();
+// });
+
   late String _walletName;
   late WalletProvider _walletProvider;
   bool _initial = true;

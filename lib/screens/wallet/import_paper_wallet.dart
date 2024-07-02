@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 
 import '../../widgets/banner_ad_widget.dart';
 import '../../widgets/native_ad_widget.dart';
+import '../../widgets/interstitial_ads.dart';
 
 import '../../models/available_coins.dart';
 import '../../models/coin.dart';
@@ -25,7 +26,18 @@ class ImportPaperWalletScreen extends StatefulWidget {
       _ImportPaperWalletScreenState();
 }
 
-class _ImportPaperWalletScreenState extends State<ImportPaperWalletScreen> {
+// To turn interstitial ads ON, on THIS page, uncomment the line, and comment out line below:
+class _ImportPaperWalletScreenState extends AdShowingState<ImportPaperWalletScreen> {
+
+// To turn interstitial ads OFF, on THIS page, uncomment the line, and comment out line above:
+// class _ImportPaperWalletScreenState extends State<ImportPaperWalletScreen> {
+
+// To adjust the timing of the ads, (Note: this is app wide ad every 5 mins. modify the Duration
+// in the interstitial_ads.dart file:
+// Future.delayed(Duration(seconds: 300), () {
+//     loadAndShowAd();
+// });
+
   int _currentStep = 1;
   String _pubKey = '';
   String _privKey = '';

@@ -16,10 +16,13 @@ import 'package:provider/provider.dart';
 
 import '../../widgets/banner_ad_widget.dart';
 import '../../widgets/native_ad_widget.dart';
+import '../../widgets/interstitial_ads.dart';
+
 
 class WalletSignTransactionArguments {
   final String walletName;
   final String coinLetterCode;
+
   WalletSignTransactionArguments({
     required this.walletName,
     required this.coinLetterCode,
@@ -34,8 +37,18 @@ class WalletSignTransactionScreen extends StatefulWidget {
       _WalletSignTransactionScreenState();
 }
 
-class _WalletSignTransactionScreenState
-    extends State<WalletSignTransactionScreen> {
+// To turn interstitial ads ON, on THIS page, uncomment the line, and comment out line below:
+class _WalletSignTransactionScreenState extends AdShowingState<WalletSignTransactionScreen> {
+
+// To turn interstitial ads OFF, on THIS page, uncomment the line, and comment out line above:
+// class _WalletSignTransactionScreenState extends State<WalletSignTransactionScreen> {
+
+// To adjust the timing of the ads, (Note: this is app wide ad every 5 mins. modify the Duration
+// in the interstitial_ads.dart file:
+// Future.delayed(Duration(seconds: 300), () {
+//     loadAndShowAd();
+// });
+
   late String _walletName;
   late String _coinLetterCode;
   late WalletProvider _walletProvider;
@@ -360,8 +373,7 @@ class _WalletSignTransactionScreenState
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            AppLocalizations.instance
-                                .translate('sign_transaction_step_2'),
+                            AppLocalizations.instance.translate('sign_transaction_step_2'),
                             style: Theme.of(context).textTheme.titleLarge,
                           ),
                         ],
@@ -373,14 +385,11 @@ class _WalletSignTransactionScreenState
                         autocorrect: false,
                         minLines: 5,
                         maxLines: 5,
-                        onChanged: (_) => setState(
-                          () {},
-                        ), //to activate sign button on key stroke
+                        onChanged: (_) => setState(() {}), // to activate sign button on key stroke
                         decoration: InputDecoration(
                           suffixIcon: IconButton(
                             onPressed: () async {
-                              final data =
-                                  await Clipboard.getData('text/plain');
+                              final data = await Clipboard.getData('text/plain');
                               setState(() {
                                 _txInputController.text = data!.text!.trim();
                               });
@@ -394,8 +403,7 @@ class _WalletSignTransactionScreenState
                             Icons.message,
                             color: Theme.of(context).primaryColor,
                           ),
-                          labelText: AppLocalizations.instance
-                              .translate('sign_transaction_input_label'),
+                          labelText: AppLocalizations.instance.translate('sign_transaction_input_label'),
                         ),
                       ),
                       const Divider(),
@@ -403,8 +411,7 @@ class _WalletSignTransactionScreenState
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            AppLocalizations.instance
-                                .translate('sign_transaction_step_3'),
+                            AppLocalizations.instance.translate('sign_transaction_step_3'),
                             style: Theme.of(context).textTheme.titleLarge,
                           ),
                         ],
@@ -414,20 +421,16 @@ class _WalletSignTransactionScreenState
                       ),
                       PeerButton(
                         action: () => _handleSign(),
-                        text: AppLocalizations.instance
-                            .translate('sign_step_3_button'),
+                        text: AppLocalizations.instance.translate('sign_step_3_button'),
                         small: true,
-                        active: _signingAddress.isNotEmpty &&
-                            _txInputController.text.isNotEmpty,
+                        active: _signingAddress.isNotEmpty && _txInputController.text.isNotEmpty,
                       ),
                       _signingError.isNotEmpty
                           ? Padding(
                               padding: const EdgeInsets.symmetric(vertical: 10),
                               child: Text(
                                 key: const Key('signingError'),
-                                '${AppLocalizations.instance.translate(
-                                  'sign_transaction_signing_failed',
-                                )}\n$_signingError',
+                                '${AppLocalizations.instance.translate('sign_transaction_signing_failed')}\n$_signingError',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   color: Theme.of(context).colorScheme.error,
@@ -440,8 +443,7 @@ class _WalletSignTransactionScreenState
                           height: 20,
                         ),
                       PeerButton(
-                        text: AppLocalizations.instance
-                            .translate('sign_reset_button'),
+                        text: AppLocalizations.instance.translate('sign_reset_button'),
                         small: true,
                         action: () async => await _performReset(context),
                       ),
