@@ -15,6 +15,10 @@
 *.iwsx
 .idea/
 
+# Main root dir
+firestore.rules
+firebase.json
+
 # Lib related things
 /lib/widgets/collector.dart
 /lib/firebase_options.dart
