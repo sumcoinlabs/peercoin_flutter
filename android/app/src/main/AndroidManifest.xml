@@ -23,11 +23,12 @@
                      android:hardwareAccelerated="true"
                      android:allowBackup="false"
                      android:fullBackupContent="false"
-                     android:windowSoftInputMode="adjustResize">
-            <!-- Specifies an Android theme to apply to this Activity as soon as
-                 the Android process has started. This theme is visible to the user
-                 while the Flutter UI initializes. After that, this theme continues
-                 to determine the Window background behind the Flutter UI. -->
+                     android:windowSoftInputMode="adjustResize"
+                     android:screenOrientation="portrait">
+                     <!-- Specifies an Android theme to apply to this Activity as soon as
+                          the Android process has started. This theme is visible to the user
+                          while the Flutter UI initializes. After that, this theme continues
+                          to determine the Window background behind the Flutter UI. -->
                  <meta-data
                      android:name="com.google.android.play.integrity.API_KEY"
                      android:value="AIzaSyBrHJuzREfLjQbPm1DRe-qCdJNaaAoKbfk"/>
@@ -59,7 +60,7 @@
 
          <uses-permission android:name="android.permission.INTERNET"/>
          <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-         <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />         
+         <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
          <uses-permission android:name="android.permission.WAKE_LOCK" />
          <uses-permission android:name="android.permission.CAMERA" />
          <queries>
