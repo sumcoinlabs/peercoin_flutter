@@ -155,13 +155,13 @@ void main() async {
     }
   });
 
-  analytics.logEvent(
-    name: 'my_event',
-    parameters: <String, dynamic>{
-      'string': 'string example',
-      'int': 42,
-    },
-  );
+//  analytics.logEvent(
+//    name: 'my_event',
+//    parameters: <String, dynamic>{
+//      'string': 'string example',
+//      'int': 42,
+//    },
+//  );
 
   FirebaseMessaging.instance.onTokenRefresh.listen((String token) {
     print('Token refreshed: $token');
