@@ -42,11 +42,11 @@ firebase.json
 # iOS specific
 /ios/Pods
 /ios/firebase_app_id_file.json
-ios/Runner/GoogleService-Info.plist
-ios/Runner/Runner.entitlements
-ios/Runner/RunnerDebug.entitlements
-ios/Runner/RunnerProfile.entitlements
-ios/Runner/RunnerRelease.entitlements
+/ios/Runner/GoogleService-Info.plist
+/ios/Runner/Runner.entitlements
+/ios/Runner/RunnerDebug.entitlements
+/ios/Runner/RunnerProfile.entitlements
+/ios/Runner/RunnerRelease.entitlements
 
 # Android specific
 /android/app/google-services.json
