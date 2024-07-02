@@ -576,6 +576,7 @@ class _WalletHomeState extends State<WalletHomeScreen>
           onSelected: (dynamic value) => _selectPopUpMenuItem(value),
           itemBuilder: (_) {
             return [
+              /*
               PopupMenuItem(
                 value: 'change_title',
                 child: ListTile(
@@ -590,6 +591,7 @@ class _WalletHomeState extends State<WalletHomeScreen>
                   ),
                 ),
               ),
+              */
               PopupMenuItem(
                 value: 'reset_wallet',
                 child: ListTile(
@@ -699,6 +701,7 @@ class _WalletHomeState extends State<WalletHomeScreen>
                 ),
               ),
             ),
+            /*
             PopupMenuItem(
               value: 'change_title',
               child: ListTile(
@@ -713,6 +716,7 @@ class _WalletHomeState extends State<WalletHomeScreen>
                 ),
               ),
             ),
+            */
             PopupMenuItem(
               value: 'reset_wallet',
               child: ListTile(
@@ -748,6 +752,7 @@ class _WalletHomeState extends State<WalletHomeScreen>
       ),
     ];
   }
+
 
   BottomNavigationBar _calcBottomNavBar(BuildContext context) {
     final bgColor = Theme.of(context).primaryColor;

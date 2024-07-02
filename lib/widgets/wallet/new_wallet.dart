@@ -99,7 +99,9 @@ class _NewWalletDialogState extends State<NewWalletDialog> {
   @override
   Widget build(BuildContext context) {
     var list = <Widget>[];
-    final actualAvailableWallets = _availableCoins.keys;
+    final WalletProvider walletProvider = context.watch<WalletProvider>();
+    final inUseCoins = walletProvider.availableWalletValues.map((e) => e.letterCode).toSet();
+    final actualAvailableWallets = _availableCoins.keys.where((coin) => !inUseCoins.contains(_availableCoins[coin]!.letterCode));
 
     if (actualAvailableWallets.isNotEmpty) {
       for (var wallet in actualAvailableWallets) {
