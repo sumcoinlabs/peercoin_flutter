@@ -6,6 +6,7 @@ import 'package:sumcoin/tools/validators.dart';
 
 import '../../widgets/banner_ad_widget.dart';
 import '../../widgets/native_ad_widget.dart';
+import '../../widgets/interstitial_ads.dart';
 
 import '../../models/available_coins.dart';
 import '../../models/coin.dart';
@@ -21,9 +22,11 @@ class WaleltMessagesVerificationScreen extends StatefulWidget {
   State<WaleltMessagesVerificationScreen> createState() =>
       _WaleltMessagesVerificationScreenState();
 }
+// To turn interstitial ads ON, on THIS page, uncomment the line, and comment out line below:
+class _WaleltMessagesVerificationScreenState extends AdShowingState<WaleltMessagesVerificationScreen> {
+// To turn interstitial ads OFF, on THIS page, uncomment the line, and comment out line above:
+//class _WaleltMessagesVerificationScreenState extends State<WaleltMessagesVerificationScreen> {
 
-class _WaleltMessagesVerificationScreenState
-    extends State<WaleltMessagesVerificationScreen> {
   late String _walletName;
   bool _initial = true;
   bool _verificationPerformed = false;

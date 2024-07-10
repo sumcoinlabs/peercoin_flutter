@@ -3,6 +3,7 @@ import 'package:sumcoin/screens/wallet/transaction_confirmation.dart';
 import 'package:sumcoin/screens/wallet/wallet_sign_transaction.dart';
 import 'package:sumcoin/screens/wallet/wallet_sign_transaction_confirmation.dart';
 import 'package:sumcoin/screens/wallet/wallet_verify_message.dart';
+import 'package:sumcoin/screens/wallet/wallet_slice_migration.dart';
 
 import '../screens/settings/app_settings_app_theme.dart';
 import '../screens/settings/app_settings_authentication.dart';
@@ -34,6 +35,7 @@ import '../screens/wallet/wallet_home.dart';
 import '../screens/settings/wallet_scan/app_settings_wallet_scanner.dart';
 import '../screens/wallet/wallet_list.dart';
 import '../screens/wallet/wallet_sign_message.dart';
+import '../screens/wallet/wallet_slice_migration.dart';
 
 class Routes {
   // Route name constants
@@ -59,6 +61,7 @@ class Routes {
   static const String setupLegal = '/setup-legal';
   static const String transaction = '/tx-detail';
   static const String walletHome = '/wallet-home';
+  static const String walletSliceMigration = '/wallet-slice-migration';
   static const String walletMessageSigning = '/wallet-message-signing';
   static const String walletMessageVerification =
       '/wallet-message-verification';
@@ -74,6 +77,7 @@ class Routes {
   static const String changeLog = '/changelog';
   static const String addressSelector = '/address-selector';
   static const String transactionConfirmation = '/transaction-confirmation';
+  static const String sliceMigration = '/slice-migration';
 
   static Map<String, WidgetBuilder> getRoutes() {
     return {
@@ -116,6 +120,10 @@ class Routes {
       Routes.appSettingsWalletScanner: (context) => const RouterMaster(
             widget: AppSettingsWalletScanner(),
             routeType: RouteTypes.requiresSetupFinished,
+          ),
+      Routes.walletSliceMigration: (context) => const RouterMaster(
+            widget: WalletMessageMigrationScreen(),
+            routeType: RouteTypes.requiresArguments,
           ),
       Routes.walletMessageSigning: (context) => const RouterMaster(
             widget: WalletMessageSigningScreen(),

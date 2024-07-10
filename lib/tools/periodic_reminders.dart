@@ -39,7 +39,7 @@ class PeriodicReminders {
               TextButton(
                 onPressed: () async {
                   final navigator = Navigator.of(context);
-                  var url = 'https://ppc.lol/fndtn/';
+                  var url = 'https://www.sumcoin.org/';
                   await canLaunchUrlString(url)
                       ? await launchUrlString(url)
                       : throw 'Could not launch $url';

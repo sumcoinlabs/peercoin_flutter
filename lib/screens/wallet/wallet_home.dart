@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:sumcoin/data_sources/electrum_backend.dart';
 import 'package:sumcoin/providers/server_provider.dart';
+import 'package:sumcoin/screens/wallet/wallet_slice_migration.dart';
 import 'package:sumcoin/screens/wallet/wallet_sign_transaction.dart';
 import 'package:sumcoin/widgets/wallet/address_book/addresses_tab_watch_only.dart';
 import 'package:sumcoin/widgets/wallet/wallet_home/wallet_delete_watch_only_bottom_sheet.dart';
@@ -450,6 +451,12 @@ class _WalletHomeState extends State<WalletHomeScreen>
           Routes.importWif,
           arguments: _wallet.name,
         );
+       break;
+      case 'slice_migration':
+        Navigator.of(context).pushNamed(
+          Routes.walletSliceMigration,
+          arguments: _wallet.name,
+        );
         break;
       case 'message_signing':
         Navigator.of(context).pushNamed(
@@ -655,6 +662,20 @@ class _WalletHomeState extends State<WalletHomeScreen>
                 title: Text(
                   AppLocalizations.instance.translate(
                     'wallet_pop_menu_wif',
+                  ),
+                ),
+              ),
+            ),
+            PopupMenuItem(
+              value: 'slice_migration',
+              child: ListTile(
+                leading: Icon(
+                  Icons.merge,
+                  color: Theme.of(context).colorScheme.secondary,
+                ),
+                title: Text(
+                  AppLocalizations.instance.translate(
+                    'wallet_pop_menu_slice_migration',
                   ),
                 ),
               ),
