@@ -429,6 +429,7 @@
   "wallet_pop_menu_wif": "Import Private Key",
   "wallet_pop_menu_signing": "Sign Messages",
   "wallet_pop_menu_signing_transactions": "Sign Transaction",
+  "wallet_pop_menu_slice_migration": "Slice Migration",  
   "wallet_pop_menu_servers": "Adjust Servers",
   "wallet_pop_menu_verification": "Verify Messages",
   "wallet_pop_menu_change_title": "Change Title",
