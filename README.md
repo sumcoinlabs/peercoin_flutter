@@ -26,7 +26,7 @@ Wallet for Sumcoin using Electrumx as backend.
 You can also sign up for our open beta testing here:
 
 * [Android](https://play.google.com/apps/testing/com.sumcoinwallet)
-* [iOS](https://testflight.apple.com/join/)
+* [iOS](https://testflight.apple.com/join/MdYIC0K3)
 
 ![Screenshot_small](https://.png)
 
