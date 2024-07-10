@@ -1,56 +1,56 @@
-### **1.3.0** (2024-06-09)
+### **0.0.9** (2024-07-04)
 
 - Show transaction confirmation: fix bug where some outputs were not displayed correctly
 - Allow hiding of wallets in wallet list
 - Allow watch-only wallets to be deleted
-
-### **1.2.9** (2024-05-30)
-
+- Improved receive tab with Dynamic QR code, request in coin or USD
+- In / Out Color updates
+- Slice Migration Tab initialize
 - Show transaction id for finalized transactions in transaction signing flow
 - Improve user experience for double tab to clipboard with hint texts
 
-### **1.2.8** (2024-05-27)
+###  (2024-05-27)
 
 - Allow broadcast of signed transactions if all inputs are signed
 
-### **1.2.7** (2024-05-24)
+###  (2024-05-24)
 
 - Various bug fixes and improvements related to flutter upgrade
 - Improved flow for transaction signing, now with confirmation and more feedback
 
-### **1.2.6** (2024-04-20)
+### (2024-04-20)
 
 - Improved transaction signing handling and error messages
 
-### **1.2.5** (2024-04-08)
+###  (2024-04-08)
 
 - Address public keys can now be exported during transaction signing
 
-### **1.2.4** (2024-04-05)
+###  (2024-04-05)
 
 - Add transaction signing from wallet home
 - Fix for some devices not being able to see the wallet receive tab
-- Dependency upgrades, e. g. now using coinlib 2.0.0
+- Dependency upgrades, e. g. now using Sumcoinlib 0.0.2
 
-### **1.2.3** (2023-11-30)
+###  (2023-11-30)
 
 - Experimental features are now available in Settings
 - "Watch only" wallets are the first available feature that can be enabled. These wallets can only monitor the balance of an address and cannot spend coins.
 - App now uses Material 3 design language
 
-### **1.2.2** (2023-09-27)
+###  (2023-09-27)
 
 - Change the options for purchasing Sumcoin on some devices
 
-### **1.2.1** (2023-09-24)
+###  (2023-09-24)
 
 - Minor improvements and bug hunting
 
-### **1.2.0** (2023-09-12)
+###  (2023-09-12)
 
-- This app now uses coinlib to deal with the hard stuff behind the scenes.
+- This app now uses Sumcoinlib to deal with the hard stuff behind the scenes.
 
-### **1.1.9** (2023-08-23)
+###  (2023-08-23)
 
 - You may now add multiple wallets of the same type
 - Complete redesign of rescan process, check "Wallet Scan" in app settings and "Reset" in the respective wallet
@@ -59,7 +59,7 @@
 - Fixed a bug where some devices would have issues when setting up an app that was locked before
 - Changelog will no longer be displayed on first startup for new wallets
 
-### **1.1.8** (2023-08-02)
+###  (2023-08-02)
 
 - Server Settings have been moved from inside the wallets to application settings
 - Wallet titles may now be edited from within the wallet
@@ -115,11 +115,11 @@
 - Add language: Welsh
 - Add language: Zulu
 
-### **1.1.7** (2023-06-16)
+###  (2023-06-16)
 
 - Minor updates under the hood
 
-### **1.1.6** (2023-03-15)
+###  (2023-03-15)
 
 - Update Sumcoin Foundation address
 
