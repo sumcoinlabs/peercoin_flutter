@@ -90,8 +90,8 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
-	<!--	<string>UIInterfaceOrientationLandscapeLeft</string> -->
-	<!--	<string>UIInterfaceOrientationLandscapeRight</string> -->
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+	<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>aps-environment</key>
 	<string>development</string>
